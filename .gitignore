@@ -1,0 +1,12 @@
+target
+
+*.bin
+*.elf
+*.hex
+*.uf2
+
+.embuild
+
+.DS_Store
+
+.direnv
