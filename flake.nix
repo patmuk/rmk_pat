@@ -23,17 +23,17 @@
         file = ./rust-toolchain.toml;
         sha256 = "sha256-Hn2uaQzRLidAWpfmRwSRdImifGUCAb9HeAqTYFXWeQk=";
       };
-      # rmkit = pkgs.rustPlatform.buildRustPackage rec {
-      #   pname = "cargo-rmkit";
-      #   version = "0.0.11";
+      # probe-rs = pkgs.rustPlatform.buildRustPackage rec {
+      #   pname = "cargo-probe-rs";
+      #   version = "0.27.0";
 
-      #   buildInputs = with pkgs; [ openssl ];
+      #   # buildInputs = with pkgs; [ openssl ];
 
       #   nativeBuildInputs = with pkgs; [ pkg-config ];
 
       #   src = pkgs.fetchFromGitHub {
-      #     owner = "HaoboGu";
-      #     repo = rmkit;
+      #     owner = "probe-rs";
+      #     repo = probe-rs;
       #     rev = version;
       #     hash = "sha256-tHuT/dsiyliXdl34bFraYp3T3FUgxFnhEUQfc8O197I=";
       #   };
@@ -44,10 +44,10 @@
     {
       devShells.default = pkgs.mkShell
         {
-          strictDeps = true;
+          # strictDeps = true;
           packages = with pkgs; [
             rustToolchain
-            # rmkit
+            # probe-rs
             # flip-link
           ];
           # shellHook = ''

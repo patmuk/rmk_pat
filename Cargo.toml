@@ -10,10 +10,14 @@ edition = "2021"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
-rmk = { version = "0.5", features = ["nrf52840_ble", "split", "async_matrix"] }
+rmk = { version = "0.5.2", default-features = false, features = [
+    "nrf52840_ble", 
+    "split", 
+    "async_matrix",
+    ]}
 cortex-m = "0.7.7"
-cortex-m-rt = "0.7.3"
-embassy-time = { version = "0.4", features = ["tick-hz-32_768", "defmt"] }
+cortex-m-rt = "0.7.5"
+embassy-time = { version = "0.4", features = ["tick-hz-32_768", "defmt", "defmt-timestamp-uptime"] }
 embassy-nrf = { version = "0.3.1", features = [
     "defmt",
     "nrf52840",
