@@ -109,6 +109,16 @@ async fn main(spawner: Spawner) {
 
     // nice!nano pins (https://nicekeyboards.com/docs/nice-nano/pinout-schematic) to
     // rows2cols (https://docs.splitkb.com/product-guides/aurora-series/schematics/aurora-sweep)
+    // left pins
+    // P0_09 = col0
+    // P0_22 = col1
+    // P0_24 = col2
+    // P1_00 = col3
+    // P0_11 = col4
+    // P0_02 = row0
+    // P0_29 = row1
+    // P1_15 = row2
+    // P1_13 = row3
     let (input_pins, output_pins) = config_matrix_pins_nrf!(
         peripherals: p, 
         input:  [P0_09, P0_22, P0_24, P1_00, P0_11], 
