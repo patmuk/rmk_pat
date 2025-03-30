@@ -80,8 +80,8 @@ async fn main(spawner: Spawner) {
     let keyboard_usb_config = KeyboardUsbConfig {
         vid: 0x4c4b,
         pid: 0x4643,
-        manufacturer: "pats",
-        product_name: "RMK Keyboard",
+        manufacturer: "RMK",
+        product_name: "Pats AuroraSweep",
         serial_number: "vial:f64c2b3c:000001",
     };
     let vial_config = VialConfig::new(VIAL_KEYBOARD_ID, VIAL_KEYBOARD_DEF);
