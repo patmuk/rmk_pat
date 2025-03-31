@@ -97,7 +97,7 @@ async fn main(spawner: Spawner) {
     let storage_config = StorageConfig {
         start_addr: 0,
         num_sectors: 6,
-        ..Default::default()
+        clear_storage: true,
     };
     let keyboard_config = RmkConfig {
         usb_config: keyboard_usb_config,
@@ -109,6 +109,9 @@ async fn main(spawner: Spawner) {
 
     // nice!nano pins (https://nicekeyboards.com/docs/nice-nano/pinout-schematic) to
     // rows2cols (https://docs.splitkb.com/product-guides/aurora-series/schematics/aurora-sweep)
+    // output_pin =>   >|   => input_pin
+    //                 ↑
+    //               diode(be aware of it's direction)
     // left pins
     // P0_09 = col0
     // P0_22 = col1
@@ -121,7 +124,7 @@ async fn main(spawner: Spawner) {
     // P1_13 = row3
     let (input_pins, output_pins) = config_matrix_pins_nrf!(
         peripherals: p, 
-        input:  [P0_09, P0_22, P0_24, P1_00, P0_11], 
+        input:  [P0_11, P1_00, P0_24, P0_22, P0_09],
         output: [P0_02, P0_29, P1_15, P1_13]);
 
     let central_addr = [0x18, 0xe2, 0x21, 0x80, 0xc0, 0xc7];
@@ -148,7 +151,7 @@ async fn main(spawner: Spawner) {
             central_addr,
             spawner,
         ),
-        run_peripheral_monitor::<2, 1, 2, 2>(0, peripheral_addr),
+        run_peripheral_monitor::<4, 5, 0, 5>(0, peripheral_addr),
     )
     .await;
 }
