@@ -9,11 +9,13 @@ readme = "../../README.md"
 edition = "2021"
 license = "MIT OR Apache-2.0"
 
-[dependencies]
-rmk = { version = "0.5.2", default-features = false, features = [
+[dependencies] 
+# rmk = { version = "0.5.2", default-features = false, features = [
+rmk = { path = "../../fw_projects/rmk_fork/rmk", default-features = false, features = [
     "nrf52840_ble", 
     "split", 
     "async_matrix",
+    "storage",
     ]}
 cortex-m = "0.7.7"
 cortex-m-rt = "0.7.5"

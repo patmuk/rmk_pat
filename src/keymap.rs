@@ -44,6 +44,11 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
              ╰─────╯ ╰─────╯         
 */   
         layer!([// Alpha (Base)
+// TODO
+// - HRM
+// - hold (layer switch)
+// - CHORDS
+// - Repeat Function
 //╭──────┬──────┬───────┬──────────────┬──────────╮╭──────────┬──────────┬──────┬──────┬───────╮
   [ k!(W), k!(F), k!(M),  k!(P),         k!(V),      k!(Quote), k!(Dot),   k!(G), k!(J), k!(Z)],
 //├──────┼──────┼───────┼──────────────┼──────────┤├──────────┼──────────┼──────┼──────┼───────┤
@@ -53,7 +58,6 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
 //╰──────┴──────┴───────╮                         ││                     ╭──────┴──────┴───────╯
    [a!(No),a!(No),a!(No), k!(Backspace), k!(Again),  k!(Space), k!(Enter), a!(No),a!(No),a!(No)]
 //                      ╰──────────────┴──────────╯╰──────────┴──────────╯
-
         ]),
         layer!([
             [k!(Grave), k!(F1), k!(F2), k!(F3), k!(F4), k!(F5), k!(F6), k!(F7), k!(F8), k!(Delete)],
