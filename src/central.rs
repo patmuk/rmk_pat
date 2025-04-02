@@ -22,8 +22,7 @@ use rmk::{
     ble::SOFTWARE_VBUS,
     channel::EVENT_CHANNEL,
     config::{
-        BehaviorConfig, BleBatteryConfig, ControllerConfig, KeyboardUsbConfig, RmkConfig,
-        StorageConfig, VialConfig,
+        BehaviorConfig, BleBatteryConfig, ControllerConfig, KeyboardUsbConfig, RmkConfig, StorageConfig, TapHoldConfig, VialConfig
     },
     debounce::default_debouncer::DefaultDebouncer,
     futures::future::{join, join4},
@@ -105,6 +104,7 @@ async fn main(spawner: Spawner) {
     };
     let behavior_config = BehaviorConfig {
         combo: keymap::get_combos(),
+        tap_hold: TapHoldConfig {enable_hrm: true, ..Default::default()},
         ..Default::default()
     };
     let rmk_config = RmkConfig {
