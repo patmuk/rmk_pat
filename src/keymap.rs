@@ -1,4 +1,9 @@
+use embassy_time::Duration;
 use rmk::action::KeyAction;
+use rmk::combo::Combo;
+use rmk::config::CombosConfig;
+use rmk::heapless::Vec;
+
 // use rmk::{a, k, layer, mo};
 use rmk::{a, k, layer};
 pub(crate) const COL: usize = 10;
@@ -47,7 +52,8 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
 // TODO
 // - HRM
 // - hold (layer switch)
-// - CHORDS
+// - combos -> need macros
+// - CHORDS -> need macros
 // - Repeat Function
 //╭──────┬──────┬───────┬──────────────┬──────────╮╭──────────┬──────────┬──────┬──────┬───────╮
   [ k!(W), k!(F), k!(M),  k!(P),         k!(V),      k!(Quote), k!(Dot),   k!(G), k!(J), k!(Z)],
@@ -66,4 +72,12 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
             [a!(No), a!(No), a!(No), a!(No), a!(No), a!(No), a!(No), a!(No), a!(No), k!(UP)]
         ]),
     ]
+}
+
+pub(crate) fn get_combos() -> CombosConfig {
+    CombosConfig {
+        combos: Vec::from_slice(&[Combo::new([k!(W), k!(F)], k!(Q), Some(0))])
+            .expect("Some combo is not valid"),
+        timeout: Duration::from_millis(50),
+    }
 }

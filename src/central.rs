@@ -22,7 +22,8 @@ use rmk::{
     ble::SOFTWARE_VBUS,
     channel::EVENT_CHANNEL,
     config::{
-        BleBatteryConfig, ControllerConfig, KeyboardUsbConfig, RmkConfig, StorageConfig, VialConfig,
+        BehaviorConfig, BleBatteryConfig, ControllerConfig, KeyboardUsbConfig, RmkConfig,
+        StorageConfig, VialConfig,
     },
     debounce::default_debouncer::DefaultDebouncer,
     futures::future::{join, join4},
@@ -102,11 +103,16 @@ async fn main(spawner: Spawner) {
         num_sectors: 6,
         clear_storage: true,
     };
+    let behavior_config = BehaviorConfig {
+        combo: keymap::get_combos(),
+        ..Default::default()
+    };
     let rmk_config = RmkConfig {
         usb_config: keyboard_usb_config,
         vial_config,
         ble_battery_config,
         storage_config,
+        behavior_config,
         ..Default::default()
     };
 
