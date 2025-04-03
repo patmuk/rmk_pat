@@ -8,10 +8,10 @@ use rmk::heapless::Vec;
 
 use rmk::keycode::{KeyCode, ModifierCombination};
 // use rmk::{a, k, layer, mo};
-use rmk::{a, k, layer, lt, mt, osl, osm, shifted, th, wm};
+use rmk::{a, k, layer, lt, mo, mt, osl, osm, shifted, tg, th, wm};
 pub(crate) const COL: usize = 10;
 pub(crate) const ROW: usize = 4;
-pub(crate) const NUM_LAYER: usize = 3;
+pub(crate) const NUM_LAYER: usize = 4;
 enum ModK {
     Lcmd,
     Lopt,
@@ -34,6 +34,32 @@ fn mod_k(mod_key: ModK) -> ModifierCombination {
         ModK::Rctl => ModifierCombination::new_from(true, false, false, false, true),
     }
 }
+// shortcuts
+fn lcmd() -> ModifierCombination {
+    mod_k(ModK::Lcmd)
+}
+fn lopt() -> ModifierCombination {
+    mod_k(ModK::Lopt)
+}
+fn lsft() -> ModifierCombination {
+    mod_k(ModK::Lsft)
+}
+fn lctl() -> ModifierCombination {
+    mod_k(ModK::Lctl)
+}
+fn rcmd() -> ModifierCombination {
+    mod_k(ModK::Rcmd)
+}
+fn ropt() -> ModifierCombination {
+    mod_k(ModK::Ropt)
+}
+fn rsft() -> ModifierCombination {
+    mod_k(ModK::Rsft)
+}
+fn rctl() -> ModifierCombination {
+    mod_k(ModK::Rctl)
+}
+
 // Alpha_shitf layer HRM
 fn mt_sft(key: KeyCode) -> KeyAction {
     KeyAction::LayerTapHold(Action::Key(key), ALPHA_SFT)
@@ -45,6 +71,14 @@ fn wrd_bsp() -> KeyAction {
         mod_k(ModK::Lopt),
     )
 }
+
+fn lt(layer: u8, key: KeyCode) -> KeyAction {
+    KeyAction::LayerTapHold(Action::Key(key), layer)
+}
+fn thl(layer: u8, key: KeyCode) -> KeyAction {
+    KeyAction::TapHold(Action::LayerOn(layer), Action::Key(key))
+}
+
 const ALPHA: u8 = 0;
 const ALPHA_SFT: u8 = 1;
 const NUM: u8 = 2;
@@ -69,8 +103,11 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
  │ w  f  m  p  v  │ │ '  .  g  j  z │
  │ r  s  n  t  b  │ │ ,  a  e  i  h │
  │ x  c  l  d  /  │ │ -  u  o  y  k │
- ╰────────╮ ⌫W REP│ │ ␣  ⏎   ╭──────╯
-          ╰───────╯ ╰────────╯         
+ ╰────────╮ ⌫ REP│ │ ␣  ⏎   ╭──────╯
+ ╰───────╯ ╰────────╯         
+ // ╰────────╮ ⌫W REP│ │ ␣  ⏎   ╭──────╯
+ // ⌫W only possible with Macros (for lt! to work ([osm!(Lctl), k!(Backspace)]))
+ 
  hold  
  ╭──────────────────╮ ╭────────────────╮
  │  -  -  -  -  -   │ │ -  -  -  -  -  │
@@ -123,26 +160,46 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
   [ k!(W),   k!(F),       k!(M),       k!(P),        k!(V),       k!(Quote),       k!(Comma),     k!(G),      k!(J),     k!(Z)],
 //├──────┼────────────┼────────────┼────────────┼────────────┤├────────────────┼────────────┼────────────┼───────────┼───────┤
 // R|Lsft, S|Lctl       N|Lopt        T|Lcmd        B|sft         .|sft           A|Rcmd        E|Ropt      I|Rctl     H|Rsft
-  [ mt!(R, mod_k(ModK::Lsft)), mt!(S,mod_k(ModK::Lctl)), mt!(N,mod_k(ModK::Lopt)), mt!(T,mod_k(ModK::Lcmd)), mt_sft(KeyCode::B), mt_sft(KeyCode::Dot), mt!(A,mod_k(ModK::Rcmd)), mt!(E,mod_k(ModK::Ropt)), mt!(I,mod_k(ModK::Rctl)), mt!(H, mod_k(ModK::Rsft))],
+  [ mt!(R, lsft()), mt!(S,lctl()), mt!(N,lopt()), mt!(T,lcmd()), mt_sft(KeyCode::B), mt_sft(KeyCode::Dot), mt!(A,rcmd()), mt!(E,ropt()), mt!(I,rctl()), mt!(H, rsft())],
 //├──────┼────────────┼────────────┼────────────┼────────────┤├────────────────┼────────────┼────────────┼───────────┼───────┤
   [ k!(X), k!(C),       k!(L),       k!(D),       k!(Slash),    k!(Minus),       k!(U),       k!(O),       k!(Y),      k!(K)],            
 //╰──────┴────────────┴────────────╮                         ││                             ╭────────────┴───────────┴───────╯
-   [a!(No),a!(No),a!(No),            wrd_bsp(),   k!(Again),   k!(Space),       k!(Enter),             a!(No),a!(No),a!(No)]
+   [a!(No),a!(No),a!(No),         lt(NUM, KeyCode::Backspace),   k!(Again),   k!(Space),       k!(Enter),             a!(No),a!(No),a!(No)]
+  //  [a!(No),a!(No),a!(No),         thl(NUM, KeyCode::Backspace),   k!(Again),   k!(Space),       k!(Enter),             a!(No),a!(No),a!(No)]
 //                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
         ]),
         layer!([// Shifted Alpha (Base)
 //╭──────┬────────────┬────────────┬────────────┬────────────╮╭────────────────┬────────────┬────────────┬───────────┬───────╮
-  [ shifted!(W),   shifted!(F),       shifted!(M),       shifted!(P),        shifted!(V),       shifted!(Quote),       k!(Semicolon),     shifted!(G),      shifted!(J),     shifted!(Z)],
+[ shifted!(W),   shifted!(F),       shifted!(M),       shifted!(P),        shifted!(V),       shifted!(Quote),       k!(Semicolon),     shifted!(G),      shifted!(J),     shifted!(Z)],
 //├──────┼────────────┼────────────┼────────────┼────────────┤├────────────────┼────────────┼────────────┼───────────┼───────┤
-  [ shifted!(R), shifted!(S), shifted!(N), shifted!(T), shifted!(B),  shifted!(Semicolon), shifted!(A), shifted!(E), shifted!(I), shifted!(H)],
+[ shifted!(R), shifted!(S), shifted!(N), shifted!(T), shifted!(B),  shifted!(Semicolon), shifted!(A), shifted!(E), shifted!(I), shifted!(H)],
 //├──────┼────────────┼────────────┼────────────┼────────────┤├────────────────┼────────────┼────────────┼───────────┼───────┤
-  [ shifted!(X), shifted!(C),       shifted!(L),       shifted!(D),       shifted!(Backslash),    shifted!(Minus),       shifted!(U),       shifted!(O),       shifted!(Y),      shifted!(K)],            
+[ shifted!(X), shifted!(C),       shifted!(L),       shifted!(D),       shifted!(Backslash),    shifted!(Minus),       shifted!(U),       shifted!(O),       shifted!(Y),      shifted!(K)],            
 //╰──────┴────────────┴────────────╮                         ││                             ╭────────────┴───────────┴───────╯
-   [a!(No),a!(No),a!(No),            k!(Backspace), k!(Again),   k!(Space),       k!(Enter),             a!(No),a!(No),a!(No)]
+[a!(No),a!(No),a!(No),            k!(Backspace), k!(Again),   k!(Space),       k!(Enter),             a!(No),a!(No),a!(No)]
 //                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
+]),
+layer!([// NUM
+  // TODO change to unicode symmbols once Macros are working
+  // TODO alternate shifted versions
+  //  -> ^ / -
+  // TODO fix: +
+  // TODO thumb keys
+  //╭─────┬─────┬─────┬─────┬─────╮╭─────┬─────┬─────┬────┬─────╮
+  //  *|/    9     8     7     ,      '     !           ˚    ∑
+  // [th!(KpAsterisk, Slash), k!(Kc9), k!(Kc8), k!(Kc7), k!(Comma), k!(Quote), shifted!(Kc1), a!(No), wm!(K, ropt()), wm!(W, ropt())],
+  [k!(KpAsterisk), k!(Kc9), k!(Kc8), k!(Kc7), k!(Comma), k!(Quote), shifted!(Kc1), a!(No), wm!(K, ropt()), wm!(W, ropt())],
+  //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
+  //  +|-    3     2     1     0      §     %     ≤     ≥    #
+  [th!(KpPlus, KpMinus), k!(Kc3), k!(Kc2), k!(Kc1), k!(Kc0), wm!(Kc6, ropt()), shifted!(Kc5), wm!(Comma, ropt()), wm!(Dot, ropt()), shifted!(Kc3)],
+  //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
+  //                                  _     µ     ±     ≈     ≠      
+  [k!(Equal), k!(Kc6), k!(Kc5),k!(Kc4), k!(Dot),  shifted!(Minus), wm!(M, ropt()), wm!(Equal, ropt().bitor(rsft())), wm!(X, ropt()), wm!(Equal, ropt())],
+  //╰──────┴────────────┴────────────╮                         ││                             ╭────────────┴───────────┴───────╯
+  [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
+  //                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
         ]),
-        layer!([
-          //layer for VIAL modifications
+        layer!([//layer for VIAL modifications
             [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
             [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
             [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
