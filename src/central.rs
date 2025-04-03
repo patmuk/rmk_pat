@@ -105,6 +105,7 @@ async fn main(spawner: Spawner) {
     let behavior_config = BehaviorConfig {
         combo: keymap::get_combos(),
         tap_hold: TapHoldConfig {enable_hrm: true, ..Default::default()},
+        fork: keymap::get_forks(),
         ..Default::default()
     };
     let rmk_config = RmkConfig {

@@ -3,87 +3,41 @@ use core::ops::BitOr;
 use embassy_time::Duration;
 use rmk::action::{Action, KeyAction};
 use rmk::combo::Combo;
-use rmk::config::CombosConfig;
+use rmk::config::{CombosConfig, ForksConfig};
+use rmk::fork::{Fork, StateBits};
 use rmk::heapless::Vec;
 
+use rmk::hid_state::{HidModifiers, HidMouseButtons};
 use rmk::keycode::{KeyCode, ModifierCombination};
+use rmk::light::LedIndicator;
 // use rmk::{a, k, layer, mo};
 use rmk::{a, k, layer, lt, mo, mt, osl, osm, shifted, tg, th, wm};
 pub(crate) const COL: usize = 10;
 pub(crate) const ROW: usize = 4;
-pub(crate) const NUM_LAYER: usize = 4;
-enum ModK {
-    Lcmd,
-    Lopt,
-    Lsft,
-    Lctl,
-    Rcmd,
-    Ropt,
-    Rctl,
-    Rsft,
-}
-fn mod_k(mod_key: ModK) -> ModifierCombination {
-    match mod_key {
-        ModK::Lcmd => ModifierCombination::new_from(false, true, false, false, false),
-        ModK::Lopt => ModifierCombination::new_from(false, false, true, false, false),
-        ModK::Lsft => ModifierCombination::new_from(false, false, false, true, false),
-        ModK::Lctl => ModifierCombination::new_from(false, false, false, false, true),
-        ModK::Rcmd => ModifierCombination::new_from(true, true, false, false, false),
-        ModK::Ropt => ModifierCombination::new_from(true, false, true, false, false),
-        ModK::Rsft => ModifierCombination::new_from(true, false, false, true, false),
-        ModK::Rctl => ModifierCombination::new_from(true, false, false, false, true),
-    }
-}
-// shortcuts
-fn lcmd() -> ModifierCombination {
-    mod_k(ModK::Lcmd)
-}
-fn lopt() -> ModifierCombination {
-    mod_k(ModK::Lopt)
-}
-fn lsft() -> ModifierCombination {
-    mod_k(ModK::Lsft)
-}
-fn lctl() -> ModifierCombination {
-    mod_k(ModK::Lctl)
-}
-fn rcmd() -> ModifierCombination {
-    mod_k(ModK::Rcmd)
-}
-fn ropt() -> ModifierCombination {
-    mod_k(ModK::Ropt)
-}
-fn rsft() -> ModifierCombination {
-    mod_k(ModK::Rsft)
-}
-fn rctl() -> ModifierCombination {
-    mod_k(ModK::Rctl)
-}
+pub(crate) const NUM_LAYER: usize = 3;
 
-// Alpha_shitf layer HRM
-fn mt_sft(key: KeyCode) -> KeyAction {
-    KeyAction::LayerTapHold(Action::Key(key), ALPHA_SFT)
-}
+const LCMD: ModifierCombination = ModifierCombination::new_from(false, true, false, false, false);
+const LOPT: ModifierCombination = ModifierCombination::new_from(false, false, true, false, false);
+const LSFT: ModifierCombination = ModifierCombination::new_from(false, false, false, true, false);
+const LCTL: ModifierCombination = ModifierCombination::new_from(false, false, false, false, true);
+const RCMD: ModifierCombination = ModifierCombination::new_from(true, true, false, false, false);
+const ROPT: ModifierCombination = ModifierCombination::new_from(true, false, true, false, false);
+const RSFT: ModifierCombination = ModifierCombination::new_from(true, false, false, true, false);
+const RCTL: ModifierCombination = ModifierCombination::new_from(true, false, false, false, true);
+
 /// word wise backspace
 fn wrd_bsp() -> KeyAction {
-    KeyAction::WithModifier(
-        Action::Key(rmk::keycode::KeyCode::Backspace),
-        mod_k(ModK::Lopt),
-    )
+    wm!(Backspace, LOPT)
 }
 
-fn lt(layer: u8, key: KeyCode) -> KeyAction {
+fn lt(key: KeyCode, layer: u8) -> KeyAction {
     KeyAction::LayerTapHold(Action::Key(key), layer)
-}
-fn thl(layer: u8, key: KeyCode) -> KeyAction {
-    KeyAction::TapHold(Action::LayerOn(layer), Action::Key(key))
 }
 
 const ALPHA: u8 = 0;
-const ALPHA_SFT: u8 = 1;
-const NUM: u8 = 2;
-const SYM: u8 = 3;
-const CMD: u8 = 4;
+const NUM: u8 = 1;
+const SYM: u8 = 2;
+const CMD: u8 = 3;
 
 #[rustfmt::skip]
 pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
@@ -160,25 +114,13 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
   [ k!(W),   k!(F),       k!(M),       k!(P),        k!(V),       k!(Quote),       k!(Comma),     k!(G),      k!(J),     k!(Z)],
 //├──────┼────────────┼────────────┼────────────┼────────────┤├────────────────┼────────────┼────────────┼───────────┼───────┤
 // R|Lsft, S|Lctl       N|Lopt        T|Lcmd        B|sft         .|sft           A|Rcmd        E|Ropt      I|Rctl     H|Rsft
-  [ mt!(R, lsft()), mt!(S,lctl()), mt!(N,lopt()), mt!(T,lcmd()), mt_sft(KeyCode::B), mt_sft(KeyCode::Dot), mt!(A,rcmd()), mt!(E,ropt()), mt!(I,rctl()), mt!(H, rsft())],
+  [ mt!(R, LSFT), mt!(S,LCTL), mt!(N,LOPT), mt!(T,LCMD), mt!(B, LSFT), mt!(Dot,RSFT), mt!(A,RCMD), mt!(E,ROPT), mt!(I,RCTL), mt!(H, RSFT)],
 //├──────┼────────────┼────────────┼────────────┼────────────┤├────────────────┼────────────┼────────────┼───────────┼───────┤
   [ k!(X), k!(C),       k!(L),       k!(D),       k!(Slash),    k!(Minus),       k!(U),       k!(O),       k!(Y),      k!(K)],            
 //╰──────┴────────────┴────────────╮                         ││                             ╭────────────┴───────────┴───────╯
-   [a!(No),a!(No),a!(No),         lt(NUM, KeyCode::Backspace),   k!(Again),   k!(Space),       k!(Enter),             a!(No),a!(No),a!(No)]
-  //  [a!(No),a!(No),a!(No),         thl(NUM, KeyCode::Backspace),   k!(Again),   k!(Space),       k!(Enter),             a!(No),a!(No),a!(No)]
+   [a!(No),a!(No),a!(No),         lt(KeyCode::Backspace, NUM),   k!(Again),   k!(Space),       k!(Enter),             a!(No),a!(No),a!(No)]
 //                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
         ]),
-        layer!([// Shifted Alpha (Base)
-//╭──────┬────────────┬────────────┬────────────┬────────────╮╭────────────────┬────────────┬────────────┬───────────┬───────╮
-[ shifted!(W),   shifted!(F),       shifted!(M),       shifted!(P),        shifted!(V),       shifted!(Quote),       k!(Semicolon),     shifted!(G),      shifted!(J),     shifted!(Z)],
-//├──────┼────────────┼────────────┼────────────┼────────────┤├────────────────┼────────────┼────────────┼───────────┼───────┤
-[ shifted!(R), shifted!(S), shifted!(N), shifted!(T), shifted!(B),  shifted!(Semicolon), shifted!(A), shifted!(E), shifted!(I), shifted!(H)],
-//├──────┼────────────┼────────────┼────────────┼────────────┤├────────────────┼────────────┼────────────┼───────────┼───────┤
-[ shifted!(X), shifted!(C),       shifted!(L),       shifted!(D),       shifted!(Backslash),    shifted!(Minus),       shifted!(U),       shifted!(O),       shifted!(Y),      shifted!(K)],            
-//╰──────┴────────────┴────────────╮                         ││                             ╭────────────┴───────────┴───────╯
-[a!(No),a!(No),a!(No),            k!(Backspace), k!(Again),   k!(Space),       k!(Enter),             a!(No),a!(No),a!(No)]
-//                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
-]),
 layer!([// NUM
   // TODO change to unicode symmbols once Macros are working
   // TODO alternate shifted versions
@@ -188,13 +130,13 @@ layer!([// NUM
   //╭─────┬─────┬─────┬─────┬─────╮╭─────┬─────┬─────┬────┬─────╮
   //  *|/    9     8     7     ,      '     !           ˚    ∑
   // [th!(KpAsterisk, Slash), k!(Kc9), k!(Kc8), k!(Kc7), k!(Comma), k!(Quote), shifted!(Kc1), a!(No), wm!(K, ropt()), wm!(W, ropt())],
-  [k!(KpAsterisk), k!(Kc9), k!(Kc8), k!(Kc7), k!(Comma), k!(Quote), shifted!(Kc1), a!(No), wm!(K, ropt()), wm!(W, ropt())],
+  [k!(KpAsterisk), k!(Kc9), k!(Kc8), k!(Kc7), k!(Comma), k!(Quote), shifted!(Kc1), a!(No), wm!(K, ROPT), wm!(W, ROPT)],
   //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
   //  +|-    3     2     1     0      §     %     ≤     ≥    #
-  [th!(KpPlus, KpMinus), k!(Kc3), k!(Kc2), k!(Kc1), k!(Kc0), wm!(Kc6, ropt()), shifted!(Kc5), wm!(Comma, ropt()), wm!(Dot, ropt()), shifted!(Kc3)],
+  [th!(KpPlus, KpMinus), k!(Kc3), k!(Kc2), k!(Kc1), k!(Kc0), wm!(Kc6, ROPT), shifted!(Kc5), wm!(Comma, ROPT), wm!(Dot, ROPT), shifted!(Kc3)],
   //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
   //                                  _     µ     ±     ≈     ≠      
-  [k!(Equal), k!(Kc6), k!(Kc5),k!(Kc4), k!(Dot),  shifted!(Minus), wm!(M, ropt()), wm!(Equal, ropt().bitor(rsft())), wm!(X, ropt()), wm!(Equal, ropt())],
+  [k!(Equal), k!(Kc6), k!(Kc5),k!(Kc4), k!(Dot),  shifted!(Minus), wm!(M, ROPT), wm!(Equal, ROPT.bitor(RSFT)), wm!(X, ROPT), wm!(Equal, ROPT)],
   //╰──────┴────────────┴────────────╮                         ││                             ╭────────────┴───────────┴───────╯
   [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
   //                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
@@ -212,14 +154,94 @@ pub(crate) fn get_combos() -> CombosConfig {
     CombosConfig {
         combos: Vec::from_slice(&[
             Combo::new([k!(W), k!(F)], k!(Q), Some(ALPHA)),
-            Combo::new([k!(W), k!(F)], shifted!(Q), Some(ALPHA_SFT)),
             //CapsW -> doesn't work
             // Combo::new([k!(Dot), k!(B)], osm!(mod_k(ModK::Lsft)), None),
             // Combo::new([k!(R), k!(H)], osm!(mod_k(ModK::Lsft)), None),
-            //Backspace behavior
-            Combo::new([wrd_bsp(), k!(Space)], k!(Backspace), None),
         ])
         .expect("Some combo is not valid"),
         timeout: Duration::from_millis(50),
+    }
+}
+
+pub(crate) fn get_forks() -> ForksConfig {
+    const H_LCMD: HidModifiers =
+        HidModifiers::new_from(false, false, false, true, false, false, false, false);
+    const H_LOPT: HidModifiers =
+        HidModifiers::new_from(false, false, true, false, false, false, false, false);
+    const H_LSFT: HidModifiers =
+        HidModifiers::new_from(false, true, false, false, false, false, false, false);
+    const H_LCTL: HidModifiers =
+        HidModifiers::new_from(true, false, false, false, false, false, false, false);
+    const H_RCMD: HidModifiers =
+        HidModifiers::new_from(false, false, false, false, false, false, false, true);
+    const H_ROPT: HidModifiers =
+        HidModifiers::new_from(false, false, false, false, false, false, true, false);
+    const H_RSFT: HidModifiers =
+        HidModifiers::new_from(false, false, false, false, false, true, false, false);
+    const H_RCTL: HidModifiers =
+        HidModifiers::new_from(false, false, false, false, true, false, false, false);
+
+    ForksConfig {
+        forks: Vec::from_slice(&[
+            // . -> :
+            Fork::new(
+                mt!(Dot, RSFT),
+                mt!(Dot, RSFT),
+                shifted!(Semicolon),
+                StateBits::new_from(
+                    H_LSFT.bitor(H_RSFT),
+                    LedIndicator::default(),
+                    HidMouseButtons::default(),
+                ),
+                StateBits::default(),
+                HidModifiers::default(),
+                false,
+            ),
+            // , -> ,
+            Fork::new(
+                k!(Comma),
+                k!(Comma),
+                k!(Semicolon),
+                StateBits::new_from(
+                    H_LSFT.bitor(H_RSFT),
+                    LedIndicator::default(),
+                    HidMouseButtons::default(),
+                ),
+                StateBits::default(),
+                HidModifiers::default(),
+                false,
+            ),
+            // / -> |
+            Fork::new(
+                k!(Slash),
+                k!(Slash),
+                shifted!(Backslash),
+                StateBits::new_from(
+                    H_LSFT.bitor(H_RSFT),
+                    LedIndicator::default(),
+                    HidMouseButtons::default(),
+                ),
+                StateBits::default(),
+                HidModifiers::default(),
+                false,
+            ),
+            // wBsp -> Bsp
+            // TODO not working
+            // Fork::new(
+            //     // lt(KeyCode::Backspace, NUM),
+            //     KeyAction::LayerTapHold(Action::Key(KeyCode::Backspace), NUM),
+            //     wm!(Backspace, LOPT),
+            //     k!(Backspace),
+            //     StateBits::new_from(
+            //         HidModifiers::from_bits(0b11111111),
+            //         LedIndicator::default(),
+            //         HidMouseButtons::default(),
+            //     ),
+            //     StateBits::default(),
+            //     HidModifiers::from_bits(0b11111111),
+            //     false,
+            // ),
+        ])
+        .expect("Some fork is not valid"),
     }
 }
