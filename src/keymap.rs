@@ -14,7 +14,7 @@ use rmk::light::LedIndicator;
 use rmk::{a, k, layer, lt, mo, mt, osl, osm, shifted, tg, th, wm};
 pub(crate) const COL: usize = 10;
 pub(crate) const ROW: usize = 4;
-pub(crate) const NUM_LAYER: usize = 3;
+pub(crate) const NUM_LAYER: usize = 6;
 
 const LCMD: ModifierCombination = ModifierCombination::new_from(false, true, false, false, false);
 const LOPT: ModifierCombination = ModifierCombination::new_from(false, false, true, false, false);
@@ -25,7 +25,7 @@ const ROPT: ModifierCombination = ModifierCombination::new_from(true, false, tru
 const RSFT: ModifierCombination = ModifierCombination::new_from(true, false, false, true, false);
 const RCTL: ModifierCombination = ModifierCombination::new_from(true, false, false, false, true);
 
-fn lt(key: KeyCode, layer: u8) -> KeyAction {
+fn lt(layer: u8, key: KeyCode) -> KeyAction {
     KeyAction::LayerTapHold(Action::Key(key), layer)
 }
 
@@ -33,6 +33,7 @@ const ALPHA: u8 = 0;
 const NUM: u8 = 1;
 const SYM: u8 = 2;
 const CMD: u8 = 3;
+const CRD: u8 = 4;
 
 #[rustfmt::skip]
 pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
@@ -105,9 +106,10 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
       [ mt!(R, LSFT), mt!(S,LCTL), mt!(N,LOPT), mt!(T,LCMD), mt!(B, LSFT), mt!(Dot,RSFT), mt!(A,RCMD), mt!(E,ROPT), mt!(I,RCTL), mt!(H, RSFT)],
     //├──────┼────────────┼────────────┼────────────┼────────────┤├────────────────┼────────────┼────────────┼───────────┼───────┤
       [ k!(X), k!(C),       k!(L),       k!(D),       k!(Slash),    k!(Minus),       k!(U),       k!(O),       k!(Y),      k!(K)],            
-    //╰──────┴────────────┴────────────╮                         ││                             ╭────────────┴───────────┴───────╯
-      [a!(No),a!(No),a!(No),         lt(KeyCode::Backspace, NUM),   k!(Again),   k!(Space),       k!(Enter),             a!(No),a!(No),a!(No)]
-    //                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
+    //╰──────┴────────────┴─────────╮                            ││                             ╭────────────┴───────────┴───────╯
+    //                                NUM|Backspace   SYM|Again     CRD|Space        CMD|Enter
+      [a!(No),a!(No),a!(No), lt(NUM, KeyCode::Backspace),lt(SYM, KeyCode::Again), lt(CRD, KeyCode::Space), lt(CMD, KeyCode::Enter), a!(No),a!(No),a!(No)]
+    //                              ╰───────────────┴────────────╯╰────────────────┴────────────╯
   ]),
   layer!([// NUM
     // TODO change to unicode symmbols once Macros are working
@@ -127,6 +129,24 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
     //╰──────┴────────────┴────────────╮                         ││                             ╭────────────┴───────────┴───────╯
     [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
     //                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
+  ]),
+  layer!([//SYM
+    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
+  ]),
+  layer!([//CMD
+    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
+  ]),
+  layer!([//CRD
+    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
   ]),
   layer!([//layer for VIAL modifications
     [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
@@ -166,24 +186,6 @@ fn fork_alternative_shift(trigger: KeyAction, alternative: KeyAction) -> Fork {
 }
 
 pub(crate) fn get_forks() -> ForksConfig {
-    // helpers
-    const H_LCMD: HidModifiers =
-        HidModifiers::new_from(false, false, false, true, false, false, false, false);
-    const H_LOPT: HidModifiers =
-        HidModifiers::new_from(false, false, true, false, false, false, false, false);
-    const H_LSFT: HidModifiers =
-        HidModifiers::new_from(false, true, false, false, false, false, false, false);
-    const H_LCTL: HidModifiers =
-        HidModifiers::new_from(true, false, false, false, false, false, false, false);
-    const H_RCMD: HidModifiers =
-        HidModifiers::new_from(false, false, false, false, false, false, false, true);
-    const H_ROPT: HidModifiers =
-        HidModifiers::new_from(false, false, false, false, false, false, true, false);
-    const H_RSFT: HidModifiers =
-        HidModifiers::new_from(false, false, false, false, false, true, false, false);
-    const H_RCTL: HidModifiers =
-        HidModifiers::new_from(false, false, false, false, true, false, false, false);
-
     ForksConfig {
         forks: Vec::from_slice(&[
             // . -> :
