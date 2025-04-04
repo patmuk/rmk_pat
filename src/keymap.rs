@@ -111,15 +111,15 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
     //                              ╰───────────────┴────────────╯╰────────────────┴────────────╯
   ]),
   layer!([// NUM
-    // TODO change to unicode symmbols once Macros are working
     // TODO thumb keys
-    // TODO HRM -> doesn't work with shifted keys! Macros?
+    // TODO HRM right side -> doesn't work with shifted keys! Macros?
+    // TODO change to unicode symmbols once Macros are working
     //╭─────┬─────┬─────┬─────┬─────╮╭─────┬─────┬─────┬────┬─────╮
     //  *|/    9     8     7     ,      '     !           ˚    ∑
     [k!(KpAsterisk), k!(Kc9), k!(Kc8), k!(Kc7), k!(KpComma), k!(Quote), shifted!(Kc1), a!(No), wm!(K, ROPT), wm!(W, ROPT)],
     //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
     //  +|-    3     2     1     0      §     %     ≤     ≥    #
-    [k!(KpPlus), k!(Kc3), k!(Kc2), k!(Kc1), k!(Kc0), wm!(Kc6, ROPT), shifted!(Kc5), wm!(Comma, ROPT), wm!(Dot, ROPT), shifted!(Kc3)],
+    [mt!(KpPlus, LSFT), mt!(Kc3,LCTL), mt!(Kc2,LOPT), mt!(Kc1,LCMD), mt!(Kc0,LSFT), wm!(Kc6, ROPT), shifted!(Kc5), wm!(Comma, ROPT), wm!(Dot, ROPT), shifted!(Kc3)],
     //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
     //  =|^    6     5     4     .      _     µ     ±     ≈     ≠      
     [k!(KpEqual), k!(Kc6), k!(Kc5),k!(Kc4), k!(KpDot),  shifted!(Minus), wm!(M, ROPT), wm!(Equal, ROPT.bitor(RSFT)), wm!(X, ROPT), wm!(Equal, ROPT)],
@@ -209,9 +209,9 @@ pub(crate) fn get_forks() -> ForksConfig {
             // * -> /
             fork_alternative_shift(k!(KpAsterisk), k!(KpSlash)),
             // + -> -
-            fork_alternative_shift(k!(Slash), shifted!(Backslash)),
+            fork_alternative_shift(mt!(KpPlus, LSFT), k!(KpMinus)),
             // = -> ^
-            fork_alternative_shift(k!(Slash), shifted!(Backslash)),
+            fork_alternative_shift(k!(KpEqual), wm!(I, LOPT)),
             // wBsp -> Bsp
             // TODO not working, because lt and ht at the same time isn't possible
             // Fork::new(
