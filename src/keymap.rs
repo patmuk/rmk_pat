@@ -25,11 +25,6 @@ const ROPT: ModifierCombination = ModifierCombination::new_from(true, false, tru
 const RSFT: ModifierCombination = ModifierCombination::new_from(true, false, false, true, false);
 const RCTL: ModifierCombination = ModifierCombination::new_from(true, false, false, false, true);
 
-/// word wise backspace
-fn wrd_bsp() -> KeyAction {
-    wm!(Backspace, LOPT)
-}
-
 fn lt(key: KeyCode, layer: u8) -> KeyAction {
     KeyAction::LayerTapHold(Action::Key(key), layer)
 }
@@ -41,36 +36,34 @@ const CMD: u8 = 3;
 
 #[rustfmt::skip]
 pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
-  //layers
-[
-    // Alpha (base) Layer
-        /*  Based on: 34 Keys - Hands Down neu
- https://sites.google.com/alanreiser.com/handsdown/home/hands-down-neu?authuser=0
- ╭───────────────╮ ╭─────────────────╮
- │ w  f  m  p  v │ │ /  .  q  "  '  z│
- │ r  s  n  t  b │ │ ,  a  e  i  h  j│
- │ x  c  l  d  g │ │ -  u  o  y  k   │     
- ╰─────────╮,; .:│ │ ␣  ⏎╭───────────╯
-           ╰─────╯ ╰─────╯         
- === Variante Pat ===
- ╭────────────────╮ ╭───────────────╮
- │ w  f  m  p  v  │ │ '  .  g  j  z │
- │ r  s  n  t  b  │ │ ,  a  e  i  h │
- │ x  c  l  d  /  │ │ -  u  o  y  k │
- ╰────────╮ ⌫ REP│ │ ␣  ⏎   ╭──────╯
- ╰───────╯ ╰────────╯         
- // ╰────────╮ ⌫W REP│ │ ␣  ⏎   ╭──────╯
- // ⌫W only possible with Macros (for lt! to work ([osm!(Lctl), k!(Backspace)]))
- 
- hold  
- ╭──────────────────╮ ╭────────────────╮
- │  -  -  -  -  -   │ │ -  -  -  -  -  │
- │  ⇧  ⌃  ⌥  ⌘  ⇧   │ │ ⇧  ⌘  ⌥  ⌃  ⇧  │
- │  -  -  -  -  -   │ │ -  -  -  -  -  │
- ╰──────╮ NUM  SYM  │ │ CRD CMD ╭──────╯
-        ╰───────────╯ ╰─────────╯         
-  (The innermost shift is a layer toggle, this shall be used for shifting the keys (so we get alternative shifted symbols). 
-   Because this isn't combinable with the HRM, the outermost shift is a normal shift key for combinations with othr modifier keys.)
+  [
+  // Alpha (base) Layer
+    /*  Based on: 34 Keys - Hands Down neu
+    https://sites.google.com/alanreiser.com/handsdown/home/hands-down-neu?authuser=0
+    ╭───────────────╮ ╭─────────────────╮
+    │ w  f  m  p  v │ │ /  .  q  "  '  z│
+    │ r  s  n  t  b │ │ ,  a  e  i  h  j│
+    │ x  c  l  d  g │ │ -  u  o  y  k   │     
+    ╰─────────╮,; .:│ │ ␣  ⏎╭───────────╯
+              ╰─────╯ ╰─────╯         
+  === Variante Pat ===
+    ╭────────────────╮ ╭───────────────╮
+    │ w  f  m  p  v  │ │ '  .  g  j  z │
+    │ r  s  n  t  b  │ │ ,  a  e  i  h │
+    │ x  c  l  d  /  │ │ -  u  o  y  k │
+    ╰────────╮ ⌫ REP │ │ ␣  ⏎   ╭──────╯
+              ╰───────╯ ╰────────╯         
+    // ╰────────╮ ⌫W REP│ │ ␣  ⏎   ╭──────╯
+    // ⌫W only possible with Macros (for lt! to work ([osm!(Lctl), k!(Backspace)])) 
+  hold (HRM)
+    ╭──────────────────╮ ╭────────────────╮
+    │  -  -  -  -  -   │ │ -  -  -  -  -  │
+    │  ⇧  ⌃  ⌥  ⌘  ⇧   │ │ ⇧  ⌘  ⌥  ⌃  ⇧  │
+    │  -  -  -  -  -   │ │ -  -  -  -  -  │
+    ╰──────╮ NUM  SYM  │ │ CRD CMD ╭──────╯
+           ╰───────────╯ ╰─────────╯         
+    (The innermost shift is a layer toggle, this shall be used for shifting the keys (so we get alternative shifted symbols). 
+    Because this isn't combinable with the HRM, the outermost shift is a normal shift key for combinations with othr modifier keys.)
 
    Chorded Letters
     ╭──────────────╮ ╭─────────────────╮
@@ -84,66 +77,64 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
     │ _  _  _  _  _│ │_  U     O  _  _ │
     ╰────────╮ _  _│ │_  _ ╭───────────╯
              ╰─────╯ ╰─────╯         
-*/   
-        layer!([// Alpha (Base)
-// DONE
-// TODO
-// - hold (layer switch)
-//   - tri-layers
-//   - mo_NUM + mo_SYM = mo CMD
-//   - mo_CHORD + mo_CMD = mo FUN
-// - combos -> need macros
-//   - W+F = Qu
-//   - S+E = ß
-//    - A+E = Ä
-//    - U+E = Ü
-//    - O+E = Ö
-//    - S+H = sch
-//    - Lsft+Rsft = CapsWord
-//    - wrd_bsp+space = Backspace
-//    - left outer thumb + right outer thumb = shift in CMD layer
-//  == need RMK extension: 
-// - CHORDS -> need macros
-// - Repeat Function
-// - HRM => `fn`-key (doesn't exist) (called 'globe' key, need to set vendor ID to apple)
-//╭──────┬────────────┬────────────┬────────────┬────────────╮╭────────────────┬────────────┬────────────┬───────────┬───────╮
-  [ k!(W),   k!(F),       k!(M),       k!(P),        k!(V),       k!(Quote),       k!(Comma),     k!(G),      k!(J),     k!(Z)],
-//├──────┼────────────┼────────────┼────────────┼────────────┤├────────────────┼────────────┼────────────┼───────────┼───────┤
-// R|Lsft, S|Lctl       N|Lopt        T|Lcmd        B|sft         .|sft           A|Rcmd        E|Ropt      I|Rctl     H|Rsft
-  [ mt!(R, LSFT), mt!(S,LCTL), mt!(N,LOPT), mt!(T,LCMD), mt!(B, LSFT), mt!(Dot,RSFT), mt!(A,RCMD), mt!(E,ROPT), mt!(I,RCTL), mt!(H, RSFT)],
-//├──────┼────────────┼────────────┼────────────┼────────────┤├────────────────┼────────────┼────────────┼───────────┼───────┤
-  [ k!(X), k!(C),       k!(L),       k!(D),       k!(Slash),    k!(Minus),       k!(U),       k!(O),       k!(Y),      k!(K)],            
-//╰──────┴────────────┴────────────╮                         ││                             ╭────────────┴───────────┴───────╯
-   [a!(No),a!(No),a!(No),         lt(KeyCode::Backspace, NUM),   k!(Again),   k!(Space),       k!(Enter),             a!(No),a!(No),a!(No)]
-//                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
-        ]),
-layer!([// NUM
-  // TODO change to unicode symmbols once Macros are working
-  // TODO alternate shifted versions
-  //  -> ^ / -
-  // TODO fix: +
-  // TODO thumb keys
-  //╭─────┬─────┬─────┬─────┬─────╮╭─────┬─────┬─────┬────┬─────╮
-  //  *|/    9     8     7     ,      '     !           ˚    ∑
-  // [th!(KpAsterisk, Slash), k!(Kc9), k!(Kc8), k!(Kc7), k!(Comma), k!(Quote), shifted!(Kc1), a!(No), wm!(K, ropt()), wm!(W, ropt())],
-  [k!(KpAsterisk), k!(Kc9), k!(Kc8), k!(Kc7), k!(Comma), k!(Quote), shifted!(Kc1), a!(No), wm!(K, ROPT), wm!(W, ROPT)],
-  //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
-  //  +|-    3     2     1     0      §     %     ≤     ≥    #
-  [th!(KpPlus, KpMinus), k!(Kc3), k!(Kc2), k!(Kc1), k!(Kc0), wm!(Kc6, ROPT), shifted!(Kc5), wm!(Comma, ROPT), wm!(Dot, ROPT), shifted!(Kc3)],
-  //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
-  //                                  _     µ     ±     ≈     ≠      
-  [k!(Equal), k!(Kc6), k!(Kc5),k!(Kc4), k!(Dot),  shifted!(Minus), wm!(M, ROPT), wm!(Equal, ROPT.bitor(RSFT)), wm!(X, ROPT), wm!(Equal, ROPT)],
-  //╰──────┴────────────┴────────────╮                         ││                             ╭────────────┴───────────┴───────╯
-  [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
-  //                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
-        ]),
-        layer!([//layer for VIAL modifications
-            [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
-            [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
-            [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
-            [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
-        ]),
-    ]
+  */   
+  layer!([// Alpha (Base)
+    // TODO
+    // - WBsp: hold space and press backspace (wbsp on CRD layer)
+    // - hold (layer switch)
+    //   - tri-layers
+    //   - mo_NUM + mo_SYM = mo CMD
+    //   - mo_CHORD + mo_CMD = mo FUN
+    //    - wrd_bsp+space = Backspace
+    //    - left outer thumb + right outer thumb = shift in CMD layer
+    // - combos -> need macros
+    //   - W+F = Qu
+    //   - S+E = ß
+    //    - A+E = Ä
+    //    - U+E = Ü
+    //    - O+E = Ö
+    //    - S+H = sch
+    //  == need RMK extension: 
+    // - CHORDS -> need macros
+    // - Repeat Function
+    // - HRM => `fn`-key (doesn't exist) (called 'globe' key, need to set vendor ID to apple)
+    //╭──────┬────────────┬────────────┬────────────┬────────────╮╭────────────────┬────────────┬────────────┬───────────┬───────╮
+      [ k!(W),   k!(F),       k!(M),       k!(P),        k!(V),       k!(Quote),       k!(Comma),     k!(G),      k!(J),     k!(Z)],
+    //├──────┼────────────┼────────────┼────────────┼────────────┤├────────────────┼────────────┼────────────┼───────────┼───────┤
+    // R|Lsft, S|Lctl       N|Lopt        T|Lcmd        B|sft         .|sft           A|Rcmd        E|Ropt      I|Rctl     H|Rsft
+      [ mt!(R, LSFT), mt!(S,LCTL), mt!(N,LOPT), mt!(T,LCMD), mt!(B, LSFT), mt!(Dot,RSFT), mt!(A,RCMD), mt!(E,ROPT), mt!(I,RCTL), mt!(H, RSFT)],
+    //├──────┼────────────┼────────────┼────────────┼────────────┤├────────────────┼────────────┼────────────┼───────────┼───────┤
+      [ k!(X), k!(C),       k!(L),       k!(D),       k!(Slash),    k!(Minus),       k!(U),       k!(O),       k!(Y),      k!(K)],            
+    //╰──────┴────────────┴────────────╮                         ││                             ╭────────────┴───────────┴───────╯
+      [a!(No),a!(No),a!(No),         lt(KeyCode::Backspace, NUM),   k!(Again),   k!(Space),       k!(Enter),             a!(No),a!(No),a!(No)]
+    //                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
+  ]),
+  layer!([// NUM
+    // TODO change to unicode symmbols once Macros are working
+    // TODO alternate shifted versions
+    //  -> ^ / -
+    // TODO fix: +
+    // TODO thumb keys
+    //╭─────┬─────┬─────┬─────┬─────╮╭─────┬─────┬─────┬────┬─────╮
+    //  *|/    9     8     7     ,      '     !           ˚    ∑
+    [k!(KpAsterisk), k!(Kc9), k!(Kc8), k!(Kc7), k!(KpComma), k!(Quote), shifted!(Kc1), a!(No), wm!(K, ROPT), wm!(W, ROPT)],
+    //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
+    //  +|-    3     2     1     0      §     %     ≤     ≥    #
+    [k!(KpPlus), k!(Kc3), k!(Kc2), k!(Kc1), k!(Kc0), wm!(Kc6, ROPT), shifted!(Kc5), wm!(Comma, ROPT), wm!(Dot, ROPT), shifted!(Kc3)],
+    //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
+    //  =|^    6     5     4     .      _     µ     ±     ≈     ≠      
+    [k!(KpEqual), k!(Kc6), k!(Kc5),k!(Kc4), k!(KpDot),  shifted!(Minus), wm!(M, ROPT), wm!(Equal, ROPT.bitor(RSFT)), wm!(X, ROPT), wm!(Equal, ROPT)],
+    //╰──────┴────────────┴────────────╮                         ││                             ╭────────────┴───────────┴───────╯
+    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
+    //                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
+  ]),
+  layer!([//layer for VIAL modifications
+    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
+  ]),
+  ]
 }
 
 pub(crate) fn get_combos() -> CombosConfig {
@@ -158,7 +149,24 @@ pub(crate) fn get_combos() -> CombosConfig {
     }
 }
 
+fn fork_alternative_shift(trigger: KeyAction, alternative: KeyAction) -> Fork {
+    Fork::new(
+        trigger,
+        trigger,
+        alternative,
+        StateBits::new_from(
+            HidModifiers::new_from(false, true, false, false, false, false, false, false),
+            LedIndicator::default(),
+            HidMouseButtons::default(),
+        ),
+        StateBits::default(),
+        HidModifiers::default(),
+        false,
+    )
+}
+
 pub(crate) fn get_forks() -> ForksConfig {
+    // helpers
     const H_LCMD: HidModifiers =
         HidModifiers::new_from(false, false, false, true, false, false, false, false);
     const H_LOPT: HidModifiers =
@@ -179,56 +187,25 @@ pub(crate) fn get_forks() -> ForksConfig {
     ForksConfig {
         forks: Vec::from_slice(&[
             // . -> :
-            Fork::new(
-                mt!(Dot, RSFT),
-                mt!(Dot, RSFT),
-                shifted!(Semicolon),
-                StateBits::new_from(
-                    H_LSFT.bitor(H_RSFT),
-                    LedIndicator::default(),
-                    HidMouseButtons::default(),
-                ),
-                StateBits::default(),
-                HidModifiers::default(),
-                false,
-            ),
+            fork_alternative_shift(mt!(Dot, RSFT), shifted!(Semicolon)),
             // , -> ,
-            Fork::new(
-                k!(Comma),
-                k!(Comma),
-                k!(Semicolon),
-                StateBits::new_from(
-                    H_LSFT.bitor(H_RSFT),
-                    LedIndicator::default(),
-                    HidMouseButtons::default(),
-                ),
-                StateBits::default(),
-                HidModifiers::default(),
-                false,
-            ),
+            fork_alternative_shift(k!(Comma), k!(Semicolon)),
             // / -> |
-            Fork::new(
-                k!(Slash),
-                k!(Slash),
-                shifted!(Backslash),
-                StateBits::new_from(
-                    H_LSFT.bitor(H_RSFT),
-                    LedIndicator::default(),
-                    HidMouseButtons::default(),
-                ),
-                StateBits::default(),
-                HidModifiers::default(),
-                false,
-            ),
+            fork_alternative_shift(k!(Slash), shifted!(Backslash)),
+            // * -> /
+            fork_alternative_shift(k!(KpAsterisk), k!(KpSlash)),
+            // + -> -
+            fork_alternative_shift(k!(Slash), shifted!(Backslash)),
+            // = -> ^
+            fork_alternative_shift(k!(Slash), shifted!(Backslash)),
             // wBsp -> Bsp
-            // TODO not working
+            // TODO not working, because lt and ht at the same time isn't possible
             // Fork::new(
-            //     // lt(KeyCode::Backspace, NUM),
-            //     KeyAction::LayerTapHold(Action::Key(KeyCode::Backspace), NUM),
+            //     lt(KeyCode::Backspace, NUM),
             //     wm!(Backspace, LOPT),
             //     k!(Backspace),
             //     StateBits::new_from(
-            //         HidModifiers::from_bits(0b11111111),
+            //         H_LSFT.bitor(H_RSFT),
             //         LedIndicator::default(),
             //         HidMouseButtons::default(),
             //     ),
