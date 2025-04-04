@@ -53,7 +53,7 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
     │ r  s  n  t  b  │ │ ,  a  e  i  h │
     │ x  c  l  d  /  │ │ -  u  o  y  k │
     ╰────────╮ ⌫ REP │ │ ␣  ⏎   ╭──────╯
-              ╰───────╯ ╰────────╯         
+             ╰───────╯ ╰────────╯         
     // ╰────────╮ ⌫W REP│ │ ␣  ⏎   ╭──────╯
     // ⌫W only possible with Macros (for lt! to work ([osm!(Lctl), k!(Backspace)])) 
   hold (HRM)
@@ -76,12 +76,11 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
     │              │ │   Ü  Ö          │
     │              │ │   │    \        │
     │ _  _  _  _  _│ │_  U     O  _  _ │
-    ╰────────╮ _  _│ │_  _ ╭───────────╯
-             ╰─────╯ ╰─────╯         
+    ╰────────╮ W⌫ _│ │_  _ ╭───────────╯
+             ╰─────╯ ╰─────╯
   */   
   layer!([// Alpha (Base)
     // TODO
-    // - WBsp: hold space and press backspace (wbsp on CRD layer)
     // - hold (layer switch)
     //   - tri-layers
     //   - mo_NUM + mo_SYM = mo CMD
@@ -113,10 +112,8 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
   ]),
   layer!([// NUM
     // TODO change to unicode symmbols once Macros are working
-    // TODO alternate shifted versions
-    //  -> ^ / -
-    // TODO fix: +
     // TODO thumb keys
+    // TODO HRM -> doesn't work with shifted keys! Macros?
     //╭─────┬─────┬─────┬─────┬─────╮╭─────┬─────┬─────┬────┬─────╮
     //  *|/    9     8     7     ,      '     !           ˚    ∑
     [k!(KpAsterisk), k!(Kc9), k!(Kc8), k!(Kc7), k!(KpComma), k!(Quote), shifted!(Kc1), a!(No), wm!(K, ROPT), wm!(W, ROPT)],
@@ -138,7 +135,7 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
     //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
     [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
     //╰──────┴────────────┴────────────╮                         ││                             ╭────────────┴───────────┴───────╯
-    [a!(Transparent), a!(Transparent), k!(S), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
+    [a!(Transparent), a!(Transparent), a!(Transparent), k!(S), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
     //                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
   ]),
   layer!([//CMD
@@ -149,7 +146,7 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
     //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
     [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
     //╰──────┴────────────┴────────────╮                         ││                             ╭────────────┴───────────┴───────╯
-    [a!(Transparent), a!(Transparent), k!(M), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
+    [a!(Transparent), a!(Transparent), a!(Transparent), k!(M), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
     //                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
   ]),
   layer!([//CRD
@@ -160,7 +157,7 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
     //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
     [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
     //╰──────┴────────────┴────────────╮                         ││                             ╭────────────┴───────────┴───────╯
-    [a!(Transparent), a!(Transparent), wm!(Backspace, ROPT), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
+    [a!(Transparent), a!(Transparent), a!(Transparent), wm!(Backspace, ROPT), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
     //                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
   ]),
   layer!([//layer for VIAL modifications
