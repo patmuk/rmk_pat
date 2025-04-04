@@ -96,6 +96,7 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
     //    - S+H = sch
     //  == need RMK extension: 
     // - CHORDS -> need macros
+    //  - CapsW for Chord using Bsp key
     // - Repeat Function
     // - HRM => `fn`-key (doesn't exist) (called 'globe' key, need to set vendor ID to apple)
     //╭──────┬────────────┬────────────┬────────────┬────────────╮╭────────────────┬────────────┬────────────┬───────────┬───────╮
