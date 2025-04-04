@@ -87,10 +87,6 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
 */   
         layer!([// Alpha (Base)
 // DONE
-// - alternative shift
-//   - , => ;
-//   - . => :
-//   - / => |
 // TODO
 // - hold (layer switch)
 //   - tri-layers
@@ -154,9 +150,8 @@ pub(crate) fn get_combos() -> CombosConfig {
     CombosConfig {
         combos: Vec::from_slice(&[
             Combo::new([k!(W), k!(F)], k!(Q), Some(ALPHA)),
-            //CapsW -> doesn't work
-            // Combo::new([k!(Dot), k!(B)], osm!(mod_k(ModK::Lsft)), None),
-            // Combo::new([k!(R), k!(H)], osm!(mod_k(ModK::Lsft)), None),
+            // CapsW
+            Combo::new([mt!(B, LSFT), mt!(Dot, RSFT)], osm!(LSFT), None),
         ])
         .expect("Some combo is not valid"),
         timeout: Duration::from_millis(50),
