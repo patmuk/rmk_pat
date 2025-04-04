@@ -131,22 +131,37 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
     //                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
   ]),
   layer!([//SYM
+    //╭─────┬─────┬─────┬─────┬─────╮╭─────┬─────┬─────┬────┬─────╮
     [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
     [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
     [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    //╰──────┴────────────┴────────────╮                         ││                             ╭────────────┴───────────┴───────╯
     [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
+    //                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
   ]),
   layer!([//CMD
+    //╭─────┬─────┬─────┬─────┬─────╮╭─────┬─────┬─────┬────┬─────╮
     [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
     [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
     [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    //╰──────┴────────────┴────────────╮                         ││                             ╭────────────┴───────────┴───────╯
     [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
+    //                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
   ]),
   layer!([//CRD
+    //╭─────┬─────┬─────┬─────┬─────╮╭─────┬─────┬─────┬────┬─────╮
     [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
     [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
     [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
-    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
+    //╰──────┴────────────┴────────────╮                         ││                             ╭────────────┴───────────┴───────╯
+    [a!(Transparent), a!(Transparent), wm!(Backspace, ROPT), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
+    //                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
   ]),
   layer!([//layer for VIAL modifications
     [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
