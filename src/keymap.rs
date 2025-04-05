@@ -129,23 +129,32 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
     //                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
   ]),
   layer!([//SYM
+    // TODO HRM
     //╭─────┬─────┬─────┬─────┬─────╮╭─────┬─────┬─────┬────┬─────╮
-    [k!(S), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    //  <--    ^|    v|   -->    ^      `     ?
+    [k!(Left), k!(UP), k!(Down), k!(Right), wm!(I, LOPT), k!(GraveEscape), shifted!(Minus), a!(Transparent), a!(Transparent), a!(Transparent)],
     //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
-    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    //  {|}   [|]   (|)   <|>   F⌫      !     @     =     &    #
+    [shifted!(LeftBracket), k!(LeftBracket), shifted!(Kc9), shifted!(Comma), wm!(D, LCTL), shifted!(Kc1), shifted!(Kc2), k!(Equal), shifted!(Kc7), shifted!(Kc3)],
     //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
-    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    //               ~     $     \      -     €
+    [a!(Transparent), a!(Transparent), wm!(N, LOPT), shifted!(Kc4), k!(Backslash), k!(Minus), wm!(Kc2, RSFT.bitor(ROPT)), a!(Transparent), a!(Transparent), a!(Transparent)],
     //╰──────┴────────────┴────────────╮                         ││                             ╭────────────┴───────────┴───────╯
     [a!(Transparent), a!(Transparent), a!(Transparent), k!(S), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
     //                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
   ]),
   layer!([//CMD
-    //╭─────┬─────┬─────┬─────┬─────╮╭─────┬─────┬─────┬────┬─────╮
-    [k!(M), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
-    //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
-    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
-    //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
-    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    // TODO think of Window mid
+    // HRM with OSM on CRD layer?
+    //╭─────────┬─────┬─────┬─────┬─────────╮╭──────┬──────┬─────┬────────┬───────╮
+    //  FindAll  find  redo  undo  switchApp  Vol-    Mute  Vol+  Bright-  Bright+   
+    [wm!(F,LCMD.bitor(LSFT)), wm!(F,LSFT), wm!(Z, LCMD.bitor(LSFT)), wm!(Z,LCMD), wm!(Tab,LCMD), k!(KbVolumeDown), k!(KbMute), k!(KbVolumeUp), k!(BrightnessDown), k!(BrightnessUp)],
+    //├─────────┼─────┼─────┼─────┼─────────┤├──────┼──────┼─────┼────────┼───────┤
+    // SelectAll  cut  copy  paste pasteHist <-space <-win  winMid  win->  space->
+    [wm!(A, LCMD), wm!(X, LCMD), wm!(C,LCMD), wm!(V,LCMD), wm!(V, LCMD.bitor(LSFT)), wm!(Left, RCTL), wm!(Left, RCTL.bitor(ROPT).bitor(RSFT)), a!(Transparent), wm!(Right, RCTL.bitor(ROPT).bitor(RSFT)), wm!(Right, RCTL)],
+    //├─────────┼─────┼─────┼─────┼─────────┤├──────┼──────┼─────┼────────┼───────┤
+    // findPrev  fNext Enter  tab   switchWin   ESC   prev  play/pause next
+    [wm!(Enter, LSFT), wm!(N, LSFT), k!(Enter), k!(Tab), wm!(Grave, LCMD), k!(Escape), k!(MediaPrevTrack), k!(MediaPlayPause), k!(MediaNextTrack), a!(Transparent)],
     //╰──────┴────────────┴────────────╮                         ││                             ╭────────────┴───────────┴───────╯
     [a!(Transparent), a!(Transparent), a!(Transparent), k!(M), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
     //                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
@@ -154,7 +163,7 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
     //╭─────┬─────┬─────┬─────┬─────╮╭─────┬─────┬─────┬────┬─────╮
     [k!(C), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
     //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
-    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    [osm!(LSFT), osm!(LCTL), osm!(LOPT), osm!(LCMD), osm!(LSFT), osm!(RSFT), osm!(RCMD), osm!(ROPT), osm!(RCTL), osm!(RSFT)],
     //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
     [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
     //╰──────┴────────────┴────────────╮                         ││                             ╭────────────┴───────────┴───────╯
@@ -213,6 +222,12 @@ pub(crate) fn get_forks() -> ForksConfig {
             fork_alternative_shift(mt!(KpPlus, LSFT), k!(KpMinus)),
             // = -> ^
             fork_alternative_shift(k!(KpEqual), wm!(I, LOPT)),
+            // { -> }
+            fork_alternative_shift(shifted!(LeftBracket), shifted!(RightBracket)),
+            // ( -> )
+            fork_alternative_shift(shifted!(Kc9), shifted!(Kc0)),
+            // < -> >
+            fork_alternative_shift(shifted!(Comma), shifted!(Dot)),
             // wBsp -> Bsp
             // TODO not working, because lt and ht at the same time isn't possible
             // Fork::new(
