@@ -16,24 +16,351 @@ pub(crate) const COL: usize = 10;
 pub(crate) const ROW: usize = 4;
 pub(crate) const NUM_LAYER: usize = 6;
 
-const LCMD: ModifierCombination = ModifierCombination::new_from(false, true, false, false, false);
-const LOPT: ModifierCombination = ModifierCombination::new_from(false, false, true, false, false);
-const LSFT: ModifierCombination = ModifierCombination::new_from(false, false, false, true, false);
-const LCTL: ModifierCombination = ModifierCombination::new_from(false, false, false, false, true);
-const RCMD: ModifierCombination = ModifierCombination::new_from(true, true, false, false, false);
-const ROPT: ModifierCombination = ModifierCombination::new_from(true, false, true, false, false);
-const RSFT: ModifierCombination = ModifierCombination::new_from(true, false, false, true, false);
-const RCTL: ModifierCombination = ModifierCombination::new_from(true, false, false, false, true);
-
-fn lt(layer: u8, key: KeyCode) -> KeyAction {
-    KeyAction::LayerTapHold(Action::Key(key), layer)
+/// key shortcuts
+macro_rules! K {
+    ("␣") => {
+        lt(NUM, KeyCode::Backspace)
+    };
+    (",") => {
+        k!(Comma)
+    };
+    ("'") => {
+        k!(Quote)
+    };
+    (".") => {
+        k!(Dot)
+    };
+    ("R|l⇧") => {
+        mt!(R, LSFT)
+    };
+    ("S|l⌃") => {
+        mt!(S, LCTL)
+    };
+    ("N|l⎇") => {
+        mt!(N, LOPT)
+    };
+    ("T|l⌘") => {
+        mt!(T, LCMD)
+    };
+    ("B|l⇧") => {
+        mt!(B, LSFT)
+    };
+    (".|r⇧") => {
+        mt!(Dot, RSFT)
+    };
+    ("A|r⌘") => {
+        mt!(A, RCMD)
+    };
+    ("E|r⎇") => {
+        mt!(E, ROPT)
+    };
+    ("I|r⌃") => {
+        mt!(I, RCTL)
+    };
+    ("H|r⇧") => {
+        mt!(H, RSFT)
+    };
+    ("/") => {
+        k!(Slash)
+    };
+    ("-") => {
+        k!(Minus)
+    };
+    ("▼") => {
+        a!(Transparent)
+    };
+    ("⌫|🅛NUM") => {
+        lt(Num, KeyCode::Backspace)
+    };
+    ("🔁|🅛SYM") => {
+        lt(SYM, KeyCode::Again)
+    };
+    ("␣|🅛⇉") => {
+        lt(CRD, KeyCode::Space)
+    };
+    ("⏎|🅛⌘") => {
+        lt(CMD, KeyCode::Enter)
+    };
+    ("*") => {
+        k!(KpAsterisk)
+    };
+    ("*|/") => {
+        k!(KpAsterisk)
+    };
+    ("!") => {
+        shifted!(Kc1)
+    };
+    ("K|r⎇") => {
+        wm!(K, ROPT)
+    };
+    ("W|r⎇") => {
+        wm!(W, ROPT)
+    };
+    ("9") => {
+        k!(Kc9)
+    };
+    ("8") => {
+        k!(Kc8)
+    };
+    ("7") => {
+        k!(Kc7)
+    };
+    ("6") => {
+        k!(Kc6)
+    };
+    ("5") => {
+        k!(Kc5)
+    };
+    ("4") => {
+        k!(Kc4)
+    };
+    ("°") => {
+        wm!(Kc8, ROPT.bitor(RSFT))
+    };
+    ("∑") => {
+        wm!(W, ROPT)
+    };
+    ("+|-") => {
+        mt!(KpPlus, LSFT)
+    };
+    ("3|l⌃") => {
+        mt!(Kc3, LCTL)
+    };
+    ("2|l⎇") => {
+        mt!(Kc2, LOPT)
+    };
+    ("1|l⌘") => {
+        mt!(Kc1, LCMD)
+    };
+    ("0|l⇧") => {
+        mt!(Kc0, LSFT)
+    };
+    (".|r⇧") => {
+        mt!(Dot, RSFT)
+    };
+    ("A|r⌘") => {
+        mt!(A, RCMD)
+    };
+    ("E|r⎇") => {
+        mt!(E, ROPT)
+    };
+    ("I|r⌃") => {
+        mt!(I, RCTL)
+    };
+    ("H|r⇧") => {
+        mt!(H, RSFT)
+    };
+    ("§") => {
+        wm!(Kc6, ROPT)
+    };
+    ("%") => {
+        shifted!(Kc5)
+    };
+    ("≤") => {
+        wm!(Comma, ROPT)
+    };
+    ("≥") => {
+        wm!(Dot, ROPT)
+    };
+    ("#") => {
+        shifted!(Kc3)
+    };
+    ("=|^") => {
+        k!(KpEqual)
+    };
+    ("_") => {
+        shifted!(Minus)
+    };
+    ("µ") => {
+        wm!(M, ROPT)
+    };
+    ("±") => {
+        wm!(Equal, ROPT.bitor(RSFT))
+    };
+    ("≈") => {
+        wm!(X, ROPT)
+    };
+    ("≠") => {
+        wm!(Equal, ROPT)
+    };
+    ("←") => {
+        k!(Left)
+    };
+    ("↑") => {
+        k!(UP)
+    };
+    ("↓") => {
+        k!(Down)
+    };
+    ("→") => {
+        k!(Right)
+    };
+    ("^") => {
+        wm!(I, LOPT)
+    };
+    ("`") => {
+        k!(GraveEscape)
+    };
+    ("?") => {
+        shifted!(Minus)
+    };
+    ("{|}") => {
+        shifted!(LeftBracket)
+    };
+    ("[|]") => {
+        k!(LeftBracket)
+    };
+    ("(|)") => {
+        shifted!(Kc9)
+    };
+    ("<|>") => {
+        shifted!(Comma)
+    };
+    ("F⌫") => {
+        wm!(D, LCTL)
+    };
+    ("!") => {
+        shifted!(Kc1)
+    };
+    ("@") => {
+        shifted!(Kc2)
+    };
+    ("=") => {
+        k!(Equal)
+    };
+    ("&") => {
+        shifted!(Kc7)
+    };
+    ("#") => {
+        shifted!(Kc3)
+    };
+    ("~") => {
+        wm!(N, LOPT)
+    };
+    ("$") => {
+        shifted!(Kc4)
+    };
+    ("∖") => {
+        k!(Backslash)
+    };
+    ("-") => {
+        k!(Minus)
+    };
+    ("€") => {
+        wm!(Kc2, RSFT.bitor(ROPT))
+    };
+    // find all
+    ("🔎∗") => {
+        wm!(F, LCMD.bitor(LSFT))
+    };
+    // find
+    ("🔎") => {
+        wm!(F, LSFT)
+    };
+    // redo
+    ("↷") => {
+        wm!(Z, LCMD.bitor(LSFT))
+    };
+    // undo
+    ("↶") => {
+        wm!(Z, LCMD)
+    };
+    // switch App
+    ("⇨⧉") => {
+        wm!(Tab, LCMD)
+    };
+    ("🔉") => {
+        k!(KbVolumeDown)
+    };
+    ("🔇") => {
+        k!(KbMute)
+    };
+    ("🔊") => {
+        k!(KbVolumeUp)
+    };
+    ("🔅") => {
+        k!(BrightnessDown)
+    };
+    ("🔆") => {
+        k!(BrightnessUp)
+    };
+    //├─────────┼─────┼─────┼─────┼─────────┤├──────┼──────┼─────┼────────┼───────┤
+    // SelectAll  cut  copy  paste pasteHist <-space <-win  winMid  win->  space->
+    // select all
+    ("✔*") => {
+        wm!(A, LCMD)
+    };
+    ("✂") => {
+        wm!(X, LCMD)
+    };
+    ("⧉") => {
+        wm!(C, LCMD)
+    };
+    ("📋") => {
+        wm!(V, LCMD)
+    };
+    ("📋*") => {
+        wm!(V, LCMD.bitor(LSFT))
+    };
+    // Switch to left desktop
+    ("🖥️⬅") => {
+        wm!(Left, RCTL)
+    };
+    // place window left
+    ("⬅▢") => {
+        wm!(Left, RCTL.bitor(ROPT).bitor(RSFT))
+    };
+    // place window right
+    ("▢🡺") => {
+        wm!(Right, RCTL.bitor(ROPT).bitor(RSFT))
+    };
+    ("🡺🖥️") => {
+        wm!(Right, RCTL)
+    };
+    // findPrev
+    ("⇤🔍") => {
+        wm!(Enter, LSFT)
+    };
+    //fNext Enter  tab   switchWin   ESC   prev  play/pause next
+    ("🔎⇥") => {
+        wm!(N, LSFT)
+    };
+    ("↩") => {
+        k!(Enter)
+    };
+    ("⇥") => {
+        k!(Tab)
+    };
+    // switch windows
+    ("⇨▢") => {
+        wm!(Grave, LCMD)
+    };
+    ("⎋") => {
+        k!(Escape)
+    };
+    ("⏮") => {
+        k!(MediaPrevTrack)
+    };
+    ("⏯") => {
+        k!(MediaPlayPause)
+    };
+    ("⏭") => {
+        k!(MediaNextTrack)
+    };
+    // forward delete
+    // TODO implement fn key!
+    // ("⌦") => {
+    //   wm!(Backspace, _fn_)
+    // };
+    //
+    // Catch-all case to trigger compile-time error if the string doesn't match
+    ($key:expr) => {
+        compile_error!(concat!("Unmatched key: ", $key))
+    };
 }
 
-const ALPHA: u8 = 0;
-const NUM: u8 = 1;
-const SYM: u8 = 2;
-const CMD: u8 = 3;
-const CRD: u8 = 4;
+const XX: KeyAction = a!(No);
+const __: KeyAction = a!(Transparent);
 
 #[rustfmt::skip]
 pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
@@ -99,86 +426,76 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
     //  - CapsW for Chord using Bsp key
     // - Repeat Function
     // - HRM => `fn`-key (doesn't exist) (called 'globe' key, need to set vendor ID to apple)
-    //╭──────┬────────────┬────────────┬────────────┬────────────╮╭────────────────┬────────────┬────────────┬───────────┬───────╮
-      [ k!(W),   k!(F),       k!(M),       k!(P),        k!(V),       k!(Quote),       k!(Comma),     k!(G),      k!(J),     k!(Z)],
-    //├──────┼────────────┼────────────┼────────────┼────────────┤├────────────────┼────────────┼────────────┼───────────┼───────┤
-    // R|Lsft, S|Lctl       N|Lopt        T|Lcmd        B|sft         .|sft           A|Rcmd        E|Ropt      I|Rctl     H|Rsft
-      [ mt!(R, LSFT), mt!(S,LCTL), mt!(N,LOPT), mt!(T,LCMD), mt!(B, LSFT), mt!(Dot,RSFT), mt!(A,RCMD), mt!(E,ROPT), mt!(I,RCTL), mt!(H, RSFT)],
-    //├──────┼────────────┼────────────┼────────────┼────────────┤├────────────────┼────────────┼────────────┼───────────┼───────┤
-      [ k!(X), k!(C),       k!(L),       k!(D),       k!(Slash),    k!(Minus),       k!(U),       k!(O),       k!(Y),      k!(K)],            
-    //╰──────┴────────────┴─────────╮                            ││                             ╭────────────┴───────────┴───────╯
-    //                                NUM|Backspace   SYM|Again     CRD|Space        CMD|Enter
-      [a!(No),a!(No),a!(No), lt(NUM, KeyCode::Backspace),lt(SYM, KeyCode::Again), lt(CRD, KeyCode::Space), lt(CMD, KeyCode::Enter), a!(No),a!(No),a!(No)]
-    //                              ╰───────────────┴────────────╯╰────────────────┴────────────╯
+    //╭──────────┬───────────┬────────────┬───────────┬──────────────╮╭────────────┬───────────┬───────────┬───────────┬────────────╮
+      [ k!(W),     k!(F),      k!(M),       k!(P),      k!(V),          K!("'"),     K!(","),    k!(G),      k!(J),      k!(Z)     ],
+    //├──────────┼───────────┼────────────┼───────────┼──────────────┤├────────────┼───────────┼───────────┼───────────┼────────────┤
+      [K!("R|l⇧"), K!("S|l⌃"), K!("N|l⎇"), K!("T|l⌘"), K!("B|l⇧"),     K!(".|r⇧"),  K!("A|r⌘"), K!("E|r⎇"), K!("I|r⌃"), K!("H|r⇧")],
+    //├──────────┼───────────┼────────────┼───────────┼──────────────┤├────────────┼───────────┼───────────┼───────────┼────────────┤
+      [ k!(X),     k!(C),      k!(L),       k!(D),      K!("/"),        K!("-"),     k!(U),      k!(O),      k!(Y),      k!(K)     ],            
+    //╰──────────┴───────────┴────────────╮                          ││                         ╭──────────┴───────────┴────────────╯
+      [ XX,        XX,         XX,          K!("␣"),    K!("🔁|🅛SYM"),  K!("␣|🅛⇉"), K!("⏎|🅛⌘"), XX,        XX,         XX        ]
+    //                                    ╰───────────┴──────────────╯╰────────────┴────────────╯
   ]),
   layer!([// NUM
     // TODO thumb keys
     // TODO HRM right side -> doesn't work with shifted keys! Macros?
     // TODO change to unicode symmbols once Macros are working
-    //╭─────┬─────┬─────┬─────┬─────╮╭─────┬─────┬─────┬────┬─────╮
-    //  *|/    9     8     7     ,      '     !           ˚    ∑
-    [k!(KpAsterisk), k!(Kc9), k!(Kc8), k!(Kc7), k!(KpComma), k!(Quote), shifted!(Kc1), a!(No), wm!(K, ROPT), wm!(W, ROPT)],
-    //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
-    //  +|-    3     2     1     0      §     %     ≤     ≥    #
-    [mt!(KpPlus, LSFT), mt!(Kc3,LCTL), mt!(Kc2,LOPT), mt!(Kc1,LCMD), mt!(Kc0,LSFT), wm!(Kc6, ROPT), shifted!(Kc5), wm!(Comma, ROPT), wm!(Dot, ROPT), shifted!(Kc3)],
-    //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
-    //  =|^    6     5     4     .      _     µ     ±     ≈     ≠      
-    [k!(KpEqual), k!(Kc6), k!(Kc5),k!(Kc4), k!(KpDot),  shifted!(Minus), wm!(M, ROPT), wm!(Equal, ROPT.bitor(RSFT)), wm!(X, ROPT), wm!(Equal, ROPT)],
-    //╰──────┴────────────┴────────────╮                         ││                             ╭────────────┴───────────┴───────╯
-    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
-    //                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
+    //╭─────────┬───────────┬────────────┬───────────┬───────────╮╭────────┬────────┬────────┬────────┬─────────╮
+      [K!("*|/"), K!("9"),    K!("8"),     K!("7"),    K!(","),     K!("'"), K!("!"), __,      K!("°"), K!("∑")],
+    //├─────────┼───────────┼────────────┼───────────┼───────────┤├────────┼────────┼────────┼────────┼─────────┤
+      [K!("+|-"), K!("3|l⌃"), K!("2|l⎇"), K!("1|l⌘"), K!("0|l⇧"),  K!("§"), K!("%"), K!("≤"), K!("≥"), K!("#")],
+    //├─────────┼───────────┼────────────┼───────────┼───────────┤├────────┼────────┼────────┼────────┼─────────┤
+      [K!("=|^"), K!("6"),    K!("5"),     K!("4"),    K!("."),     K!("_"), K!("µ"), K!("±"), K!("≈"), K!("≠")],
+    //╰─────────┴───────────┴────────────╮                       ││                 ╭────────┴────────┴─────────╯
+      [__,        __,         __,           __,        __,          __,      __,      __,      __,      __     ]
+    //                                   ╰───────────┴───────────╯╰────────┴────────╯
   ]),
   layer!([//SYM
     // TODO HRM
-    //╭─────┬─────┬─────┬─────┬─────╮╭─────┬─────┬─────┬────┬─────╮
-    //  <--    ^|    v|   -->    ^      `     ?
-    [k!(Left), k!(UP), k!(Down), k!(Right), wm!(I, LOPT), k!(GraveEscape), shifted!(Minus), a!(Transparent), a!(Transparent), a!(Transparent)],
-    //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
-    //  {|}   [|]   (|)   <|>   F⌫      !     @     =     &    #
-    [shifted!(LeftBracket), k!(LeftBracket), shifted!(Kc9), shifted!(Comma), wm!(D, LCTL), shifted!(Kc1), shifted!(Kc2), k!(Equal), shifted!(Kc7), shifted!(Kc3)],
-    //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
-    //               ~     $     \      -     €
-    [a!(Transparent), a!(Transparent), wm!(N, LOPT), shifted!(Kc4), k!(Backslash), k!(Minus), wm!(Kc2, RSFT.bitor(ROPT)), a!(Transparent), a!(Transparent), a!(Transparent)],
-    //╰──────┴────────────┴────────────╮                         ││                             ╭────────────┴───────────┴───────╯
-    [a!(Transparent), a!(Transparent), a!(Transparent), k!(S), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
-    //                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
+    //╭─────────┬──────────┬──────────┬──────────┬─────────╮╭───────┬────────┬────────┬────────┬─────────╮
+      [ K!("←"),  K!("↑"),   K!("↓"),   K!("→"),   K!("^"),  K!("`"), K!("?"), K!("▼"), K!("▼"), K!("▼")],
+    //├─────────┼──────────┼──────────┼──────────┼─────────┤├───────┼────────┼────────┼────────┼─────────┤
+      [K!("{|}"), K!("[|]"), K!("(|)"), K!("<|>"), K!("F⌫"), K!("!"), K!("@"), K!("="), K!("&"), K!("#")],
+    //├─────────┼──────────┼──────────┼──────────┼─────────┤├───────┼────────┼────────┼────────┼─────────┤
+      [__,        __,        K!("~"),   K!("$"),   K!("∖"), K!("-"), K!("€"), __,      __,      __      ],
+    //╰─────────┴──────────┴──────────╮                    ││                ╭────────┴────────┴─────────╯
+      [__,        __,        __,        k!(S),     __,       __,      __,      __,      __,      __     ]
+    //                                 ╰─────────┴─────────╯╰───────┴────────╯
   ]),
   layer!([//CMD
     // TODO think of Window mid
     // HRM with OSM on CRD layer?
-    //╭─────────┬─────┬─────┬─────┬─────────╮╭──────┬──────┬─────┬────────┬───────╮
-    //  FindAll  find  redo  undo  switchApp  Vol-    Mute  Vol+  Bright-  Bright+   
-    [wm!(F,LCMD.bitor(LSFT)), wm!(F,LSFT), wm!(Z, LCMD.bitor(LSFT)), wm!(Z,LCMD), wm!(Tab,LCMD), k!(KbVolumeDown), k!(KbMute), k!(KbVolumeUp), k!(BrightnessDown), k!(BrightnessUp)],
-    //├─────────┼─────┼─────┼─────┼─────────┤├──────┼──────┼─────┼────────┼───────┤
-    // SelectAll  cut  copy  paste pasteHist <-space <-win  winMid  win->  space->
-    [wm!(A, LCMD), wm!(X, LCMD), wm!(C,LCMD), wm!(V,LCMD), wm!(V, LCMD.bitor(LSFT)), wm!(Left, RCTL), wm!(Left, RCTL.bitor(ROPT).bitor(RSFT)), a!(Transparent), wm!(Right, RCTL.bitor(ROPT).bitor(RSFT)), wm!(Right, RCTL)],
-    //├─────────┼─────┼─────┼─────┼─────────┤├──────┼──────┼─────┼────────┼───────┤
-    // findPrev  fNext Enter  tab   switchWin   ESC   prev  play/pause next
-    [wm!(Enter, LSFT), wm!(N, LSFT), k!(Enter), k!(Tab), wm!(Grave, LCMD), k!(Escape), k!(MediaPrevTrack), k!(MediaPlayPause), k!(MediaNextTrack), a!(Transparent)],
-    //╰──────┴────────────┴────────────╮                         ││                             ╭────────────┴───────────┴───────╯
-    [a!(Transparent), a!(Transparent), a!(Transparent), k!(M), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
-    //                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
-  ]),
+    //╭─────────┬──────────┬────────┬──────────┬─────────╮╭──────────┬──────────┬─────────┬──────────┬───────────╮
+      [K!("🔎∗"), K!("🔎"),  K!("↷"), K!("↶"),  K!("⇨⧉"),  K!("🔉"),  K!("🔇"),  K!("🔊"), K!("🔅"),  K!("🔆")], 
+    //├─────────┼──────────┼────────┼──────────┼─────────┤├──────────┼──────────┼─────────┼──────────┼───────────┤
+      [K!("✔*"), K!("✂"),    K!("⧉"), K!("📋"), K!("📋*"), K!("🖥️⬅"), K!("⬅▢"), __,       K!("▢🡺"), K!("🡺🖥️")],
+    //├─────────┼──────────┼────────┼──────────┼─────────┤├──────────┼──────────┼─────────┼──────────┼───────────┤
+      [K!("⇤🔍"), K!("🔎⇥"), K!("↩"), K!("⇥"),  K!("⇨▢"),   K!("⎋"),   K!("⏮"),  K!("⏯"),  K!("⏭"),  __],   
+    //╰─────────┴──────────┴────────╮                    ││                     ╭─────────┴──────────┴───────────╯
+      [__, __, __, __, __, __, __, __, __, __]
+    //                              ╰──────────┴─────────╯╰──────────┴──────────╯
+    ]),
   layer!([//CRD
     //╭─────┬─────┬─────┬─────┬─────╮╭─────┬─────┬─────┬────┬─────╮
-    [k!(C), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    [k!(C), __, __, __, __, __, __, __, __, __],
     //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
     [osm!(LSFT), osm!(LCTL), osm!(LOPT), osm!(LCMD), osm!(LSFT), osm!(RSFT), osm!(RCMD), osm!(ROPT), osm!(RCTL), osm!(RSFT)],
     //├─────┼─────┼─────┼─────┼─────┤├─────┼─────┼─────┼────┼─────┤
-    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
+    [__, __, __, __, __, __, __, __, __, __],
     //╰──────┴────────────┴────────────╮                         ││                             ╭────────────┴───────────┴───────╯
-    [a!(Transparent), a!(Transparent), a!(Transparent), wm!(Backspace, ROPT), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
+    [__, __, __, wm!(Backspace, ROPT), __, __, __, __, __, __]
     //                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
   ]),
   layer!([//layer for VIAL modifications
-    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
-    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
-    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)],
-    [a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent), a!(Transparent)]
+    [__, __, __, __, __, __, __, __, __, __],
+    [__, __, __, __, __, __, __, __, __, __],
+    [__, __, __, __, __, __, __, __, __, __],
+    [__, __, __, __, __, __, __, __, __, __]
   ]),
   ]
 }
 
+/// combos
 pub(crate) fn get_combos() -> CombosConfig {
     CombosConfig {
         combos: Vec::from_slice(&[
@@ -190,23 +507,7 @@ pub(crate) fn get_combos() -> CombosConfig {
         timeout: Duration::from_millis(50),
     }
 }
-
-fn fork_alternative_shift(trigger: KeyAction, alternative: KeyAction) -> Fork {
-    Fork::new(
-        trigger,
-        trigger,
-        alternative,
-        StateBits::new_from(
-            HidModifiers::new_from(false, true, false, false, false, false, false, false),
-            LedIndicator::default(),
-            HidMouseButtons::default(),
-        ),
-        StateBits::default(),
-        HidModifiers::default(),
-        false,
-    )
-}
-
+/// forks
 pub(crate) fn get_forks() -> ForksConfig {
     ForksConfig {
         forks: Vec::from_slice(&[
@@ -228,22 +529,45 @@ pub(crate) fn get_forks() -> ForksConfig {
             fork_alternative_shift(shifted!(Kc9), shifted!(Kc0)),
             // < -> >
             fork_alternative_shift(shifted!(Comma), shifted!(Dot)),
-            // wBsp -> Bsp
-            // TODO not working, because lt and ht at the same time isn't possible
-            // Fork::new(
-            //     lt(KeyCode::Backspace, NUM),
-            //     wm!(Backspace, LOPT),
-            //     k!(Backspace),
-            //     StateBits::new_from(
-            //         H_LSFT.bitor(H_RSFT),
-            //         LedIndicator::default(),
-            //         HidMouseButtons::default(),
-            //     ),
-            //     StateBits::default(),
-            //     HidModifiers::from_bits(0b11111111),
-            //     false,
-            // ),
         ])
         .expect("Some fork is not valid"),
     }
+}
+
+/// modifiers
+const LCMD: ModifierCombination = ModifierCombination::new_from(false, true, false, false, false);
+const LOPT: ModifierCombination = ModifierCombination::new_from(false, false, true, false, false);
+const LSFT: ModifierCombination = ModifierCombination::new_from(false, false, false, true, false);
+const LCTL: ModifierCombination = ModifierCombination::new_from(false, false, false, false, true);
+const RCMD: ModifierCombination = ModifierCombination::new_from(true, true, false, false, false);
+const ROPT: ModifierCombination = ModifierCombination::new_from(true, false, true, false, false);
+const RSFT: ModifierCombination = ModifierCombination::new_from(true, false, false, true, false);
+const RCTL: ModifierCombination = ModifierCombination::new_from(true, false, false, false, true);
+
+/// lt! but using layer names
+const fn lt(layer: u8, key: KeyCode) -> KeyAction {
+    KeyAction::LayerTapHold(Action::Key(key), layer)
+}
+
+/// layer names
+const ALPHA: u8 = 0;
+const NUM: u8 = 1;
+const SYM: u8 = 2;
+const CMD: u8 = 3;
+const CRD: u8 = 4;
+
+fn fork_alternative_shift(trigger: KeyAction, alternative: KeyAction) -> Fork {
+    Fork::new(
+        trigger,
+        trigger,
+        alternative,
+        StateBits::new_from(
+            HidModifiers::new_from(false, true, false, false, false, false, false, false),
+            LedIndicator::default(),
+            HidMouseButtons::default(),
+        ),
+        StateBits::default(),
+        HidModifiers::default(),
+        false,
+    )
 }
