@@ -30,7 +30,6 @@ use rmk::{
     input_device::{
         adc::{AnalogEventType, NrfAdc},
         battery::BatteryProcessor,
-        rotary_encoder::{E8H7Phase, RotaryEncoder, RotaryEncoderProcessor},
         Runnable,
     },
     keyboard::Keyboard,
