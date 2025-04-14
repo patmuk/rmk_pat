@@ -3,6 +3,8 @@ use core::ops::BitOr;
 use embassy_time::Duration;
 use rmk::action::{Action, KeyAction};
 use rmk::combo::Combo;
+use rmk::config::keyboard_macros::keyboard_macro::{define_macro_sequences, MacroOperation};
+use rmk::config::keyboard_macros::macro_config::MACRO_SPACE_SIZE;
 use rmk::config::{CombosConfig, ForksConfig};
 use rmk::fork::{Fork, StateBits};
 use rmk::heapless::Vec;
@@ -501,15 +503,38 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
   ]
 }
 
+// use combo::COMBO_MAX_NUM;
 /// combos
 pub(crate) fn get_combos() -> CombosConfig {
+    // let combos = [Combo::empty(), COMBO_MAX_NUM];
+    // combos[0] = Combo::new([k!(W), k!(F)], k!(Q), Some(ALPHA));
+    // // CapsW
+    // combos[0] = Combo::new([mt!(B, LSFT), mt!(Dot, RSFT)], osm!(LSFT), None);
+
     CombosConfig {
+        // combos,
+        // combos: (&[
+        //     Combo::new([k!(W), k!(F)], k!(Q), Some(ALPHA)),
+        //     // CapsW
+        //     Combo::new([mt!(B, LSFT), mt!(Dot, RSFT)], osm!(LSFT), None),
+        // ])
+        //     .try_into()
+        //     .expect("Some combo is not valid"),
+
+        // combos: Vec::<_, COMBO_MAX_NUM>::from_slice(&[
+        //     Combo::new([k!(W), k!(F)], k!(Q), Some(ALPHA)),
+        //     // CapsW
+        //     Combo::new([mt!(B, LSFT), mt!(Dot, RSFT)], osm!(LSFT), None),
+        // ])
+        // .expect("More Combos than COMBO_MAX_NUM")
+        // .into_array()
+        // .unwrap(),
         combos: Vec::from_slice(&[
             Combo::new([k!(W), k!(F)], k!(Q), Some(ALPHA)),
             // CapsW
             Combo::new([mt!(B, LSFT), mt!(Dot, RSFT)], osm!(LSFT), None),
         ])
-        .expect("Some combo is not valid"),
+        .expect("too many combo definitions!"),
         timeout: Duration::from_millis(50),
     }
 }
@@ -538,6 +563,24 @@ pub(crate) fn get_forks() -> ForksConfig {
         ])
         .expect("Some fork is not valid"),
     }
+}
+
+pub(crate) fn get_macro_sequences() -> [u8; MACRO_SPACE_SIZE] {
+    define_macro_sequences(&[
+        Vec::from_slice(&[
+            MacroOperation::Text(KeyCode::H, true),
+            MacroOperation::Text(KeyCode::I, false),
+        ])
+        .expect("too many elements"),
+        Vec::from_slice(&[
+            MacroOperation::Press(KeyCode::LShift),
+            MacroOperation::Tap(KeyCode::P),
+            MacroOperation::Release(KeyCode::LShift),
+            MacroOperation::Tap(KeyCode::A),
+            MacroOperation::Tap(KeyCode::T),
+        ])
+        .expect("too many elements"),
+    ])
 }
 
 /// modifiers
