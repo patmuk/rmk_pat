@@ -192,7 +192,7 @@ async fn main(spawner: Spawner) {
         combo: keymap::get_combos(),
         tap_hold: TapHoldConfig {enable_hrm: true, ..Default::default()},
         fork: keymap::get_forks(),
-        macros: KeyboardMacrosConfig::new(keymap::get_macro_sequences()),
+        keyboard_macros: KeyboardMacrosConfig::new(keymap::get_macro_sequences()),
         ..Default::default()
     };
 
