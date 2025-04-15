@@ -1,10 +1,8 @@
 #![no_std]
 #![no_main]
 
-mod vial;
 #[macro_use]
 mod macros;
-mod keymap;
 
 use defmt::{info, unwrap};
 use embassy_executor::Spawner;
@@ -85,7 +83,8 @@ async fn main(spawner: Spawner) {
     nrf_config.dcdc.reg0 = true;
     nrf_config.dcdc.reg1 = true;
     let p = embassy_nrf::init(nrf_config);
-    let mpsl_p = mpsl::Peripherals::new(p.RTC0, p.TIMER0, p.TEMP, p.PPI_CH19, p.PPI_CH30, p.PPI_CH31);
+    let mpsl_p =
+        mpsl::Peripherals::new(p.RTC0, p.TIMER0, p.TEMP, p.PPI_CH19, p.PPI_CH30, p.PPI_CH31);
     let lfclk_cfg = mpsl::raw::mpsl_clock_lfclk_cfg_t {
         source: mpsl::raw::MPSL_CLOCK_LF_SRC_RC as u8,
         rc_ctiv: mpsl::raw::MPSL_RECOMMENDED_RC_CTIV as u8,
@@ -103,8 +102,8 @@ async fn main(spawner: Spawner) {
     )));
     spawner.must_spawn(mpsl_task(&*mpsl));
     let sdc_p = sdc::Peripherals::new(
-        p.PPI_CH17, p.PPI_CH18, p.PPI_CH20, p.PPI_CH21, p.PPI_CH22, p.PPI_CH23, p.PPI_CH24, p.PPI_CH25, p.PPI_CH26,
-        p.PPI_CH27, p.PPI_CH28, p.PPI_CH29,
+        p.PPI_CH17, p.PPI_CH18, p.PPI_CH20, p.PPI_CH21, p.PPI_CH22, p.PPI_CH23, p.PPI_CH24,
+        p.PPI_CH25, p.PPI_CH26, p.PPI_CH27, p.PPI_CH28, p.PPI_CH29,
     );
     let mut rng = rng::Rng::new(p.RNG, Irqs);
     let mut rng_generator = ChaCha12Rng::from_rng(&mut rng).unwrap();
@@ -139,7 +138,6 @@ async fn main(spawner: Spawner) {
         output: [P1_13, P1_15, P0_02, P1_11]);
 
     let central_addr = [0x18, 0xe2, 0x21, 0x80, 0xc0, 0xc7];
-
 
     // Initialize the peripheral matrix
     let debouncer = DefaultDebouncer::<5, 4>::new();
