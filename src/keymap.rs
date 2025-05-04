@@ -3,7 +3,9 @@ use core::ops::BitOr;
 use embassy_time::Duration;
 use rmk::action::{Action, KeyAction};
 use rmk::combo::Combo;
-use rmk::config::keyboard_macros::keyboard_macro::{define_macro_sequences, MacroOperation};
+use rmk::config::keyboard_macros::keyboard_macro::{
+    define_macro_sequences, to_macro_sequence, MacroOperation,
+};
 use rmk::config::keyboard_macros::macro_config::MACRO_SPACE_SIZE;
 use rmk::config::{CombosConfig, ForksConfig};
 use rmk::fork::{Fork, StateBits};
@@ -415,24 +417,20 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
              ╰─────╯ ╰─────╯
   */   
   layer!([// Alpha (Base)
-    // TODO
-    // - hold (layer switch)
-    //   - tri-layers
-    //   - mo_NUM + mo_SYM = mo CMD
-    //   - mo_CHORD + mo_CMD = mo FUN
-    //    - wrd_bsp+space = Backspace
-    //    - left outer thumb + right outer thumb = shift in CMD layer
-    // - combos -> need macros
-    //   - W+F = Qu
+    // - combos
     //   - S+E = ß
     //    - A+E = Ä
     //    - U+E = Ü
     //    - O+E = Ö
     //    - S+H = sch
+    //   - LSFT+RSFT = CapsWord
+    // TODO
+    // - hold (layer switch)
+    //   - tri-layers
+    //   - mo_NUM + mo_SYM = mo CMD
+    //   - mo_CHORD + mo_CMD = mo FUN
+    //    - left outer thumb + right outer thumb = shift in CMD layer
     //  == need RMK extension: 
-    // - CHORDS -> need macros
-    //  - CapsW for Chord using Bsp key
-    // - Repeat Function
     // - HRM => `fn`-key (doesn't exist) (called 'globe' key, need to set vendor ID to apple)
     //╭──────────┬───────────┬────────────┬───────────┬──────────────╮╭────────────┬───────────┬───────────┬───────────┬────────────╮
       [ k!(W),     k!(F),      k!(M),       k!(P),      k!(V),          K!("'"),     K!(","),    k!(G),      k!(J),      k!(Z)     ],
@@ -503,41 +501,68 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
   ]
 }
 
-// use combo::COMBO_MAX_NUM;
-/// combos
 pub(crate) fn get_combos() -> CombosConfig {
-    // let combos = [Combo::empty(), COMBO_MAX_NUM];
-    // combos[0] = Combo::new([k!(W), k!(F)], k!(Q), Some(ALPHA));
-    // // CapsW
-    // combos[0] = Combo::new([mt!(B, LSFT), mt!(Dot, RSFT)], osm!(LSFT), None);
-
     CombosConfig {
-        // combos,
-        // combos: (&[
-        //     Combo::new([k!(W), k!(F)], k!(Q), Some(ALPHA)),
-        //     // CapsW
-        //     Combo::new([mt!(B, LSFT), mt!(Dot, RSFT)], osm!(LSFT), None),
-        // ])
-        //     .try_into()
-        //     .expect("Some combo is not valid"),
-
-        // combos: Vec::<_, COMBO_MAX_NUM>::from_slice(&[
-        //     Combo::new([k!(W), k!(F)], k!(Q), Some(ALPHA)),
-        //     // CapsW
-        //     Combo::new([mt!(B, LSFT), mt!(Dot, RSFT)], osm!(LSFT), None),
-        // ])
-        // .expect("More Combos than COMBO_MAX_NUM")
-        // .into_array()
-        // .unwrap(),
         combos: Vec::from_slice(&[
-            Combo::new([k!(W), k!(F)], k!(Q), Some(ALPHA)),
+            // W + F -> qu
+            // use with LSFT + RSFT -> Qu
+            Combo::new([k!(W), k!(F)], k!(Macro0), Some(ALPHA)),
             // CapsW
             Combo::new([mt!(B, LSFT), mt!(Dot, RSFT)], osm!(LSFT), None),
+            // S + E -> ß
+            Combo::new([K!("S|l⌃"), K!("E|r⎇")], wm!(S, LOPT), Some(ALPHA)),
+            // A + E -> ä
+            Combo::new([K!("A|r⌘"), K!("E|r⎇")], k!(Macro1), Some(ALPHA)),
+            // O + E -> ö
+            Combo::new([k!(O), K!("E|r⎇")], k!(Macro2), Some(ALPHA)),
+            // U + E -> ü
+            Combo::new([k!(U), K!("E|r⎇")], k!(Macro3), Some(ALPHA)),
+            // S + H -> sch
+            Combo::new([K!("S|l⌃"), K!("H|r⇧")], k!(Macro4), Some(ALPHA)),
         ])
         .expect("too many combo definitions!"),
         timeout: Duration::from_millis(50),
     }
 }
+
+pub(crate) fn get_macro_sequences() -> [u8; MACRO_SPACE_SIZE] {
+    define_macro_sequences(&[
+        Vec::from_slice(&[
+            MacroOperation::Tap(KeyCode::Q),
+            MacroOperation::Text(KeyCode::U, false),
+        ])
+        .expect("too many elements"),
+        Vec::from_slice(&[
+            MacroOperation::Press(KeyCode::LAlt),
+            MacroOperation::Tap(KeyCode::U),
+            MacroOperation::Release(KeyCode::LAlt),
+            MacroOperation::Tap(KeyCode::A),
+        ])
+        .expect("too many elements"),
+        Vec::from_slice(&[
+            MacroOperation::Press(KeyCode::LAlt),
+            MacroOperation::Tap(KeyCode::U),
+            MacroOperation::Release(KeyCode::LAlt),
+            MacroOperation::Tap(KeyCode::O),
+        ])
+        .expect("too many elements"),
+        Vec::from_slice(&[
+            MacroOperation::Press(KeyCode::LAlt),
+            MacroOperation::Tap(KeyCode::U),
+            MacroOperation::Release(KeyCode::LAlt),
+            MacroOperation::Tap(KeyCode::U),
+        ])
+        .expect("too many elements"),
+        Vec::from_slice(&[
+            MacroOperation::Tap(KeyCode::S),
+            MacroOperation::Text(KeyCode::C, false),
+            MacroOperation::Text(KeyCode::H, false),
+        ])
+        .expect("too many elements"),
+        // to_macro_sequence("sch"),
+    ])
+}
+
 /// forks
 pub(crate) fn get_forks() -> ForksConfig {
     ForksConfig {
@@ -561,26 +586,8 @@ pub(crate) fn get_forks() -> ForksConfig {
             // < -> >
             fork_alternative_shift(shifted!(Comma), shifted!(Dot)),
         ])
-        .expect("Some fork is not valid"),
+        .expect("error defining forks"),
     }
-}
-
-pub(crate) fn get_macro_sequences() -> [u8; MACRO_SPACE_SIZE] {
-    define_macro_sequences(&[
-        Vec::from_slice(&[
-            MacroOperation::Text(KeyCode::H, true),
-            MacroOperation::Text(KeyCode::I, false),
-        ])
-        .expect("too many elements"),
-        Vec::from_slice(&[
-            MacroOperation::Press(KeyCode::LShift),
-            MacroOperation::Tap(KeyCode::P),
-            MacroOperation::Release(KeyCode::LShift),
-            MacroOperation::Tap(KeyCode::A),
-            MacroOperation::Tap(KeyCode::T),
-        ])
-        .expect("too many elements"),
-    ])
 }
 
 /// modifiers
