@@ -22,7 +22,7 @@ use rand_chacha::ChaCha12Rng;
 use rand_core::SeedableRng;
 use rmk::ble::trouble::build_ble_stack;
 use rmk::channel::EVENT_CHANNEL;
-use rmk::config::keyboard_macros::macro_config::KeyboardMacrosConfig;
+use rmk::keyboard_macros::macro_config::KeyboardMacrosConfig;
 use rmk::config::{BehaviorConfig, BleBatteryConfig, ControllerConfig, KeyboardUsbConfig, RmkConfig, StorageConfig, TapHoldConfig, VialConfig};
 use rmk::debounce::default_debouncer::DefaultDebouncer;
 use rmk::futures::future::{join, join4};
@@ -31,6 +31,7 @@ use rmk::input_device::adc::{AnalogEventType, NrfAdc};
 use rmk::input_device::battery::BatteryProcessor;
 use rmk::keyboard::Keyboard;
 use rmk::light::LightController;
+use rmk::split::ble::central::read_peripheral_addresses;
 use rmk::split::central::{CentralMatrix, run_peripheral_manager};
 use rmk::{initialize_keymap_and_storage, run_devices, run_processor_chain, run_rmk, HostResources};
 use static_cell::StaticCell;
@@ -89,6 +90,14 @@ fn init_adc(adc_pin: AnyInput, adc: Peri<'static, SAADC>) -> Saadc<'static, 1> {
     saadc
 }
 
+// fn ble_addr() -> [u8; 6] {
+//     let ficr = embassy_nrf::pac::FICR;
+//     let high = u64::from(ficr.deviceid(1).read());
+//     let addr = high << 32 | u64::from(ficr.deviceid(0).read());
+//     let addr = addr | 0x0000_c000_0000_0000;
+//     unwrap!(addr.to_le_bytes()[..6].try_into())
+// }
+
 #[embassy_executor::main]
 async fn main(spawner: Spawner) {
     info!("Hello RMK BLE!");
@@ -123,11 +132,11 @@ async fn main(spawner: Spawner) {
     let mut rng_gen = ChaCha12Rng::from_rng(&mut rng).unwrap();
     let mut sdc_mem = sdc::Mem::<8192>::new();
     let sdc = unwrap!(build_sdc(sdc_p, &mut rng, mpsl, &mut sdc_mem));
+    let mut host_resources = HostResources::new();
+    // let stack = build_ble_stack(sdc, ble_addr(), &mut rng_gen, &mut host_resources).await;
     let central_addr = [0x18, 0xe2, 0x21, 0x80, 0xc0, 0xc7];
     let peripheral_addr = [0x7e, 0xfe, 0x73, 0x9e, 0x66, 0xe3];
-    let mut host_resources = HostResources::new();
     let stack = build_ble_stack(sdc, central_addr, &mut rng_gen, &mut host_resources).await;
-
     // Initialize usb driver
     let driver = Driver::new(p.USBD, Irqs, HardwareVbusDetect::new(Irqs));
 
@@ -182,7 +191,6 @@ async fn main(spawner: Spawner) {
         vial_config,
         ble_battery_config,
         storage_config,
-        ..Default::default()
     };
 
     // Initialze keyboard stuffs
@@ -192,7 +200,7 @@ async fn main(spawner: Spawner) {
         combo: keymap::get_combos(),
         tap_hold: TapHoldConfig {enable_hrm: true, ..Default::default()},
         fork: keymap::get_forks(),
-        keyboard_macros: KeyboardMacrosConfig::new(keymap::get_macro_sequences()),
+        keyboard_macros: KeyboardMacrosConfig::new(keymap::keymap_macros::get_macro_sequences()),
         ..Default::default()
     };
 
@@ -209,10 +217,13 @@ async fn main(spawner: Spawner) {
     let mut matrix = CentralMatrix::<_, _, _, 0, 0, 5, 4>::new(input_pins, output_pins, debouncer);
     let mut keyboard = Keyboard::new(&keymap);
 
+    // Read peripheral address from storage
+    let peripheral_addrs = read_peripheral_addresses::<1, _, {keymap::ROW}, {keymap::COL}, {keymap::NUM_LAYER}, 0>(&mut storage).await;
+
     // Initialize the light controller
     let mut light_controller: LightController<Output> = LightController::new(ControllerConfig::default().light_config);
 
-    let mut adc_device = NrfAdc::new(saadc, [AnalogEventType::Battery], 12000, None);
+    let mut adc_device = NrfAdc::new(saadc, [AnalogEventType::Battery], embassy_time::Duration::from_secs(12), None);
     let mut batt_proc = BatteryProcessor::new(2000, 2806, &keymap);
 
     // Start
@@ -225,7 +236,8 @@ async fn main(spawner: Spawner) {
         },
         keyboard.run(),
         join(
-            run_peripheral_manager::<4, 5, 0, 5, _>(0, peripheral_addr, &stack),
+            // run_peripheral_manager::<4, 5, 0, 5, _>(0, peripheral_addrs[0], &stack),
+            run_peripheral_manager::<4, 5, 0, 5, _>(0, Some(peripheral_addr), &stack),
             run_rmk(&keymap, driver, &stack, &mut storage, &mut light_controller, rmk_config),
         ),
     )
