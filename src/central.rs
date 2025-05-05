@@ -22,7 +22,7 @@ use rand_chacha::ChaCha12Rng;
 use rand_core::SeedableRng;
 use rmk::ble::trouble::build_ble_stack;
 use rmk::channel::EVENT_CHANNEL;
-use rmk::keyboard_macros::macro_config::KeyboardMacrosConfig;
+use rmk::config::macro_config::KeyboardMacrosConfig;
 use rmk::config::{BehaviorConfig, BleBatteryConfig, ControllerConfig, KeyboardUsbConfig, RmkConfig, StorageConfig, TapHoldConfig, VialConfig};
 use rmk::debounce::default_debouncer::DefaultDebouncer;
 use rmk::futures::future::{join, join4};
@@ -31,7 +31,7 @@ use rmk::input_device::adc::{AnalogEventType, NrfAdc};
 use rmk::input_device::battery::BatteryProcessor;
 use rmk::keyboard::Keyboard;
 use rmk::light::LightController;
-use rmk::split::ble::central::read_peripheral_addresses;
+// use rmk::split::ble::central::read_peripheral_addresses;
 use rmk::split::central::{CentralMatrix, run_peripheral_manager};
 use rmk::{initialize_keymap_and_storage, run_devices, run_processor_chain, run_rmk, HostResources};
 use static_cell::StaticCell;
@@ -191,6 +191,7 @@ async fn main(spawner: Spawner) {
         vial_config,
         ble_battery_config,
         storage_config,
+        ..Default::default()
     };
 
     // Initialze keyboard stuffs
@@ -218,12 +219,13 @@ async fn main(spawner: Spawner) {
     let mut keyboard = Keyboard::new(&keymap);
 
     // Read peripheral address from storage
-    let peripheral_addrs = read_peripheral_addresses::<1, _, {keymap::ROW}, {keymap::COL}, {keymap::NUM_LAYER}, 0>(&mut storage).await;
+    // let peripheral_addrs = read_peripheral_addresses::<1, _, {keymap::ROW}, {keymap::COL}, {keymap::NUM_LAYER}, 0>(&mut storage).await;
 
     // Initialize the light controller
     let mut light_controller: LightController<Output> = LightController::new(ControllerConfig::default().light_config);
 
-    let mut adc_device = NrfAdc::new(saadc, [AnalogEventType::Battery], embassy_time::Duration::from_secs(12), None);
+    // let mut adc_device = NrfAdc::new(saadc, [AnalogEventType::Battery], embassy_time::Duration::from_secs(12), None);
+    let mut adc_device = NrfAdc::new(saadc, [AnalogEventType::Battery], 1200, None);
     let mut batt_proc = BatteryProcessor::new(2000, 2806, &keymap);
 
     // Start
@@ -237,7 +239,8 @@ async fn main(spawner: Spawner) {
         keyboard.run(),
         join(
             // run_peripheral_manager::<4, 5, 0, 5, _>(0, peripheral_addrs[0], &stack),
-            run_peripheral_manager::<4, 5, 0, 5, _>(0, Some(peripheral_addr), &stack),
+            // run_peripheral_manager::<4, 5, 0, 5, _>(0, Some(peripheral_addr), &stack),
+            run_peripheral_manager::<4, 5, 0, 5, _>(0, peripheral_addr, &stack),
             run_rmk(&keymap, driver, &stack, &mut storage, &mut light_controller, rmk_config),
         ),
     )

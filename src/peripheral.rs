@@ -23,7 +23,7 @@ use rmk::debounce::default_debouncer::DefaultDebouncer;
 use rmk::futures::future::join;
 use rmk::matrix::Matrix;
 use rmk::split::peripheral::run_rmk_split_peripheral;
-use rmk::storage::new_storage_for_split_peripheral;
+// use rmk::storage::new_storage_for_split_peripheral;
 use rmk::{run_devices, HostResources};
 use static_cell::StaticCell;
 use {defmt_rtt as _, panic_probe as _};
@@ -148,18 +148,20 @@ async fn main(spawner: Spawner) {
         ..Default::default()
     };
     let flash = Flash::take(mpsl, p.NVMC);
-    let mut storage = new_storage_for_split_peripheral(flash, storage_config).await;
+    // let mut storage = new_storage_for_split_peripheral(flash, storage_config).await;
 
     // Initialize the peripheral matrix
     let debouncer = DefaultDebouncer::<5, 4>::new();
     let mut matrix = Matrix::<_, _, _, 5, 4>::new(input_pins, output_pins, debouncer);
 
+    let central_addr = [0x18, 0xe2, 0x21, 0x80, 0xc0, 0xc7];
     // Start
     join(
         run_devices! (
             (matrix) => EVENT_CHANNEL, // Peripheral uses EVENT_CHANNEL to send events to central
         ),
-        run_rmk_split_peripheral(0, &stack, &mut storage),
+        run_rmk_split_peripheral(central_addr, &stack),
+        // run_rmk_split_peripheral(0, &stack, &mut storage),
     )
     .await;
 }

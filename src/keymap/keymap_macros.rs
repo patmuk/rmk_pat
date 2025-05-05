@@ -1,5 +1,5 @@
 use rmk::heapless::Vec;
-use rmk::keyboard_macros::keyboard_macro::{define_macro_sequences, MacroOperation};
+use rmk::keyboard_macros::{define_macro_sequences, MacroOperation};
 // use rmk::MACRO_SPACE_SIZE;
 
 use rmk::keycode::KeyCode;
