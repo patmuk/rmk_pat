@@ -38,7 +38,7 @@ use static_cell::StaticCell;
 use vial::{VIAL_KEYBOARD_DEF, VIAL_KEYBOARD_ID};
 use {defmt_rtt as _, panic_probe as _};
 
-use keymap::NUM_LAYER;
+use keymap::{COL, NUM_LAYER, ROW};
 
 bind_interrupts!(struct Irqs {
     USBD => usb::InterruptHandler<USBD>;
@@ -218,7 +218,7 @@ async fn main(spawner: Spawner) {
     let mut keyboard = Keyboard::new(&keymap);
 
     // Read peripheral address from storage
-    let peripheral_addrs = read_peripheral_addresses::<1, _, 4, 10, NUM_LAYER, 0>(&mut storage).await;
+    let peripheral_addrs = read_peripheral_addresses::<1, _, ROW, COL, NUM_LAYER, 0>(&mut storage).await;
 
     // Initialize the light controller
     let mut light_controller: LightController<Output> = LightController::new(ControllerConfig::default().light_config);
@@ -241,7 +241,7 @@ async fn main(spawner: Spawner) {
         },
         keyboard.run(),
         join(
-            run_peripheral_manager::<4, 10, 0, 5, _>(0, peripheral_addrs[0], &stack),
+            run_peripheral_manager::<ROW, COL, 0, 5, _>(0, peripheral_addrs[0], &stack),
             run_rmk(&keymap, driver, &stack, &mut storage, &mut light_controller, rmk_config),
         ),
     )
