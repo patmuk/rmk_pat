@@ -23,7 +23,7 @@ use rmk::debounce::default_debouncer::DefaultDebouncer;
 use rmk::futures::future::join;
 use rmk::matrix::Matrix;
 use rmk::split::peripheral::run_rmk_split_peripheral;
-// use rmk::storage::new_storage_for_split_peripheral;
+use rmk::storage::new_storage_for_split_peripheral;
 use rmk::{run_devices, HostResources};
 use static_cell::StaticCell;
 use {defmt_rtt as _, panic_probe as _};
@@ -77,6 +77,14 @@ fn init_adc(adc_pin: AnyInput, adc: Peri<'static, SAADC>) -> Saadc<'static, 1> {
     saadc
 }
 
+fn ble_addr() -> [u8; 6] {
+    let ficr = embassy_nrf::pac::FICR;
+    let high = u64::from(ficr.deviceid(1).read());
+    let addr = high << 32 | u64::from(ficr.deviceid(0).read());
+    let addr = addr | 0x0000_c000_0000_0000;
+    unwrap!(addr.to_le_bytes()[..6].try_into())
+}
+
 #[embassy_executor::main]
 async fn main(spawner: Spawner) {
     info!("Hello RMK BLE!");
@@ -113,9 +121,8 @@ async fn main(spawner: Spawner) {
     let mut sdc_mem = sdc::Mem::<4096>::new();
     let sdc = unwrap!(build_sdc(sdc_p, &mut rng, mpsl, &mut sdc_mem));
 
-    let peripheral_addr = [0x7e, 0xfe, 0x73, 0x9e, 0x66, 0xe3];
     let mut resources = HostResources::new();
-    let stack = build_ble_stack(sdc, peripheral_addr, &mut rng_generator, &mut resources).await;
+    let stack = build_ble_stack(sdc, ble_addr(), &mut rng_generator, &mut resources).await;
 
     // Initialize the ADC. We are only using one channel for detecting battery level
     let adc_pin = p.P0_05.degrade_saadc();
@@ -145,23 +152,23 @@ async fn main(spawner: Spawner) {
     let storage_config = StorageConfig {
         start_addr: 0x60000, // 384K
         num_sectors: 32,     // 128K
+        clear_storage: true,
         ..Default::default()
     };
     let flash = Flash::take(mpsl, p.NVMC);
-    // let mut storage = new_storage_for_split_peripheral(flash, storage_config).await;
+    let mut storage = new_storage_for_split_peripheral(flash, storage_config).await;
 
     // Initialize the peripheral matrix
     let debouncer = DefaultDebouncer::<5, 4>::new();
     let mut matrix = Matrix::<_, _, _, 5, 4>::new(input_pins, output_pins, debouncer);
+    // let mut matrix = rmk::matrix::TestMatrix::<4, 7>::new();
 
-    let central_addr = [0x18, 0xe2, 0x21, 0x80, 0xc0, 0xc7];
     // Start
     join(
         run_devices! (
             (matrix) => EVENT_CHANNEL, // Peripheral uses EVENT_CHANNEL to send events to central
         ),
-        run_rmk_split_peripheral(central_addr, &stack),
-        // run_rmk_split_peripheral(0, &stack, &mut storage),
+        run_rmk_split_peripheral(0, &stack, &mut storage),
     )
     .await;
 }

@@ -3,7 +3,7 @@ use rmk::{a, action::KeyAction};
 /// key shortcuts
 macro_rules! K {
     ("␣") => {
-        lt(NUM, KeyCode::Backspace)
+        k!(Space)
     };
     (",") => {
         k!(Comma)
@@ -60,7 +60,7 @@ macro_rules! K {
         wm!(Backspace, ROPT)
     };
     ("⌫|🅛NUM") => {
-        lt(Num, KeyCode::Backspace)
+        lt(NUM, KeyCode::Backspace)
     };
     ("🔁|🅛SYM") => {
         lt(SYM, KeyCode::Again)
