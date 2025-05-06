@@ -80,7 +80,7 @@ fn init_adc(adc_pin: AnyInput, adc: Peri<'static, SAADC>) -> Saadc<'static, 1> {
 fn ble_addr() -> [u8; 6] {
     let ficr = embassy_nrf::pac::FICR;
     let high = u64::from(ficr.deviceid(1).read());
-    let addr = high << 32 | u64::from(ficr.deviceid(0).read());
+    let addr = (high << 32) | u64::from(ficr.deviceid(0).read());
     let addr = addr | 0x0000_c000_0000_0000;
     unwrap!(addr.to_le_bytes()[..6].try_into())
 }
@@ -153,7 +153,6 @@ async fn main(spawner: Spawner) {
         start_addr: 0x60000, // 384K
         num_sectors: 32,     // 128K
         clear_storage: true,
-        ..Default::default()
     };
     let flash = Flash::take(mpsl, p.NVMC);
     let mut storage = new_storage_for_split_peripheral(flash, storage_config).await;

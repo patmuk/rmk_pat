@@ -95,7 +95,7 @@ fn init_adc(adc_pin: AnyInput, adc: Peri<'static, SAADC>) -> Saadc<'static, 1> {
 fn ble_addr() -> [u8; 6] {
     let ficr = embassy_nrf::pac::FICR;
     let high = u64::from(ficr.deviceid(1).read());
-    let addr = high << 32 | u64::from(ficr.deviceid(0).read());
+    let addr = (high << 32) | u64::from(ficr.deviceid(0).read());
     let addr = addr | 0x0000_c000_0000_0000;
     unwrap!(addr.to_le_bytes()[..6].try_into())
 }
@@ -184,14 +184,12 @@ async fn main(spawner: Spawner) {
         start_addr: 0xA0000, // FIXME: use 0x70000 after we can build without softdevice controller
         num_sectors: 6,
         clear_storage: true,
-        ..Default::default()
     };
     let rmk_config = RmkConfig {
         usb_config: keyboard_usb_config,
         vial_config,
         ble_battery_config,
         storage_config,
-        ..Default::default()
     };
 
     // Initialze keyboard stuffs
