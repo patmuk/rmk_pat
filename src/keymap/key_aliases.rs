@@ -1,4 +1,5 @@
-use rmk::{a, action::KeyAction};
+use rmk::types::action::KeyAction;
+use rmk::{a, k, lt, special};
 
 /// key shortcuts
 macro_rules! K {
@@ -60,16 +61,31 @@ macro_rules! K {
         wm!(Backspace, ROPT)
     };
     ("⌫|🅛NUM") => {
-        lt(NUM, KeyCode::Backspace)
+        lt(
+            NUM,
+            rmk::types::keycode::KeyCode::Hid(rmk::types::keycode::HidKeyCode::Backspace),
+        )
     };
     ("🔁|🅛SYM") => {
-        lt(SYM, KeyCode::Again)
+        lt(
+            SYM,
+            rmk::types::keycode::KeyCode::Hid(rmk::types::keycode::HidKeyCode::Again),
+            // rmk::types::action::KeyAction::Single(rmk::types::action::Action::Special(
+            //     rmk::types::keycode::SpecialKey::Repeat,
+            // )),
+        )
     };
     ("␣|🅛⇉") => {
-        lt(CRD, KeyCode::Space)
+        lt(
+            CRD,
+            rmk::types::keycode::KeyCode::Hid(rmk::types::keycode::HidKeyCode::Space),
+        )
     };
     ("⏎|🅛⌘") => {
-        lt(CMD, KeyCode::Enter)
+        lt(
+            CMD,
+            rmk::types::keycode::KeyCode::Hid(rmk::types::keycode::HidKeyCode::Enter),
+        )
     };
     ("*") => {
         k!(KpAsterisk)
@@ -189,7 +205,9 @@ macro_rules! K {
         wm!(I, LOPT)
     };
     ("`") => {
-        k!(GraveEscape)
+        rmk::types::action::KeyAction::Single(rmk::types::action::Action::Special(
+            rmk::types::keycode::SpecialKey::GraveEscape,
+        ))
     };
     ("?") => {
         shifted!(Minus)

@@ -1,19 +1,19 @@
 use embassy_time::Duration;
-use rmk::action::KeyAction;
-use rmk::combo::Combo;
 use rmk::config::{CombosConfig, ForksConfig};
 use rmk::heapless::Vec;
+use rmk::keyboard::combo::{Combo, ComboConfig};
+use rmk::types::action::KeyAction;
 
-use rmk::keycode::KeyCode;
-use rmk::{a, k, mt, osm, shifted, wm};
+use rmk::types::keycode::KeyCode;
+use rmk::{a, k, macros, mt, osm, shifted, wm};
 
 use core::ops::BitOr;
 mod general_helpers;
 use general_helpers::*;
 #[macro_use]
 mod key_aliases;
-use key_aliases::XX;
 use key_aliases::__;
+use key_aliases::XX;
 pub(crate) mod keymap_macros;
 
 pub(crate) const COL: usize = 10;
@@ -186,24 +186,52 @@ pub(crate) fn get_forks() -> ForksConfig {
 
 pub(crate) fn get_combos() -> CombosConfig {
     CombosConfig {
-        combos: Vec::from_slice(&[
+        combos: [
             // W + F -> qu
             // use with LSFT + RSFT -> Qu
-            Combo::new([k!(W), k!(F)], k!(Macro0), Some(ALPHA)),
+            Some(Combo::new(ComboConfig::new(
+                [k!(W), k!(F)],
+                macros!(0),
+                Some(ALPHA),
+            ))),
             // CapsW
-            Combo::new([mt!(B, LSFT), mt!(Dot, RSFT)], osm!(LSFT), None),
+            Some(Combo::new(ComboConfig::new(
+                [mt!(B, LSFT), mt!(Dot, RSFT)],
+                osm!(LSFT),
+                None,
+            ))),
             // S + E -> ß
-            Combo::new([K!("S|l⌃"), K!("E|r⎇")], wm!(S, LOPT), Some(ALPHA)),
+            Some(Combo::new(ComboConfig::new(
+                [K!("S|l⌃"), K!("E|r⎇")],
+                wm!(S, LOPT),
+                Some(ALPHA),
+            ))),
             // A + E -> ä
-            Combo::new([K!("A|r⌘"), K!("E|r⎇")], k!(Macro1), Some(ALPHA)),
+            Some(Combo::new(ComboConfig::new(
+                [K!("A|r⌘"), K!("E|r⎇")],
+                macros!(1),
+                Some(ALPHA),
+            ))),
             // O + E -> ö
-            Combo::new([k!(O), K!("E|r⎇")], k!(Macro2), Some(ALPHA)),
+            Some(Combo::new(ComboConfig::new(
+                [k!(O), K!("E|r⎇")],
+                macros!(2),
+                Some(ALPHA),
+            ))),
             // U + E -> ü
-            Combo::new([k!(U), K!("E|r⎇")], k!(Macro3), Some(ALPHA)),
+            Some(Combo::new(ComboConfig::new(
+                [k!(U), K!("E|r⎇")],
+                macros!(3),
+                Some(ALPHA),
+            ))),
             // S + H -> sch
-            Combo::new([K!("S|l⌃"), K!("H|r⇧")], k!(Macro4), Some(ALPHA)),
-        ])
-        .expect("too many combo definitions!"),
+            Some(Combo::new(ComboConfig::new(
+                [K!("S|l⌃"), K!("H|r⇧")],
+                macros!(4),
+                Some(ALPHA),
+            ))),
+            None,
+        ],
         timeout: Duration::from_millis(50),
     }
 }
