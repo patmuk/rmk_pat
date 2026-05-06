@@ -25,7 +25,6 @@ use rmk::debounce::default_debouncer::DefaultDebouncer;
 use rmk::futures::future::join3;
 use rmk::input_device::adc::{AnalogEventType, NrfAdc};
 use rmk::input_device::battery::BatteryProcessor;
-use rmk::input_device::rotary_encoder::RotaryEncoder;
 use rmk::matrix::Matrix;
 use rmk::split::peripheral::run_rmk_split_peripheral;
 use rmk::storage::new_storage_for_split_peripheral;

@@ -37,7 +37,6 @@ use rmk::input_device::battery::BatteryProcessor;
 
 use rmk::keyboard::Keyboard;
 use rmk::matrix::Matrix;
-use rmk::processor::builtin::led_indicator::KeyboardIndicatorProcessor;
 use rmk::processor::builtin::wpm::WpmProcessor;
 use rmk::split::ble::central::scan_peripherals;
 use rmk::split::central::run_peripheral_manager;
@@ -203,6 +202,7 @@ async fn main(spawner: Spawner) {
     };
     let rmk_config = RmkConfig {
         device_config: keyboard_device_config,
+        vial_config,
         ble_battery_config,
         storage_config,
     };

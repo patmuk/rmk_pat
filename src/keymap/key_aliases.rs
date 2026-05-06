@@ -1,5 +1,5 @@
+use rmk::a;
 use rmk::types::action::KeyAction;
-use rmk::{a, k, lt, special};
 
 /// key shortcuts
 macro_rules! K {

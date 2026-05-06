@@ -4,7 +4,6 @@ use rmk::heapless::Vec;
 use rmk::keyboard::combo::{Combo, ComboConfig};
 use rmk::types::action::KeyAction;
 
-use rmk::types::keycode::KeyCode;
 use rmk::{a, k, macros, mt, osm, shifted, wm};
 
 use core::ops::BitOr;
