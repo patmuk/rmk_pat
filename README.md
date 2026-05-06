@@ -310,10 +310,10 @@ You can edit your `memory.x` to choose correct value for your bootloader.
 Note that this values might be outdated - check my values in the repository (./memory.x).
 
 ##### install cargo-make
+This should be installed by nix (direnv), so the following command is not neccessary: 
    ```shell
    cargo install --force cargo-make
    ```
-(This could be added to the `flake.nix`, so this step is obsolete. Maybe I will do that in a future update.)
 #### Compile RMK and generates .uf2 firmware:
    ```shell
    cargo make uf2 --release
