@@ -1,44 +1,44 @@
 [package]
 name = "rmk_pat"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["Patrick Mukherjee <patrick.mukherjee@gmail.com>"]
 description = "Keyboard firmware written in Rust"
-homepage = "https://github.com/haobogu/rmk"
+homepage = "https://rmk.rs"
 repository = "https://github.com/haobogu/rmk"
 readme = "../../README.md"
-edition = "2021"
+edition = "2024"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
-# rmk = { version = "0.6.1", default-features = false, features = [
-rmk = { path = "../../fw_projects/rmk_fork/rmk", default-features = false, features = [
+rmk = { version = "0.8.2", default-features = false, features = [
+    # rmk = { path = "../../fw_projects/rmk_fork/rmk", default-features = false, features = [
     "nrf52840_ble",
     "split",
     "async_matrix",
-    "storage",
     "adafruit_bl",
+    "storage",
 ] }
-nrf-sdc = { version = "0.1.0", default-features = false, features = [
+nrf-sdc = { git = "https://github.com/haobogu/nrf-sdc", rev = "ffe59a7aefaaa145a3d2474602f33387f80dcefa", features = [
     "defmt",
     "peripheral",
     "central",
     "nrf52840",
 ] }
-nrf-mpsl = { version = "0.1.0", default-features = false, features = [
+nrf-mpsl = { git = "https://github.com/haobogu/nrf-sdc", rev = "ffe59a7aefaaa145a3d2474602f33387f80dcefa", features = [
     "defmt",
     "critical-section-impl",
     "nrf52840",
 ] }
-bt-hci = { version = "0.3.0", default-features = false, features = ["defmt"] }
+bt-hci = { version = "0.8", features = ["defmt"] }
 
 cortex-m = "0.7.7"
 cortex-m-rt = "0.7.5"
-embassy-time = { version = "0.4", features = [
+embassy-time = { version = "0.5", features = [
     "tick-hz-32_768",
     "defmt",
     "defmt-timestamp-uptime",
 ] }
-embassy-nrf = { version = "0.3.1", features = [
+embassy-nrf = { version = "0.10", features = [
     "defmt",
     "nrf52840",
     "time-driver-rtc1",
@@ -47,9 +47,9 @@ embassy-nrf = { version = "0.3.1", features = [
     "nfc-pins-as-gpio",
     "time",
 ] }
-embassy-executor = { version = "0.7", features = [
+embassy-executor = { version = "0.10", features = [
     "defmt",
-    "arch-cortex-m",
+    "platform-cortex-m",
     "executor-thread",
 ] }
 defmt = "1.0"
@@ -60,18 +60,6 @@ static_cell = "2"
 rand = { version = "0.8.4", default-features = false }
 rand_core = { version = "0.6" }
 rand_chacha = { version = "0.3", default-features = false }
-
-[patch.crates-io]
-embassy-sync = { git = "https://github.com/embassy-rs/embassy.git", rev = "cb4d8c74c2b07de7c32be588140512bdd4d3f47e" }
-embassy-futures = { git = "https://github.com/embassy-rs/embassy.git", rev = "cb4d8c74c2b07de7c32be588140512bdd4d3f47e" }
-embassy-executor = { git = "https://github.com/embassy-rs/embassy.git", rev = "cb4d8c74c2b07de7c32be588140512bdd4d3f47e" }
-embassy-nrf = { git = "https://github.com/embassy-rs/embassy.git", rev = "cb4d8c74c2b07de7c32be588140512bdd4d3f47e" }
-embassy-time = { git = "https://github.com/embassy-rs/embassy.git", rev = "cb4d8c74c2b07de7c32be588140512bdd4d3f47e" }
-embassy-usb = { git = "https://github.com/embassy-rs/embassy.git", rev = "cb4d8c74c2b07de7c32be588140512bdd4d3f47e" }
-embassy-embedded-hal = { git = "https://github.com/embassy-rs/embassy.git", rev = "cb4d8c74c2b07de7c32be588140512bdd4d3f47e" }
-nrf-sdc = { git = "https://github.com/alexmoon/nrf-sdc.git", rev = "4f2af99b87ae07c0b5634d32e4a62e26876e5be3" }
-nrf-mpsl = { git = "https://github.com/alexmoon/nrf-sdc.git", rev = "4f2af99b87ae07c0b5634d32e4a62e26876e5be3" }
-
 
 [build-dependencies]
 xz2 = "0.1.7"
