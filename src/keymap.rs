@@ -36,26 +36,26 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
     ╭───────────────╮ ╭─────────────────╮
     │ w  f  m  p  v │ │ /  .  q  "  '  z│
     │ r  s  n  t  b │ │ ,  a  e  i  h  j│
-    │ x  c  l  d  g │ │ -  u  o  y  k   │     
+    │ x  c  l  d  g │ │ -  u  o  y  k   │
     ╰─────────╮,; .:│ │ ␣  ⏎╭───────────╯
-              ╰─────╯ ╰─────╯         
+              ╰─────╯ ╰─────╯
   === Variante Pat ===
     ╭────────────────╮ ╭───────────────╮
     │ w  f  m  p  v  │ │ '  .  g  j  z │
     │ r  s  n  t  b  │ │ ,  a  e  i  h │
     │ x  c  l  d  /  │ │ -  u  o  y  k │
     ╰────────╮ ⌫ REP │ │ ␣  ⏎   ╭──────╯
-             ╰───────╯ ╰────────╯         
+             ╰───────╯ ╰────────╯
     // ╰────────╮ ⌫W REP│ │ ␣  ⏎   ╭──────╯
-    // ⌫W only possible with Macros (for lt! to work ([osm!(Lctl), k!(Backspace)])) 
+    // ⌫W only possible with Macros (for lt! to work ([osm!(Lctl), k!(Backspace)]))
   hold (HRM)
     ╭──────────────────╮ ╭────────────────╮
     │  -  -  -  -  -   │ │ -  -  -  -  -  │
     │  ⇧  ⌃  ⌥  ⌘  ⇧   │ │ ⇧  ⌘  ⌥  ⌃  ⇧  │
     │  -  -  -  -  -   │ │ -  -  -  -  -  │
     ╰──────╮ NUM  SYM  │ │ CRD CMD ╭──────╯
-           ╰───────────╯ ╰─────────╯         
-    (The innermost shift is a layer toggle, this shall be used for shifting the keys (so we get alternative shifted symbols). 
+           ╰───────────╯ ╰─────────╯
+    (The innermost shift is a layer toggle, this shall be used for shifting the keys (so we get alternative shifted symbols).
     Because this isn't combinable with the HRM, the outermost shift is a normal shift key for combinations with othr modifier keys.)
 
    Chorded Letters
@@ -70,7 +70,7 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
     │ _  _  _  _  _│ │_  U     O  _  _ │
     ╰────────╮ W⌫ _│ │_  _ ╭───────────╯
              ╰─────╯ ╰─────╯
-  */   
+  */
   [// Alpha (Base)
     // - combos
     //   - S+E = ß
@@ -85,14 +85,14 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
     //   - mo_NUM + mo_SYM = mo CMD
     //   - mo_CHORD + mo_CMD = mo FUN
     //    - left outer thumb + right outer thumb = shift in CMD layer
-    //  == need RMK extension: 
+    //  == need RMK extension:
     // - HRM => `fn`-key (doesn't exist) (called 'globe' key, need to set vendor ID to apple)
     //╭──────────┬───────────┬────────────┬───────────┬──────────────╮╭────────────┬───────────┬───────────┬───────────┬────────────╮
       [ k!(W),     k!(F),      k!(M),       k!(P),      k!(V),          K!("'"),     K!(","),    k!(G),      k!(J),      k!(Z)     ],
     //├──────────┼───────────┼────────────┼───────────┼──────────────┤├────────────┼───────────┼───────────┼───────────┼────────────┤
       [K!("R|l⇧"), K!("S|l⌃"), K!("N|l⎇"), K!("T|l⌘"), K!("B|l⇧"),     K!(".|r⇧"),  K!("A|r⌘"), K!("E|r⎇"), K!("I|r⌃"), K!("H|r⇧")],
     //├──────────┼───────────┼────────────┼───────────┼──────────────┤├────────────┼───────────┼───────────┼───────────┼────────────┤
-      [ k!(X),     k!(C),      k!(L),       k!(D),      K!("/"),        K!("-"),     k!(U),      k!(O),      k!(Y),      k!(K)     ],            
+      [ k!(X),     k!(C),      k!(L),       k!(D),      K!("/"),        K!("-"),     k!(U),      k!(O),      k!(Y),      k!(K)     ],
     //╰──────────┴───────────┴────────────╮                          ││                         ╭──────────┴───────────┴────────────╯
       [ XX,        XX,         XX,        K!("⌫|🅛NUM"),K!("🔁|🅛SYM"),  K!("␣|🅛⇉"), K!("⏎|🅛⌘"),  XX,        XX,         XX        ]
     //                                    ╰───────────┴──────────────╯╰────────────┴────────────╯
@@ -127,11 +127,11 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
     // TODO think of Window mid
     // HRM with OSM on CRD layer?
     //╭─────────┬──────────┬────────┬──────────┬─────────╮╭──────────┬──────────┬─────────┬──────────┬───────────╮
-      [K!("🔎∗"), K!("🔎"),  K!("↷"), K!("↶"),  K!("⇨⧉"),  K!("🔉"),  K!("🔇"),  K!("🔊"), K!("🔅"),  K!("🔆")], 
+      [K!("🔎∗"), K!("🔎"),  K!("↷"), K!("↶"),  K!("⇨⧉"),  K!("🔉"),  K!("🔇"),  K!("🔊"), K!("🔅"),  K!("🔆")],
     //├─────────┼──────────┼────────┼──────────┼─────────┤├──────────┼──────────┼─────────┼──────────┼───────────┤
       [K!("✔*"), K!("✂"),    K!("⧉"), K!("📋"), K!("📋*"), K!("🖥️⬅"), K!("⬅▢"), __,       K!("▢🡺"), K!("🡺🖥️")],
     //├─────────┼──────────┼────────┼──────────┼─────────┤├──────────┼──────────┼─────────┼──────────┼───────────┤
-      [K!("⇤🔍"), K!("🔎⇥"), K!("↩"), K!("⇥"),  K!("⇨▢"),   K!("⎋"),   K!("⏮"),  K!("⏯"),  K!("⏭"),  __],   
+      [K!("⇤🔍"), K!("🔎⇥"), K!("↩"), K!("⇥"),  K!("⇨▢"),   K!("⎋"),   K!("⏮"),  K!("⏯"),  K!("⏭"),  __],
     //╰─────────┴──────────┴────────╮                    ││                     ╭─────────┴──────────┴───────────╯
     [__, __, __, __, __, __, __, __, __, __]
     //                              ╰──────────┴─────────╯╰──────────┴──────────╯
@@ -153,7 +153,7 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
     [__, __, __, __, __, __, __, __, __, __],
     [__, __, __, __, __, __, __, __, __, __]
   ],
-    ]    
+    ]
 }
 
 /// forks
