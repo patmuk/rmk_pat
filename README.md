@@ -67,17 +67,16 @@ I bought the PBC from splitkb, who are hosting the [schemata](https://docs.split
 ### Alpha Layer
 The base layout is taken from [Hands Down Neu](https://sites.google.com/alanreiser.com/handsdown/home/hands-down-neu) with these changes:
 - Q (actually qu and with shift Qu - when I need just 'q' I need to backspace) as a chord on W * F (left upper row pinky and ring finger).
-- J on the Q position ... why are they 6 keys on the right side in the upper an middle row?
+- J on the Q position ... why are there 6 keys on the right side in the upper an middle row?
 - ' and " as shift on the same key - I don't have 6 keys here either
 - removed the punctuations from the thumb keys to shift/symbol of the '.', ',' and '/' keys.
 - Thumbs (from right to left):
-    - Return is on the rightmost thumb.
-    - Space is on the next thumb to the left.
-    - Backspace is on the next key on the left side. This is actually Backspace-Word - as when learing tyoing it is better to delete the whole word. The normal backspace is enabled when holding the thumb key on the right simultaniously. This is not a chord, but a key on the symbols layer - so the momentary layer key can be hold nad the backspace key can be tapped multiple times for each word to delete.
-    - A repeat key is on the leftmost thumb key.
-A key idea of *hands down neu* is that vocals and consonants are on separate hands, to have more switch hands key presses.
+    - Return is on the right thumb key on the right half.
+    - Space is on the left thumb key on the right half.
+    - A repeat key is on the right thumb key of the left half.
+    - Backspace is on the left thumb key on the left half. Holding the right thumb key while pressing the left thumbkey on the left half performs a word delete.
 I was considering [Colemark](https://en.wikipedia.org/wiki/Colemak) and [ISTR](https://www.reddit.com/r/KeyboardLayouts/comments/qme0w7/thoughts_on_isrt/), which is [Ben Vallack's](https://www.youtube.com/results?search_query=ben+vallack+keyboard) prefered layout.
-But, like Ben said - the layout doesn't matter much. Pick one, learn it - and stick with it. They are much better than querty - but the benefits from one over the other are dismissingly small.
+But, like Ben said - the layout doesn't matter much. Pick one, learn it - and stick with it. They are much better than qwerty - but the benefits from one over the other are dismissingly small.
 And using Chords reduces the optimisation of the layouts even more: They are optimised for the most common words - and having them as chords, I don't need to type them.
 #### Auto-Shift
 The punctuation keys add a space and hold shift pressed for another 10 seconds.  
@@ -101,30 +100,30 @@ They only special letters I need are ä, ö and ü - and very seldom ß. These I
 (weak) marks a key position which is not placed optimal or very logical.  
 
 The symbols are placed as logical as possible.
-Punctuations are on the same ley, tab, shift-tap and sym-(layer)-tap:
-- ',', ';' and '?', all "round" punctuations
-- '.', ':' and '!', all "line" punctuations
-- '/', '|' and '\', all "slashes"
-- ''', '"' and '`', all "tickmarks"
-- '-' and '_' are on the same key. '-' is mapped for the symbols and numbers layer as well, on the same key.
-- '@' on 'A' for 'at'
-- '=' on 'E' for 'equals'
-- (weak) '&' on 'I' - as 'A' is taken - for i (and in Serbian. 'y' is and in Spanish - as an alernative)
-- '#' on 'H' for 'hashmark'
-- (weak) '€' on 'U' - as 'E' is taken. This is the same finger as for '$' on the left side.  
+Punctuations are on the same key, tab, shift-tap and sym-(layer)-tap:
+- `,`, `;` and `?`, all "round" punctuations
+- `.`, `:` and `!`, all "line" punctuations
+- `/`, `|` and `\`, all "slashes"
+- `'`, `"` and ```, all "tickmarks"
+- `-` and `_` are on the same key. `-` is mapped for the symbols and numbers layer as well, on the same key.
+- `@` on `A` for `at`
+- `=` on `E` for `equals`
+- (weak) `&` on `I` - as `A` is taken - for i (and in Serbian. `y` is and in Spanish - as an alernative)
+- `#` on `H` for `hashmark`
+- (weak) `€` on `U` - as `E` is taken. This is the same finger as for `$` on the left side.  
 
 The left hand side symbols are to be used with one hand only - while the mouse is on the right hand. That is mostly the brackets - as the mouse might be used to position the cursor.
 These are on the home row:
-- '[ { ( <' are the opening brackets, '(' as the most commen on the index finger.
-- the closing counterparts ('] } ) >') are either reachable with shift - or on a key hold. I will see if key-hold (aka auto-shift) is working good enough.
-- '$' is on 'D'
-- (weak) '^' is in the upper right corner ... as it points upwards. 
-- (weak) Under it is 'forward delete'. This is a easy to reach key, for with no bracket is left.
-- (weak) Under this is 'INSERT' - with the only reason to be close to 'forward delete'.  
+- `[ { ( <` are the opening brackets, `(` as the most commen on the index finger.
+- the closing counterparts (`] } ) >`) are either reachable with shift - or on a key hold. I will see if key-hold (aka auto-shift) is working good enough.
+- `$` is on `D`
+- (weak) `^` is in the upper right corner ... as it points upwards. 
+- (weak) Under it is `forward delete`. This is a easy to reach key, for with no bracket is left.
+- (weak) Under this is `INSERT` - with the only reason to be close to `forward delete`.  
 I might replace these keys with other symbols - as I might never use them.
-However, there are more keys empty for future symbols.
+However, there are more empty keys for future symbols.
 
-On the left side top row I placed the arrow keys for navigation. when using them I would not use the mouse - so they could be on the right side as well. However, the top row is not free enugh (due to the punctuation keys) and the lower row is harder to reach.
+On the left side top row I placed the arrow keys for navigation. When using them I would not use the mouse - so they could be on the right side as well. However, the top row is not free enugh (due to the punctuation keys) and the lower row is harder to reach.
 
 ### Numbers Layer
 Similar to the symbols layer, the numbers should be usable single handed.
@@ -132,29 +131,29 @@ All numbers are on the left side:
 - 1, 2 and 3 in the middle row, in reverse, so that 1 is on the index finger. 
 - The highest numbers, 9, 8 and 7, are on the highest row, the rest in the buttom row. 
 - 0 on the middle rightmost.
-- the separators, '.' and ',', are right-top and bottom.
+- the separators, `.` and `,`, are right-top and bottom.
 - the leftmost (pinky) column is for simple math:
-    - '+' and with shift '-' is in the middle row, as these are the calculations I use most,
-    - '*' and with shift '/' in the top row, second most used,
-    - '=' and with shift '^' in the bottom row.
+    - `+` and with shift `-` is in the middle row, as these are the calculations I use most,
+    - `*` and with shift `/` in the top row, second most used,
+    - `=` and with shift `^` in the bottom row.
 The right side has some more math symbols, I use less frequent:
-- (weak) '§' on the '?' key, as it looks round as well
-- (weak) '%' on 'A'. On the index finger, as I might use this most often from the right hand symbols.
-- '≤' or 'E', which hold '=' on the alpha layer.
-- '≥' next to it, as it is bigger.
-- '#' again on the 'H' key.
+- (weak) `§` on the `?` key, as it looks round as well
+- (weak) `%` on `A`. On the index finger, as I might use this most often from the right hand symbols.
+- `≤` or `E`, which hold `=` on the alpha layer.
+- `≥` next to it, as it is bigger.
+- `#` again on the `H` key.
 In the upper row:
-- (weak) ''' as it is a line and a separator as well, so it is opposite to ',' as another separator
-- (weak) '!' on the next key, same position as alpha+shift.
+- (weak) `'` as it is a line and a separator as well, so it is opposite to `,` as another separator
+- (weak) `!` on the next key, same position as alpha+shift.
 - nothing on the next key.
-- (weak) '°' on the key, where '"' is in alpha. 
-- '∑' on Z, as it looks similar
+- (weak) `°` on the key, where `"` is in alpha. 
+- `∑` on Z, as it looks similar
 And in the buttom row:
-- '_' leftmost, same posotion as on alpha.
-- 'µ' on 'U' (as 'M' is taken - but 'U' is good enough) 
-- (weak) '±' 
-- (weak) '≈'
-- (weak) '≠'
+- `_` leftmost, same posotion as on alpha.
+- `µ` on `U` (as `M` is taken - but `U` is good enough) 
+- (weak) `±` 
+- (weak) `≈`
+- (weak) `≠`
 The last three keys don't have a good reason to be there - except for being close together as they have related meanings.
 
 ### Function keys layer
@@ -174,23 +173,23 @@ It is by intention that they are on a hard to reach position.
 These are OS level commands.  
 In addition to the right outermost thumb key, this layer can be activated by holding both left thumb keys. While this is less convinient, it enables cammand executing with one hand, espacially useful for copy & paste with the left hand on the keys while the right is operating the mouse.  
 In the middle row, on the left side (for having the mouse in the right hand) are the most common used commands:
-- 'paste' on the index finger home position,
-- 'paste history' on it's right side
-- 'copy' on the middle finger
-- 'cut' on the ring finger. This order is the same as on a querty keyboard.
-- 'select all' is on the next best-to-reach key, the middle row pinky position.
+- `paste` on the index finger home position,
+- `paste history` on it's right side
+- `copy` on the middle finger
+- `cut` on the ring finger. This order is the same as on a querty keyboard.
+- `select all` is on the next best-to-reach key, the middle row pinky position.
 In the upper row are the next most useful functions:
-- 'switch apps' on the top row outer index finger position.
-- 'switch windows of one app' in the same column, bottom row. This is less often used.
-- 'undo' in the top row, index finger - as it is quite frequently used. The backspace position would be an alternative - but 'redo' would not pair nice (and a thumb button combination would be wasted)
-- 'redo' next to it.
-- 'find' on the 'F' key
-- 'find all' next to it and above
-- 'select all', which is on the pinky in the middle row. This is often followed by 'copy'.
+- `switch apps` on the top row outer index finger position.
+- `switch windows of one app` in the same column, bottom row. This is less often used.
+- `undo` in the top row, index finger - as it is quite frequently used. The backspace position would be an alternative - but `redo` would not pair nice (and a thumb button combination would be wasted)
+- `redo` next to it.
+- `find` on the `F` key
+- `find all` next to it and above
+- `select all`, which is on the pinky in the middle row. This is often followed by `copy`.
 In the buttom row we can find:
-- (weak) 'tab' on the index finger. 'T' is taken, thisi s right below that key. Maybe I need a better position for this frequently used key.
-- (weak) 'Enter' on the ring finger position. I might not need this key - or can do it with 'fn & RETURN'
-- 'find next' and 'find prev' on the leftmost positions in the lower row. Only, because they are together here and because the find keys are all more on the left side. After 'find' I use 'find next' most, which is in the same column.
+- (weak) `tab` on the index finger. `T` is taken, thisi s right below that key. Maybe I need a better position for this frequently used key.
+- (weak) `Enter` on the ring finger position. I might not need this key - or can do it with `fn & RETURN`
+- `find next` and `find prev` on the leftmost positions in the lower row. Only, because they are together here and because the find keys are all more on the left side. After `find` I use `find next` most, which is in the same column.
 On the right side:  
 The top row controls the media keys, from leftmost to rightmost:
 - volume down, mute, volume up
@@ -205,18 +204,18 @@ The middle row moves the window positions.
 While moving a windo through spaces, the last the commands are only possible through my configuration in BetterTouchTool.
 
 In the bottom row:
-- (weak) leftmost is the ESC key.
-- (weak) next to it the 'previous media' key
-- (weak) next the 'play/pause' button
-- (weak) next the 'next media' button
+- (weak) leftmost is the `ESC` key.
+- (weak) next to it the `previous media` key
+- (weak) next the `play/pause` button
+- (weak) next the `next media` button
 The last three buttons are in a logical order. But otherwise this placement is quite random.
 The last key position is not used.
 
 ### Danger layer
 The danger layer, which is activated in the function layer, and thus requires holding both left thumb keys and the right side rightmost bottom row keys (intentionally asymetrically and hard to reach).  
 Here are two chords:
-- 'sys reset' is resetting the keyboard, and requires pressing both middle row outer index keys. This can be triggered by pressing the reset button *once* as well.
-- 'bootloader' is setting the keyboard to bootloader mode so a new firmware image can be flashed.  It is activated by pressing both index finger home positions simultaniously. This can be triggered by pressing the reset button *twice* as well.
+- `sys reset` is resetting the keyboard, and requires pressing both middle row outer index keys. This can be triggered by pressing the reset button *once* as well.
+- `bootloader` is setting the keyboard to bootloader mode so a new firmware image can be flashed.  It is activated by pressing both index finger home positions simultaniously. This can be triggered by pressing the reset button *twice* as well.
 
 Note that these affect the left side only.
 ### Lock layer
@@ -308,6 +307,7 @@ MEMORY
 ```
 
 You can edit your `memory.x` to choose correct value for your bootloader.
+Note that this values might be outdated - check my values in the repository (./memory.x).
 
 ##### install cargo-make
    ```shell
