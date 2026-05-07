@@ -220,7 +220,20 @@ async fn main(spawner: Spawner) {
         keyboard_macros: KeyboardMacrosConfig::new(keymap::keymap_macros::get_macro_sequences()),
         ..Default::default()
     };
-    let key_config = PositionalConfig::new([[Hand::Left; 10]; 4]);
+    let key_config = PositionalConfig::new(
+        [[
+            Hand::Left,
+            Hand::Left,
+            Hand::Left,
+            Hand::Left,
+            Hand::Left,
+            Hand::Right,
+            Hand::Right,
+            Hand::Right,
+            Hand::Right,
+            Hand::Right,
+        ]; 4],
+    );
     let (keymap, mut storage) = initialize_keymap_and_storage(
         &mut keymap_data,
         flash,
