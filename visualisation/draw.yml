@@ -1,7 +1,7 @@
 layout: { qmk_info_json: info.json }
 layers:
   alpha:
-    - [{ s: "Shift", t: "tap", h: "NUM", type: ghost }]
+    - [{ s: "Shift", t: "tap", h: "hold", type: ghost }]
     - [
         { t: "W" },
         { t: F },
