@@ -45,8 +45,6 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
     │ x  c  l  d  /  │ │ -  u  o  y  k │
     ╰────────╮ ⌫ REP │ │ ␣  ⏎   ╭──────╯
              ╰───────╯ ╰────────╯
-    // ╰────────╮ ⌫W REP│ │ ␣  ⏎   ╭──────╯
-    // ⌫W only possible with Macros (for lt! to work ([osm!(Lctl), k!(Backspace)]))
   hold (HRM)
     ╭──────────────────╮ ╭────────────────╮
     │  -  -  -  -  -   │ │ -  -  -  -  -  │
@@ -58,17 +56,17 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
     Because this isn't combinable with the HRM, the outermost shift is a normal shift key for combinations with othr modifier keys.)
 
    Chorded Letters
-    ╭──────────────╮ ╭─────────────────╮
-    │ Qu           │ │                 │
-    │ / \          │ │                 │
-    │ W  F  _  _  _│ │_  _     _  _  _ │
-    │ _  ß -_--_--_│ │_- E -Ä- A  _  _ │
-    │              │ │   │ \           │
-    │              │ │   Ü  Ö          │
-    │              │ │   │    \        │
-    │ _  _  _  _  _│ │_  U     O  _  _ │
-    ╰────────╮ W⌫ _│ │_  _ ╭───────────╯
-             ╰─────╯ ╰─────╯
+    ╭───────────────╮ ╭─────────────────╮
+    │ Qu            │ │                 │
+    │ / \           │ │                 │
+    │ W  F  _  _  _ │ │_  _     _  _  _ │
+    │ _  ß -_--_--_ │ │_- E -Ä- A  _  _ │
+    │               │ │   │ \           │
+    │               │ │   Ü  Ö          │
+    │               │ │   │    \        │
+    │ _  _  _  _  _ │ │_  U     O  _  _ │
+    ╰────────╮_-W⌫-_│ │_  _ ╭───────────╯
+             ╰──────╯ ╰─────╯
   */
   [// Alpha (Base)
     // - combos
