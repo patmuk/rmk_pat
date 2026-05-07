@@ -197,7 +197,7 @@ async fn main(spawner: Spawner) {
     let storage_config = StorageConfig {
         start_addr: 0xA0000, // FIXME: use 0x70000 after we can build without softdevice controller
         num_sectors: 6,
-        // clear_storage: true,
+        clear_storage: true,
         ..Default::default()
     };
     let rmk_config = RmkConfig {

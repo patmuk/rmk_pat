@@ -158,7 +158,7 @@ async fn main(spawner: Spawner) {
     let storage_config = StorageConfig {
         start_addr: 0xA0000, // 640K
         num_sectors: 32,     // 128K
-        // clear_storage: true,
+        clear_storage: true, // ONE-SHOT: wipe stale storage from old layout, then revert to false
         ..Default::default()
     };
     let flash = Flash::take(mpsl, p.NVMC);
