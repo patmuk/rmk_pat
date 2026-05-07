@@ -404,42 +404,50 @@ text.label { stroke-width: 2; }
 <text x="224" y="42" class="combo tap">Qu</text>
 </g>
 <g class="combo combopos-1">
+<rect rx="6" ry="6" x="210" y="85" width="28" height="26" class="combo"/>
+<use href="#mdi:keyboard-esc" xlink:href="#mdi:keyboard-esc" x="217" y="91" height="14" width="14.0" class="combo tap glyph mdi:keyboard-esc"/>
+</g>
+<g class="combo combopos-2">
+<rect rx="6" ry="6" x="826" y="85" width="28" height="26" class="combo"/>
+<use href="#mdi:keyboard-esc" xlink:href="#mdi:keyboard-esc" x="833" y="91" height="14" width="14.0" class="combo tap glyph mdi:keyboard-esc"/>
+</g>
+<g class="combo combopos-3">
 <path d="M560,62 h-302 a6.0,6.0 0 0 0 -6.0,6.0 v4" class="combo"/>
 <path d="M560,62 h302 a6.0,6.0 0 0 1 6.0,6.0 v18" class="combo"/>
 <rect rx="6" ry="6" x="546" y="49" width="28" height="26" class="combo"/>
 <text x="560" y="62" class="combo tap">sch</text>
 </g>
-<g class="combo combopos-2">
+<g class="combo combopos-4">
 <rect rx="6" ry="6" x="706" y="76" width="28" height="26" class="combo"/>
 <text x="720" y="89" class="combo tap">ä</text>
 <text x="720" y="78" class="combo shifted">Ä</text>
 </g>
-<g class="combo combopos-3">
+<g class="combo combopos-5">
 <path d="M777,133 v1 a6.0,6.0 0 0 1 -6.0,6.0 h-3" class="combo"/>
 <path d="M777,133 v-43 a6.0,6.0 0 0 0 -6.0,-6.0 h4" class="combo"/>
 <rect rx="6" ry="6" x="763" y="120" width="28" height="26" class="combo"/>
 <text x="777" y="133" class="combo tap">ö</text>
 <text x="777" y="122" class="combo shifted">Ü</text>
 </g>
-<g class="combo combopos-4">
+<g class="combo combopos-6">
 <path d="M723,139 v2 a6.0,6.0 0 0 1 -6.0,6.0 h-6" class="combo"/>
 <path d="M723,139 v-49 a6.0,6.0 0 0 1 6.0,-6.0 h8" class="combo"/>
 <rect rx="6" ry="6" x="709" y="126" width="28" height="26" class="combo"/>
 <text x="723" y="139" class="combo tap">ü</text>
 <text x="723" y="128" class="combo shifted">Ü</text>
 </g>
-<g class="combo combopos-5">
+<g class="combo combopos-7">
 <path d="M270,91 l468,-6" class="combo"/>
 <rect rx="6" ry="6" x="256" y="78" width="28" height="26" class="combo"/>
 <text x="270" y="91" class="combo tap">ß</text>
 </g>
-<g class="combo combopos-6">
+<g class="combo combopos-8">
 <path d="M532,98 l-93,0" class="combo"/>
 <path d="M532,98 l93,0" class="combo"/>
 <rect rx="6" ry="6" x="518" y="85" width="28" height="26" class="combo"/>
 <text x="532" y="98" class="combo tap">CapsW</text>
 </g>
-<g class="combo combopos-7">
+<g class="combo combopos-9">
 <path d="M422,183 h-30 a6.0,6.0 0 0 0 -6.0,6.0 v4" class="combo"/>
 <path d="M422,183 h30 a6.0,6.0 0 0 1 6.0,6.0 v25" class="combo"/>
 <rect rx="6" ry="6" x="408" y="170" width="28" height="26" class="combo"/>
@@ -447,7 +455,7 @@ text.label { stroke-width: 2; }
 <tspan x="422" dy="-0.6em">⌫</tspan><tspan x="422" dy="1.2em">Word</tspan>
 </text>
 </g>
-<g class="combo combopos-8">
+<g class="combo combopos-10">
 <path d="M457,318 l0,-67" class="combo"/>
 <path d="M457,318 h148 a6.0,6.0 0 0 0 6.0,-6.0 v-60" class="combo"/>
 <rect rx="6" ry="6" x="443" y="305" width="28" height="26" class="combo"/>
@@ -455,7 +463,7 @@ text.label { stroke-width: 2; }
 <tspan x="457" dy="-0.6em" style="font-size: 88%">Shift</tspan><tspan x="457" dy="1.2em" style="font-size: 88%">(in_CRD)</tspan>
 </text>
 </g>
-<g class="combo held combopos-9">
+<g class="combo held combopos-11">
 <path d="M533,269 h-141 a6.0,6.0 0 0 1 -6.0,-6.0 v-33" class="combo"/>
 <path d="M533,269 h141 a6.0,6.0 0 0 0 6.0,-6.0 v-32" class="combo"/>
 <rect rx="6" ry="6" x="519" y="256" width="28" height="26" class="combo held"/>
@@ -463,7 +471,7 @@ text.label { stroke-width: 2; }
 <tspan x="533" dy="-0.6em">to</tspan><tspan x="533" dy="1.2em">Alp</tspan>
 </text>
 </g>
-<g class="combo combopos-10">
+<g class="combo combopos-12">
 <path d="M646,290 h-29 a6.0,6.0 0 0 1 -6.0,-6.0 v-32" class="combo"/>
 <path d="M646,290 h29 a6.0,6.0 0 0 0 6.0,-6.0 v-53" class="combo"/>
 <rect rx="6" ry="6" x="632" y="277" width="28" height="26" class="combo"/>
@@ -471,7 +479,7 @@ text.label { stroke-width: 2; }
 <tspan x="646" dy="-0.6em">mo</tspan><tspan x="646" dy="1.2em">FUN</tspan>
 </text>
 </g>
-<g class="combo combopos-11">
+<g class="combo combopos-13">
 <path d="M422,289 h-30 a6.0,6.0 0 0 1 -6.0,-6.0 v-53" class="combo"/>
 <path d="M422,289 h30 a6.0,6.0 0 0 0 6.0,-6.0 v-32" class="combo"/>
 <rect rx="6" ry="6" x="408" y="276" width="28" height="26" class="combo"/>

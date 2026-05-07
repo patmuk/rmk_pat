@@ -185,6 +185,8 @@ combos:
 
   # Special Alphas
   - { p: [1, 2], k: "Qu", l: [alpha] }
+  - { p: [11, 12], k: $$mdi:keyboard-esc$$, l: [alpha] }
+  - { p: [19, 20], k: $$mdi:keyboard-esc$$, l: [alpha] }
   - { p: [12, 20], k: "sch", l: [alpha], a: top }
   - { p: [17, 18], k: { t: "ä", s: "Ä" }, l: [alpha], slide: -0.3 }
   - {

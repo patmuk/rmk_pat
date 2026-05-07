@@ -191,6 +191,18 @@ pub(crate) fn get_combos() -> CombosConfig {
                 macros!(0),
                 Some(ALPHA),
             ))),
+            // R + S -> ESC (left HRM)
+            Some(Combo::new(ComboConfig::new(
+                [K!("R|l⇧"), K!("S|l⌃")],
+                k!(Escape),
+                Some(ALPHA),
+            ))),
+            // I + H -> ESC (right HRM, symmetric)
+            Some(Combo::new(ComboConfig::new(
+                [K!("I|r⌃"), K!("H|r⇧")],
+                k!(Escape),
+                Some(ALPHA),
+            ))),
             // CapsW
             Some(Combo::new(ComboConfig::new(
                 [mt!(B, LSFT), mt!(Dot, RSFT)],
@@ -233,7 +245,14 @@ pub(crate) fn get_combos() -> CombosConfig {
                 K!("W⌫"),
                 Some(ALPHA),
             ))),
+            None,
+            None,
+            None,
+            None,
+            None,
+            None,
         ],
         timeout: Duration::from_millis(50),
     }
 }
+
