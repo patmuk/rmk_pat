@@ -53,6 +53,7 @@
           packages = with pkgs; [
             rustToolchain
             cargo-make
+            keymap-drawer
             # probe-rs
             # flip-link
           ];

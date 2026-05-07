@@ -76,3 +76,26 @@ dependencies = ["objcopy-peripheral"]
 
 [tasks.uf2]
 dependencies = ["uf2-central", "uf2-peripheral"]
+
+[tasks.draw]
+description = "Render visualisation/drawn.svg from draw.yml via keymap-drawer."
+cwd = "./visualisation"
+script_runner = "@shell"
+script = '''
+set -e
+keymap -c draw_config.yml draw draw.yml > drawn.svg.tmp
+mv drawn.svg.tmp drawn.svg
+'''
+
+[tasks.draw-collapsed]
+description = "Render visualisation/variants/drawn_collapsed.svg via keymap-drawer."
+cwd = "./visualisation/variants"
+script_runner = "@shell"
+script = '''
+set -e
+keymap -c ../draw_config.yml draw draw_collapsed.yml > drawn_collapsed.svg.tmp
+mv drawn_collapsed.svg.tmp drawn_collapsed.svg
+'''
+
+[tasks.draw-all]
+dependencies = ["draw", "draw-collapsed"]

@@ -64,6 +64,18 @@ I bought the PBC from splitkb, who are hosting the [schemata](https://docs.split
 ### Layout visual
 ![Keyboard Layout](./visualisation/drawn.svg)
 
+The SVG is generated from [`visualisation/draw.yml`](./visualisation/draw.yml) (layers + combos) and [`visualisation/draw_config.yml`](./visualisation/draw_config.yml) (styling, key sizes, glyph sources) using [keymap-drawer](https://github.com/caksoylar/keymap-drawer) by Cem Aksoylar. There is also a browser playground at <https://caksoylar.github.io/keymap-drawer/> that accepts the same YAML if you want to tweak interactively before regenerating the file.
+
+To re-render after editing `draw.yml` by hand, enter the Nix dev shell (which now ships `keymap-drawer`) and run:
+
+```shell
+cargo make draw            # writes visualisation/drawn.svg
+cargo make draw-collapsed  # writes visualisation/variants/drawn_collapsed.svg
+cargo make draw-all        # both
+```
+
+Under the hood each task just calls `keymap -c draw_config.yml draw draw.yml > drawn.svg` from the appropriate directory; you can run that directly if you prefer.
+
 ### Alpha Layer
 The base layout is taken from [Hands Down Neu](https://sites.google.com/alanreiser.com/handsdown/home/hands-down-neu) with these changes:
 - Q (actually qu and with shift Qu - when I need just 'q' I need to backspace) as a chord on W * F (left upper row pinky and ring finger).
