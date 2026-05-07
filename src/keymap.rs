@@ -1,7 +1,7 @@
 use embassy_time::Duration;
+use rmk::combo::{Combo, ComboConfig};
 use rmk::config::{CombosConfig, ForksConfig};
 use rmk::heapless::Vec;
-use rmk::combo::{Combo, ComboConfig};
 use rmk::types::action::KeyAction;
 
 use rmk::{a, k, macros, mt, osm, shifted, wm};
@@ -223,13 +223,18 @@ pub(crate) fn get_combos() -> CombosConfig {
                 macros!(3),
                 Some(ALPHA),
             ))),
-            // S + H -> sch
+            // S + H -> sch("W⌫")
             Some(Combo::new(ComboConfig::new(
                 [K!("S|l⌃"), K!("H|r⇧")],
                 macros!(4),
                 Some(ALPHA),
             ))),
-            None,
+            // left side both thumbs = ("W⌫")
+            Some(Combo::new(ComboConfig::new(
+                [K!("⌫|🅛NUM"), K!("🔁|🅛SYM")],
+                K!("W⌫"),
+                Some(ALPHA),
+            ))),
         ],
         timeout: Duration::from_millis(50),
     }

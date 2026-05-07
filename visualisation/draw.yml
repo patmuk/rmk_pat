@@ -38,7 +38,7 @@ layers:
         { t: Y },
         { t: K },
       ]
-    - - { t: "⌫ Word", s: "", h: "mo_numbers", type: held }
+    - - { t: "⌫", s: "", h: "mo_numbers", type: held }
       - { t: "$$tabler:repeat$$", s: "", h: "mo_symbols" }
       - { t: "⌴", s: "", h: "mo_CHORD" }
       - { t: $$tabler:arrow-back$$, s: "", h: "mo_CMD", type: held }
@@ -206,12 +206,7 @@ combos:
   - { p: [12, 18], k: "ß", l: [alpha], slide: -0.93 }
 
   - { p: [15, 16], k: "CapsW", l: [alpha, symbols, numbers] }
-  - {
-      p: [31, 33],
-      k: "$$tabler:backspace$$",
-      l: [alpha, symbols, numbers, commands],
-      a: top,
-    }
+  - { p: [31, 32], k: "⌫ Word", l: [alpha, symbols, numbers, commands], a: top }
 
   - {
       p: [32, 33],

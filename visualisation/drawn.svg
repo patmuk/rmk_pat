@@ -89,24 +89,6 @@
   <path d="M9 11l-4 4l4 4m-4 -4h11a4 4 0 0 0 0 -8h-1" />
 </svg>
 </svg>
-<svg id="tabler:backspace">
-<svg
-  xmlns="http://www.w3.org/2000/svg"
- 
- 
-  viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
-  stroke-width="2"
-  stroke-linecap="round"
-  stroke-linejoin="round"
-  class="icon icon-tabler icons-tabler-outline icon-tabler-backspace"
->
-  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-  <path d="M20 6a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-11l-5 -5a1.5 1.5 0 0 1 0 -2l5 -5l11 0" />
-  <path d="M12 10l4 4m0 -4l-4 4" />
-</svg>
-</svg>
 <svg id="tabler:repeat">
 <svg
   xmlns="http://www.w3.org/2000/svg"
@@ -399,9 +381,7 @@ text.label { stroke-width: 2; }
 </g>
 <g transform="translate(386, 212) rotate(9.0)" class="key held keypos-31">
 <rect rx="6" ry="6" x="-40" y="-26" width="80" height="52" class="key held"/>
-<text x="0" y="0" class="key held tap">
-<tspan x="0" dy="-1.2em">⌫</tspan><tspan x="0" dy="1.2em">Word</tspan>
-</text>
+<text x="0" y="0" class="key held tap">⌫</text>
 <text x="0" y="24" class="key held hold"><tspan style="font-size: 70%">mo_numbers</tspan></text>
 </g>
 <g transform="translate(457, 232) rotate(25.5)" class="key keypos-32">
@@ -460,10 +440,12 @@ text.label { stroke-width: 2; }
 <text x="532" y="98" class="combo tap">CapsW</text>
 </g>
 <g class="combo combopos-7">
-<path d="M499,183 h-107 a6.0,6.0 0 0 0 -6.0,6.0 v4" class="combo"/>
-<path d="M499,183 h107 a6.0,6.0 0 0 1 6.0,6.0 v25" class="combo"/>
-<rect rx="6" ry="6" x="485" y="170" width="28" height="26" class="combo"/>
-<use href="#tabler:backspace" xlink:href="#tabler:backspace" x="492" y="176" height="14" width="14.0" class="combo tap glyph tabler:backspace"/>
+<path d="M422,183 h-30 a6.0,6.0 0 0 0 -6.0,6.0 v4" class="combo"/>
+<path d="M422,183 h30 a6.0,6.0 0 0 1 6.0,6.0 v25" class="combo"/>
+<rect rx="6" ry="6" x="408" y="170" width="28" height="26" class="combo"/>
+<text x="422" y="183" class="combo tap">
+<tspan x="422" dy="-0.6em">⌫</tspan><tspan x="422" dy="1.2em">Word</tspan>
+</text>
 </g>
 <g class="combo combopos-8">
 <path d="M457,318 l0,-67" class="combo"/>
@@ -657,10 +639,12 @@ text.label { stroke-width: 2; }
 <text x="532" y="98" class="combo tap">CapsW</text>
 </g>
 <g class="combo combopos-1">
-<path d="M499,183 h-107 a6.0,6.0 0 0 0 -6.0,6.0 v4" class="combo"/>
-<path d="M499,183 h107 a6.0,6.0 0 0 1 6.0,6.0 v25" class="combo"/>
-<rect rx="6" ry="6" x="485" y="170" width="28" height="26" class="combo"/>
-<use href="#tabler:backspace" xlink:href="#tabler:backspace" x="492" y="176" height="14" width="14.0" class="combo tap glyph tabler:backspace"/>
+<path d="M422,183 h-30 a6.0,6.0 0 0 0 -6.0,6.0 v4" class="combo"/>
+<path d="M422,183 h30 a6.0,6.0 0 0 1 6.0,6.0 v25" class="combo"/>
+<rect rx="6" ry="6" x="408" y="170" width="28" height="26" class="combo"/>
+<text x="422" y="183" class="combo tap">
+<tspan x="422" dy="-0.6em">⌫</tspan><tspan x="422" dy="1.2em">Word</tspan>
+</text>
 </g>
 <g class="combo combopos-2">
 <path d="M533,269 h-141 a6.0,6.0 0 0 1 -6.0,-6.0 v-33" class="combo"/>
@@ -847,10 +831,12 @@ text.label { stroke-width: 2; }
 <text x="532" y="98" class="combo tap">CapsW</text>
 </g>
 <g class="combo combopos-1">
-<path d="M499,183 h-107 a6.0,6.0 0 0 0 -6.0,6.0 v4" class="combo"/>
-<path d="M499,183 h107 a6.0,6.0 0 0 1 6.0,6.0 v25" class="combo"/>
-<rect rx="6" ry="6" x="485" y="170" width="28" height="26" class="combo"/>
-<use href="#tabler:backspace" xlink:href="#tabler:backspace" x="492" y="176" height="14" width="14.0" class="combo tap glyph tabler:backspace"/>
+<path d="M422,183 h-30 a6.0,6.0 0 0 0 -6.0,6.0 v4" class="combo"/>
+<path d="M422,183 h30 a6.0,6.0 0 0 1 6.0,6.0 v25" class="combo"/>
+<rect rx="6" ry="6" x="408" y="170" width="28" height="26" class="combo"/>
+<text x="422" y="183" class="combo tap">
+<tspan x="422" dy="-0.6em">⌫</tspan><tspan x="422" dy="1.2em">Word</tspan>
+</text>
 </g>
 <g class="combo combopos-2">
 <path d="M533,269 h-141 a6.0,6.0 0 0 1 -6.0,-6.0 v-33" class="combo"/>
@@ -1060,10 +1046,12 @@ text.label { stroke-width: 2; }
 <text x="0" y="24" class="key held hold">mo_CMD</text>
 </g>
 <g class="combo combopos-0">
-<path d="M499,183 h-107 a6.0,6.0 0 0 0 -6.0,6.0 v4" class="combo"/>
-<path d="M499,183 h107 a6.0,6.0 0 0 1 6.0,6.0 v25" class="combo"/>
-<rect rx="6" ry="6" x="485" y="170" width="28" height="26" class="combo"/>
-<use href="#tabler:backspace" xlink:href="#tabler:backspace" x="492" y="176" height="14" width="14.0" class="combo tap glyph tabler:backspace"/>
+<path d="M422,183 h-30 a6.0,6.0 0 0 0 -6.0,6.0 v4" class="combo"/>
+<path d="M422,183 h30 a6.0,6.0 0 0 1 6.0,6.0 v25" class="combo"/>
+<rect rx="6" ry="6" x="408" y="170" width="28" height="26" class="combo"/>
+<text x="422" y="183" class="combo tap">
+<tspan x="422" dy="-0.6em">⌫</tspan><tspan x="422" dy="1.2em">Word</tspan>
+</text>
 </g>
 <g class="combo combopos-1">
 <path d="M533,269 h-141 a6.0,6.0 0 0 1 -6.0,-6.0 v-33" class="combo"/>
