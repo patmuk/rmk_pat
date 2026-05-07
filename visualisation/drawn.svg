@@ -1,4 +1,4 @@
-<svg width="956" height="2516" viewBox="0 0 956 2516" class="keymap" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="956" height="2529" viewBox="0 0 956 2529" class="keymap" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <defs>/* start glyphs */
 <svg id="mdi:apple-keyboard-command">
 <svg xmlns="http://www.w3.org/2000/svg" id="mdi-apple-keyboard-command" viewBox="0 0 24 24"><path d="M6,2A4,4 0 0,1 10,6V8H14V6A4,4 0 0,1 18,2A4,4 0 0,1 22,6A4,4 0 0,1 18,10H16V14H18A4,4 0 0,1 22,18A4,4 0 0,1 18,22A4,4 0 0,1 14,18V16H10V18A4,4 0 0,1 6,22A4,4 0 0,1 2,18A4,4 0 0,1 6,14H8V10H6A4,4 0 0,1 2,6A4,4 0 0,1 6,2M16,18A2,2 0 0,0 18,20A2,2 0 0,0 20,18A2,2 0 0,0 18,16H16V18M14,10H10V14H14V10M6,16A2,2 0 0,0 4,18A2,2 0 0,0 6,20A2,2 0 0,0 8,18V16H6M8,6A2,2 0 0,0 6,4A2,2 0 0,0 4,6A2,2 0 0,0 6,8H8V6M18,8A2,2 0 0,0 20,6A2,2 0 0,0 18,4A2,2 0 0,0 16,6V8H18Z" /></svg>
@@ -73,33 +73,57 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="mdi-volume-plus" viewBox="0 0 24 24"><path d="M3,9H7L12,4V20L7,15H3V9M14,11H17V8H19V11H22V13H19V16H17V13H14V11Z" /></svg>
 </svg>
 <svg id="tabler:arrow-back">
-<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-back" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-back"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M9 11l-4 4l4 4m-4 -4h11a4 4 0 0 0 0 -8h-1" />
 </svg>
-
-
-
 </svg>
 <svg id="tabler:backspace">
-<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-backspace" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M20 6a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-11l-5 -5a1.5 1.5 0 0 1 0 -2l5 -5z" />
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-backspace"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path d="M20 6a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-11l-5 -5a1.5 1.5 0 0 1 0 -2l5 -5l11 0" />
   <path d="M12 10l4 4m0 -4l-4 4" />
 </svg>
-
-
-
 </svg>
 <svg id="tabler:repeat">
-<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-repeat" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+ 
+ 
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-repeat"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
   <path d="M4 12v-3a3 3 0 0 1 3 -3h13m-3 -3l3 3l-3 3" />
   <path d="M20 12v3a3 3 0 0 1 -3 3h-13m3 3l-3 -3l3 -3" />
 </svg>
-
-
-
 </svg>
 </defs>/* end glyphs */
 <style>/* inherit to force styles through use tags */
@@ -110,7 +134,7 @@ svg path {
 /* font and background color specifications */
 svg.keymap {
     font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
-    font-size: 14px;
+    font-size: 16px;
     font-kerning: normal;
     text-rendering: optimizeLegibility;
     fill: #24292e;
@@ -204,7 +228,7 @@ path.combo {
 /* End Tabler Icons Cleanup */
 </style>
 <g transform="translate(30, 0)" class="layer-alpha">
-<text x="0" y="28" class="label">alpha:</text>
+<text x="0" y="28" class="label" id="alpha">alpha:</text>
 <g transform="translate(0, 56)">
 <g transform="translate(56, 29)" class="key ghost keypos-0">
 <rect rx="6" ry="6" x="-54" y="-26" width="108" height="52" class="key ghost"/>
@@ -415,11 +439,11 @@ path.combo {
 <use href="#tabler:backspace" xlink:href="#tabler:backspace" x="492" y="176" height="14" width="14.0" class="combo tap glyph tabler:backspace"/>
 </g>
 <g class="combo combopos-8">
-<path d="M611,318 h-148 a6.0,6.0 0 0 1 -6.0,-6.0 v-61" class="combo"/>
-<path d="M611,318 l0,-66" class="combo"/>
-<rect rx="6" ry="6" x="597" y="305" width="28" height="26" class="combo"/>
-<text x="611" y="318" class="combo tap">
-<tspan x="611" dy="-0.6em" style="font-size: 88%">Shift</tspan><tspan x="611" dy="1.2em" style="font-size: 88%">(in_CRD)</tspan>
+<path d="M457,318 l0,-67" class="combo"/>
+<path d="M457,318 h148 a6.0,6.0 0 0 0 6.0,-6.0 v-60" class="combo"/>
+<rect rx="6" ry="6" x="443" y="305" width="28" height="26" class="combo"/>
+<text x="457" y="318" class="combo tap">
+<tspan x="457" dy="-0.6em" style="font-size: 88%">Shift</tspan><tspan x="457" dy="1.2em" style="font-size: 88%">(in_CRD)</tspan>
 </text>
 </g>
 <g class="combo held combopos-9">
@@ -448,13 +472,13 @@ path.combo {
 </g>
 </g>
 </g>
-<g transform="translate(30, 381)" class="layer-symbols">
-<text x="0" y="28" class="label">symbols:</text>
+<g transform="translate(30, 387)" class="layer-symbols">
+<text x="0" y="28" class="label" id="symbols">symbols:</text>
 <g transform="translate(0, 56)">
 <g transform="translate(56, 29)" class="key ghost keypos-0">
 <rect rx="6" ry="6" x="-54" y="-26" width="108" height="52" class="key ghost"/>
 <text x="0" y="0" class="key ghost tap">tap</text>
-<text x="0" y="-24" class="key ghost shifted"><tspan style="font-size: 60%">Shift or hold</tspan></text>
+<text x="0" y="-24" class="key ghost shifted"><tspan style="font-size: 64%">Shift or h…</tspan></text>
 </g>
 <g transform="translate(196, 49)" class="key keypos-1">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -637,8 +661,8 @@ path.combo {
 </g>
 </g>
 </g>
-<g transform="translate(30, 735)" class="layer-numbers">
-<text x="0" y="28" class="label">numbers:</text>
+<g transform="translate(30, 745)" class="layer-numbers">
+<text x="0" y="28" class="label" id="numbers">numbers:</text>
 <g transform="translate(0, 56)">
 <g transform="translate(56, 29)" class="key ghost keypos-0">
 <rect rx="6" ry="6" x="-54" y="-26" width="108" height="52" class="key ghost"/>
@@ -827,8 +851,8 @@ path.combo {
 </g>
 </g>
 </g>
-<g transform="translate(30, 1088)" class="layer-commands">
-<text x="0" y="28" class="label">commands:</text>
+<g transform="translate(30, 1104)" class="layer-commands">
+<text x="0" y="28" class="label" id="commands">commands:</text>
 <g transform="translate(0, 56)">
 <g transform="translate(56, 29)" class="key ghost keypos-0">
 <rect rx="6" ry="6" x="-54" y="-26" width="108" height="52" class="key ghost"/>
@@ -1048,8 +1072,8 @@ path.combo {
 </g>
 </g>
 </g>
-<g transform="translate(30, 1442)" class="layer-functions">
-<text x="0" y="28" class="label">functions:</text>
+<g transform="translate(30, 1463)" class="layer-functions">
+<text x="0" y="28" class="label" id="functions">functions:</text>
 <g transform="translate(0, 56)">
 <g transform="translate(56, 29)" class="key ghost keypos-0">
 <rect rx="6" ry="6" x="-54" y="-26" width="108" height="52" class="key ghost"/>
@@ -1195,8 +1219,8 @@ path.combo {
 <text x="0" y="0" class="key held tap">mo_FUN</text>
 </g>
 <g class="combo combopos-0">
-<path d="M560,94 l-121,3" class="combo"/>
-<path d="M560,94 l121,-3" class="combo"/>
+<path d="M560,95 l-121,3" class="combo"/>
+<path d="M560,95 l121,-3" class="combo"/>
 <rect rx="6" ry="6" x="546" y="82" width="28" height="26" class="combo"/>
 <use href="#mdi:sleep" xlink:href="#mdi:sleep" x="553" y="88" height="14" width="14.0" class="combo tap glyph mdi:sleep"/>
 </g>
@@ -1244,8 +1268,8 @@ path.combo {
 </g>
 </g>
 </g>
-<g transform="translate(30, 1809)" class="layer-danger">
-<text x="0" y="28" class="label">danger:</text>
+<g transform="translate(30, 1822)" class="layer-danger">
+<text x="0" y="28" class="label" id="danger">danger:</text>
 <g transform="translate(0, 56)">
 <g transform="translate(56, 29)" class="key ghost keypos-0">
 <rect rx="6" ry="6" x="-54" y="-26" width="108" height="52" class="key ghost"/>
@@ -1379,15 +1403,15 @@ path.combo {
 </g>
 </g>
 </g>
-<g transform="translate(30, 2135)" class="layer-lock">
-<text x="0" y="28" class="label">lock:</text>
+<g transform="translate(30, 2147)" class="layer-lock">
+<text x="0" y="28" class="label" id="lock">lock:</text>
 <g transform="translate(0, 56)">
 <g transform="translate(56, 29)" class="key ghost keypos-0">
 <rect rx="6" ry="6" x="-54" y="-26" width="108" height="52" class="key ghost"/>
 <text x="0" y="0" class="key ghost tap">
 <tspan x="0" dy="-1.2em">normal</tspan><tspan x="0" dy="1.2em">tap</tspan>
 </text>
-<text x="0" y="24" class="key ghost hold"><tspan style="font-size: 60%">with REP held</tspan></text>
+<text x="0" y="24" class="key ghost hold"><tspan style="font-size: 64%">with REP h…</tspan></text>
 </g>
 <g transform="translate(196, 49)" class="key keypos-1">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
