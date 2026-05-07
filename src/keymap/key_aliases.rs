@@ -67,13 +67,10 @@ macro_rules! K {
         )
     };
     ("🔁|🅛SYM") => {
-        lt(
-            SYM,
-            rmk::types::keycode::KeyCode::Again,
-            // rmk::types::action::KeyAction::Single(rmk::types::action::Action::Special(
-            //     rmk::types::keycode::SpecialKey::Repeat,
-            // )),
-        )
+        // Note: rmk intercepts `KeyCode::Again` locally and substitutes it
+        // with `last_key_code` (see rmk::keyboard::process_action). It does
+        // NOT actually transmit the HID Again keycode to the host.
+        lt(SYM, rmk::types::keycode::KeyCode::Again)
     };
     ("␣|🅛⇉") => {
         lt(
