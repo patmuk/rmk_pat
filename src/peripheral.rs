@@ -7,9 +7,11 @@ mod macros;
 use defmt::{info, unwrap};
 use embassy_executor::Spawner;
 use embassy_nrf::gpio::{Input, Output};
+use embassy_nrf::interrupt::{self, InterruptExt};
 use embassy_nrf::mode::Async;
-use embassy_nrf::peripherals::{RNG, USBD};
-use embassy_nrf::{bind_interrupts, rng, usb};
+use embassy_nrf::peripherals::{RNG, SAADC, USBD};
+use embassy_nrf::saadc::{self, AnyInput, Input as _, Saadc};
+use embassy_nrf::{Peri, bind_interrupts, rng, usb};
 use nrf_mpsl::Flash;
 use nrf_sdc::mpsl::MultiprotocolServiceLayer;
 use nrf_sdc::{self as sdc, mpsl};
@@ -20,6 +22,7 @@ use rmk::channel::EVENT_CHANNEL;
 use rmk::config::StorageConfig;
 use rmk::debounce::default_debouncer::DefaultDebouncer;
 use rmk::futures::future::join;
+use rmk::input_device::adc::{AnalogEventType, NrfAdc};
 use rmk::matrix::Matrix;
 use rmk::split::peripheral::run_rmk_split_peripheral;
 use rmk::storage::new_storage_for_split_peripheral;
@@ -29,6 +32,7 @@ use {defmt_rtt as _, panic_probe as _};
 
 bind_interrupts!(struct Irqs {
     USBD => usb::InterruptHandler<USBD>;
+    SAADC => saadc::InterruptHandler;
     RNG => rng::InterruptHandler<RNG>;
     EGU0_SWI0 => nrf_sdc::mpsl::LowPrioInterruptHandler;
     CLOCK_POWER => nrf_sdc::mpsl::ClockInterruptHandler, usb::vbus_detect::InterruptHandler;
@@ -36,6 +40,13 @@ bind_interrupts!(struct Irqs {
     TIMER0 => nrf_sdc::mpsl::HighPrioInterruptHandler;
     RTC0 => nrf_sdc::mpsl::HighPrioInterruptHandler;
 });
+
+fn init_adc(adc_pin: AnyInput, adc: Peri<'static, SAADC>) -> Saadc<'static, 1> {
+    let config = saadc::Config::default();
+    let channel_cfg = saadc::ChannelConfig::single_ended(adc_pin.degrade_saadc());
+    interrupt::SAADC.set_priority(interrupt::Priority::P3);
+    saadc::Saadc::new(adc, Irqs, config, [channel_cfg])
+}
 
 #[embassy_executor::task]
 async fn mpsl_task(mpsl: &'static MultiprotocolServiceLayer<'static>) -> ! {
@@ -127,8 +138,23 @@ async fn main(spawner: Spawner) {
     let debouncer = DefaultDebouncer::new();
     let mut matrix = Matrix::<_, _, _, 4, 5, false>::new(row_pins, col_pins, debouncer);
 
+    // Battery monitoring: NrfAdc publishes Event::Battery into EVENT_CHANNEL,
+    // which the split peripheral runner forwards to the central. The central's
+    // BatteryProcessor consumes it. (Cannot run BatteryProcessor on peripheral
+    // at v0.8.2 — its `new` requires a &KeyMap reference, which split
+    // peripheral storage doesn't have.)
+    let adc_pin = p.P0_05.degrade_saadc();
+    let saadc = init_adc(adc_pin, p.SAADC);
+    saadc.calibrate().await;
+    let mut adc_device = NrfAdc::new(
+        saadc,
+        [AnalogEventType::Battery],
+        embassy_time::Duration::from_secs(12),
+        None,
+    );
+
     join(
-        run_devices!((matrix) => EVENT_CHANNEL,),
+        run_devices!((matrix, adc_device) => EVENT_CHANNEL,),
         run_rmk_split_peripheral(0, &stack, &mut storage),
     )
     .await;
