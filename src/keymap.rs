@@ -1,7 +1,7 @@
 use embassy_time::Duration;
 use rmk::config::{CombosConfig, ForksConfig};
 use rmk::heapless::Vec;
-use rmk::keyboard::combo::{Combo, ComboConfig};
+use rmk::combo::{Combo, ComboConfig};
 use rmk::types::action::KeyAction;
 
 use rmk::{a, k, macros, mt, osm, shifted, wm};

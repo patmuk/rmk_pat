@@ -1,10 +1,9 @@
 // use rmk::hid:: _state::{HidModifiers, HidMouseButtons};
-use rmk::types::action::{Action, KeyAction};
-use rmk::types::fork::{Fork, StateBits};
+use rmk::fork::{Fork, StateBits};
+use rmk::types::action::{Action, KeyAction, MorseProfile};
 use rmk::types::keycode::KeyCode;
 use rmk::types::led_indicator::LedIndicator;
 use rmk::types::modifier::ModifierCombination;
-use rmk::types::morse::MorseProfile;
 use rmk::types::mouse_button::MouseButtons;
 
 /// modifiers

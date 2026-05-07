@@ -4,6 +4,7 @@
 mod vial;
 #[macro_use]
 mod macros;
+mod keymap;
 
 use defmt::{info, unwrap};
 use embassy_executor::Spawner;
@@ -23,8 +24,10 @@ use rand_chacha::ChaCha12Rng;
 use rand_core::SeedableRng;
 use rmk::ble::build_ble_stack;
 use rmk::channel::EVENT_CHANNEL;
+use rmk::config::macro_config::KeyboardMacrosConfig;
 use rmk::config::{
-    BehaviorConfig, BleBatteryConfig, DeviceConfig, PositionalConfig, RmkConfig, StorageConfig, VialConfig,
+    BehaviorConfig, BleBatteryConfig, DeviceConfig, Hand, MorsesConfig, PositionalConfig,
+    RmkConfig, StorageConfig, VialConfig,
 };
 use rmk::debounce::default_debouncer::DefaultDebouncer;
 use rmk::input_device::Runnable;
@@ -34,8 +37,6 @@ use rmk::keyboard::Keyboard;
 use rmk::matrix::{Matrix, OffsetMatrixWrapper};
 use rmk::split::ble::central::{read_peripheral_addresses, scan_peripherals};
 use rmk::split::central::run_peripheral_manager;
-use rmk::types::action::KeyAction;
-use rmk::{a, k};
 use rmk::{HostResources, initialize_keymap_and_storage, run_devices, run_processor_chain, run_rmk};
 use static_cell::StaticCell;
 use vial::{VIAL_KEYBOARD_DEF, VIAL_KEYBOARD_ID};
@@ -98,19 +99,7 @@ fn ble_addr() -> [u8; 6] {
     unwrap!(addr.to_le_bytes()[..6].try_into())
 }
 
-const COL: usize = 10;
-const ROW: usize = 4;
-const NUM_LAYER: usize = 1;
-
-#[rustfmt::skip]
-fn get_minimal_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
-    [[
-        [k!(Q), k!(W), k!(E), k!(R), k!(T), k!(Y), k!(U), k!(I), k!(O), k!(P)],
-        [k!(A), k!(S), k!(D), k!(F), k!(G), k!(H), k!(J), k!(K), k!(L), k!(Semicolon)],
-        [k!(Z), k!(X), k!(C), k!(V), k!(B), k!(N), k!(M), k!(Comma), k!(Dot), k!(Slash)],
-        [a!(No), a!(No), a!(No), k!(LShift), k!(Space), k!(Space), k!(Enter), a!(No), a!(No), a!(No)],
-    ]]
-}
+use keymap::{COL, NUM_LAYER, ROW};
 
 #[embassy_executor::main]
 async fn main(spawner: Spawner) {
@@ -187,9 +176,31 @@ async fn main(spawner: Spawner) {
         storage_config,
     };
 
-    let mut default_keymap = get_minimal_keymap();
-    let mut behavior_config = BehaviorConfig::default();
-    let mut key_config = PositionalConfig::default();
+    let mut default_keymap = keymap::get_default_keymap();
+    let mut behavior_config = BehaviorConfig {
+        combo: keymap::get_combos(),
+        morse: MorsesConfig {
+            enable_flow_tap: true,
+            ..Default::default()
+        },
+        fork: keymap::get_forks(),
+        keyboard_macros: KeyboardMacrosConfig::new(keymap::keymap_macros::get_macro_sequences()),
+        ..Default::default()
+    };
+    let mut key_config = PositionalConfig::new(
+        [[
+            Hand::Left,
+            Hand::Left,
+            Hand::Left,
+            Hand::Left,
+            Hand::Left,
+            Hand::Right,
+            Hand::Right,
+            Hand::Right,
+            Hand::Right,
+            Hand::Right,
+        ]; 4],
+    );
     let (keymap, mut storage) = initialize_keymap_and_storage(
         &mut default_keymap,
         flash,

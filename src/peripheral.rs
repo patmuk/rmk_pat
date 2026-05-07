@@ -7,11 +7,9 @@ mod macros;
 use defmt::{info, unwrap};
 use embassy_executor::Spawner;
 use embassy_nrf::gpio::{Input, Output};
-use embassy_nrf::interrupt::{self, InterruptExt};
 use embassy_nrf::mode::Async;
-use embassy_nrf::peripherals::{RNG, SAADC, USBD};
-use embassy_nrf::saadc::{self, AnyInput, Input as _, Saadc};
-use embassy_nrf::{Peri, bind_interrupts, rng, usb};
+use embassy_nrf::peripherals::{RNG, USBD};
+use embassy_nrf::{bind_interrupts, rng, usb};
 use nrf_mpsl::Flash;
 use nrf_sdc::mpsl::MultiprotocolServiceLayer;
 use nrf_sdc::{self as sdc, mpsl};
@@ -31,7 +29,6 @@ use {defmt_rtt as _, panic_probe as _};
 
 bind_interrupts!(struct Irqs {
     USBD => usb::InterruptHandler<USBD>;
-    SAADC => saadc::InterruptHandler;
     RNG => rng::InterruptHandler<RNG>;
     EGU0_SWI0 => nrf_sdc::mpsl::LowPrioInterruptHandler;
     CLOCK_POWER => nrf_sdc::mpsl::ClockInterruptHandler, usb::vbus_detect::InterruptHandler;

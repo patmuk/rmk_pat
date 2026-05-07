@@ -63,13 +63,13 @@ macro_rules! K {
     ("⌫|🅛NUM") => {
         lt(
             NUM,
-            rmk::types::keycode::KeyCode::Hid(rmk::types::keycode::HidKeyCode::Backspace),
+            rmk::types::keycode::KeyCode::Backspace,
         )
     };
     ("🔁|🅛SYM") => {
         lt(
             SYM,
-            rmk::types::keycode::KeyCode::Hid(rmk::types::keycode::HidKeyCode::Again),
+            rmk::types::keycode::KeyCode::Again,
             // rmk::types::action::KeyAction::Single(rmk::types::action::Action::Special(
             //     rmk::types::keycode::SpecialKey::Repeat,
             // )),
@@ -78,13 +78,13 @@ macro_rules! K {
     ("␣|🅛⇉") => {
         lt(
             CRD,
-            rmk::types::keycode::KeyCode::Hid(rmk::types::keycode::HidKeyCode::Space),
+            rmk::types::keycode::KeyCode::Space,
         )
     };
     ("⏎|🅛⌘") => {
         lt(
             CMD,
-            rmk::types::keycode::KeyCode::Hid(rmk::types::keycode::HidKeyCode::Enter),
+            rmk::types::keycode::KeyCode::Enter,
         )
     };
     ("*") => {
@@ -205,9 +205,7 @@ macro_rules! K {
         wm!(I, LOPT)
     };
     ("`") => {
-        rmk::types::action::KeyAction::Single(rmk::types::action::Action::Special(
-            rmk::types::keycode::SpecialKey::GraveEscape,
-        ))
+        k!(GraveEscape)
     };
     ("?") => {
         shifted!(Minus)
