@@ -206,7 +206,7 @@ pub(crate) fn get_combos() -> CombosConfig {
             // CapsW
             Some(Combo::new(ComboConfig::new(
                 [mt!(B, LSFT), mt!(Dot, RSFT)],
-                osm!(LSFT),
+                k!(CapsWordToggle),
                 None,
             ))),
             // S + E -> ß
@@ -255,4 +255,3 @@ pub(crate) fn get_combos() -> CombosConfig {
         timeout: Duration::from_millis(50),
     }
 }
-
