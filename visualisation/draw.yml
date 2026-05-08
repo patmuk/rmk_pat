@@ -43,7 +43,7 @@ layers:
       - { t: "⌴", s: "", h: "mo_CHORD" }
       - { t: $$tabler:arrow-back$$, s: "", h: "mo_CMD", type: held }
   symbols:
-    - [{ s: "Shift or hold", t: "tap", h: "", type: ghost }]
+    - [{ s: "Shift", t: "tap", h: "hold", type: ghost }]
     - [
         { s: "", t: $$mdi:arrow-left$$, h: "" },
         { s: "", t: "$$mdi:arrow-up$$", h: "" },
@@ -85,7 +85,7 @@ layers:
       - { t: "⌴", s: "", h: "mo_CHORD", type: trans }
       - { t: $$tabler:arrow-back$$, s: "", h: "mo_CMD", type: trans }
   numbers:
-    - [{ s: "Shift", t: "normal tap", h: "", type: ghost }]
+    - [{ s: "Shift", t: "tap", h: "hold", type: ghost }]
     - [{ s: "/", t: "*" }, "9", "8", "7", ",", "'", "!", "", "°", "∑"]
     - [
         { s: "-", t: "+", h: $$mdi:apple-keyboard-shift$$ },
@@ -105,7 +105,7 @@ layers:
       - { t: "⌴", s: "", h: "mo_CHORD", type: trans }
       - { t: "to_ALP", s: "", h: "mo_CMD", type: trans }
   commands:
-    - [{ s: "Shift", t: "tap", h: "", type: ghost }]
+    - [{ s: "Shift", t: "tap", h: "hold", type: ghost }]
     - [
         { t: "find all" },
         { t: "find" },
@@ -162,7 +162,7 @@ layers:
     - ["", "", "", "", "", "", "", "", { type: held }, { type: held }]
     - [{ type: held }, { type: held }, "", ""]
   lock:
-    - [{ s: "", t: "normal tap", h: "with REP held", type: ghost }]
+    - [{ s: "", t: "tap", h: "", type: ghost }]
     - ["", "", "", "", "", "", "", "", "", ""]
     - [
         "",
@@ -218,13 +218,8 @@ combos:
     }
   - { p: [12, 18], k: "ß", l: [alpha], slide: -0.93 }
 
-  - { p: [15, 16], k: "CapsW", l: [alpha, symbols, numbers] }
-  - {
-      p: [11, 20],
-      k: "1-shot ⇧",
-      l: [alpha, symbols, numbers, commands],
-      a: bottom,
-    }
+  - { p: [15, 16], k: "CapsW", l: [alpha] }
+  - { p: [11, 20], k: "1-shot ⇧", l: [alpha], a: bottom }
   - { p: [31, 32], k: "⌫ Word", l: [alpha, symbols, numbers, commands], a: top }
 
   - {

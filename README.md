@@ -39,7 +39,9 @@
 
 
 ## Status
-No layer is implemented but a test layer only. After all, this is the start of the port to RMK!
+Alpha, Number and Symbol layers are fully implemented.  
+Other layers are work in progress.
+Chords are not implemented yet as well.
 
 ## Components
 ### Firmware (RMK)
