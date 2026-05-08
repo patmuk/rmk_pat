@@ -1,4 +1,6 @@
 // use rmk::hid:: _state::{HidModifiers, HidMouseButtons};
+use core::ops::BitOr;
+
 use rmk::fork::{Fork, StateBits};
 use rmk::types::action::{Action, KeyAction, MorseProfile};
 use rmk::types::keycode::KeyCode;
@@ -43,13 +45,17 @@ pub(crate) const fn wmt(
 // shortcut to define alternative outputs to shift
 // e.g.: . -> :
 // fork_alternative_shift(mt!(Dot, RSFT), shifted!(Semicolon))
+//
+// Matches EITHER left-shift or right-shift in the active modifier set, so the
+// fork fires regardless of which hand sources the shift (left HRM, right HRM,
+// outer-shift combo via osm!(LSFT), CRD-layer osm, etc.).
 pub(crate) fn fork_alternative_shift(trigger: KeyAction, alternative: KeyAction) -> Fork {
     Fork::new(
         trigger,
         trigger,
         alternative,
         StateBits::new_from(
-            ModifierCombination::new_from(false, false, false, true, false),
+            ModifierCombination::LSHIFT.bitor(ModifierCombination::RSHIFT),
             LedIndicator::default(),
             MouseButtons::default(),
         ),

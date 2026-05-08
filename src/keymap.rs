@@ -168,11 +168,13 @@ pub(crate) fn get_forks() -> ForksConfig {
             // // = -> ^
             // fork_alternative_shift(k!(KpEqual), wm!(I, LOPT)),
             // { -> }
-            fork_alternative_shift(shifted!(LeftBracket), shifted!(RightBracket)),
+            fork_alternative_shift(K!("{|}|l⇧"), shifted!(RightBracket)),
+            // [ -> ]
+            fork_alternative_shift(K!("[|]|l⌃"), k!(RightBracket)),
             // ( -> )
-            fork_alternative_shift(shifted!(Kc9), shifted!(Kc0)),
+            fork_alternative_shift(K!("(|)|l⎇"), shifted!(Kc0)),
             // < -> >
-            fork_alternative_shift(shifted!(Comma), shifted!(Dot)),
+            fork_alternative_shift(K!("<|>|l⌘"), shifted!(Dot)),
         ])
         .expect("error defining forks"),
     }
