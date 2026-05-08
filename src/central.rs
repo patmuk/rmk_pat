@@ -8,7 +8,6 @@ mod keymap;
 
 use defmt::{info, unwrap};
 use embassy_executor::Spawner;
-use rmk::futures::future::{join, join3};
 use embassy_nrf::gpio::{Input, Output};
 use embassy_nrf::interrupt::{self, InterruptExt};
 use embassy_nrf::mode::Async;
@@ -30,6 +29,7 @@ use rmk::config::{
     RmkConfig, StorageConfig, VialConfig,
 };
 use rmk::debounce::default_debouncer::DefaultDebouncer;
+use rmk::futures::future::{join, join3};
 use rmk::input_device::Runnable;
 use rmk::input_device::adc::{AnalogEventType, NrfAdc};
 use rmk::input_device::battery::BatteryProcessor;
@@ -37,7 +37,10 @@ use rmk::keyboard::Keyboard;
 use rmk::matrix::{Matrix, OffsetMatrixWrapper};
 use rmk::split::ble::central::{read_peripheral_addresses, scan_peripherals};
 use rmk::split::central::run_peripheral_manager;
-use rmk::{HostResources, initialize_keymap_and_storage, run_devices, run_processor_chain, run_rmk};
+use rmk::types::action::{MorseMode, MorseProfile};
+use rmk::{
+    HostResources, initialize_keymap_and_storage, run_devices, run_processor_chain, run_rmk,
+};
 use static_cell::StaticCell;
 use vial::{VIAL_KEYBOARD_DEF, VIAL_KEYBOARD_ID};
 use {defmt_rtt as _, panic_probe as _};
@@ -166,7 +169,7 @@ async fn main(spawner: Spawner) {
     let storage_config = StorageConfig {
         start_addr: 0xA0000,
         num_sectors: 6,
-        clear_storage: true,
+        // clear_storage: true,
         ..Default::default()
     };
     let rmk_config = RmkConfig {
@@ -181,6 +184,15 @@ async fn main(spawner: Spawner) {
         combo: keymap::get_combos(),
         morse: MorsesConfig {
             enable_flow_tap: true,
+            // Hand-based HRM: a mod-tap key resolves as a tap when another key
+            // on the SAME hand is pressed during the hold. Hand info comes
+            // from PositionalConfig below (cols 0–4 = Left, 5–9 = Right).
+            default_profile: MorseProfile::new(
+                Some(true),              // unilateral_tap
+                Some(MorseMode::Normal), // existing default
+                Some(250),               // hold timeout (ms)
+                Some(250),               // gap timeout (ms)
+            ),
             ..Default::default()
         },
         fork: keymap::get_forks(),
@@ -211,9 +223,9 @@ async fn main(spawner: Spawner) {
     .await;
 
     let debouncer = DefaultDebouncer::new();
-    let mut matrix = OffsetMatrixWrapper::<_, _, _, 0, 0>(
-        Matrix::<_, _, _, 4, 5, false>::new(row_pins, col_pins, debouncer),
-    );
+    let mut matrix = OffsetMatrixWrapper::<_, _, _, 0, 0>(Matrix::<_, _, _, 4, 5, false>::new(
+        row_pins, col_pins, debouncer,
+    ));
     let mut keyboard = Keyboard::new(&keymap);
 
     let peripheral_addrs =
