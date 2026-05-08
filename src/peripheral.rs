@@ -74,13 +74,19 @@ fn build_sdc<'d, const N: usize>(
         .build(p, rng, mpsl, mem)
 }
 
+// Hardcoded BLE address for the peripheral half. Top byte must be >= 0xC0
+// (random-static address type). Distinct from the central.
 fn ble_addr() -> [u8; 6] {
-    let ficr = embassy_nrf::pac::FICR;
-    let high = u64::from(ficr.deviceid(1).read());
-    let addr = high << 32 | u64::from(ficr.deviceid(0).read());
-    let addr = addr | 0x0000_c000_0000_0000;
-    unwrap!(addr.to_le_bytes()[..6].try_into())
+    [0x02, 0x23, 0x45, 0x67, 0x89, 0xC1]
 }
+// Original FICR-derived version, kept for reference:
+// fn ble_addr() -> [u8; 6] {
+//     let ficr = embassy_nrf::pac::FICR;
+//     let high = u64::from(ficr.deviceid(1).read());
+//     let addr = high << 32 | u64::from(ficr.deviceid(0).read());
+//     let addr = addr | 0x0000_c000_0000_0000;
+//     unwrap!(addr.to_le_bytes()[..6].try_into())
+// }
 
 #[embassy_executor::main]
 async fn main(spawner: Spawner) {

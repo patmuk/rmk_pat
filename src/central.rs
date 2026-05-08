@@ -94,13 +94,19 @@ fn init_adc(adc_pin: AnyInput, adc: Peri<'static, SAADC>) -> Saadc<'static, 1> {
     saadc::Saadc::new(adc, Irqs, config, [channel_cfg])
 }
 
+// Hardcoded BLE address for the central half. Top byte must be >= 0xC0
+// (random-static address type). Pick a value distinct from the peripheral.
 fn ble_addr() -> [u8; 6] {
-    let ficr = embassy_nrf::pac::FICR;
-    let high = u64::from(ficr.deviceid(1).read());
-    let addr = high << 32 | u64::from(ficr.deviceid(0).read());
-    let addr = addr | 0x0000_c000_0000_0000;
-    unwrap!(addr.to_le_bytes()[..6].try_into())
+    [0x01, 0x23, 0x45, 0x67, 0x89, 0xC1]
 }
+// Original FICR-derived (chip-unique) version, kept for reference:
+// fn ble_addr() -> [u8; 6] {
+//     let ficr = embassy_nrf::pac::FICR;
+//     let high = u64::from(ficr.deviceid(1).read());
+//     let addr = high << 32 | u64::from(ficr.deviceid(0).read());
+//     let addr = addr | 0x0000_c000_0000_0000;
+//     unwrap!(addr.to_le_bytes()[..6].try_into())
+// }
 
 use keymap::{COL, NUM_LAYER, ROW};
 
