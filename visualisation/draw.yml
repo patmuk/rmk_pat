@@ -15,7 +15,7 @@ layers:
         { t: Z },
       ]
     - [
-        { t: R, h: "fn" },
+        { t: R, h: $$mdi:apple-keyboard-shift$$ },
         { t: S, h: $$mdi:apple-keyboard-control$$ },
         { t: N, h: $$mdi:apple-keyboard-option$$ },
         { t: T, h: $$mdi:apple-keyboard-command$$ },
@@ -24,7 +24,7 @@ layers:
         { t: "A", h: $$mdi:apple-keyboard-command$$ },
         { t: E, h: $$mdi:apple-keyboard-option$$ },
         { t: I, h: $$mdi:apple-keyboard-control$$ },
-        { t: H, h: "fn" },
+        { t: H, h: $$mdi:apple-keyboard-shift$$ },
       ]
     - [
         { t: X },
@@ -57,16 +57,16 @@ layers:
         { s: "", t: "", h: "" },
       ]
     - [
-        { s: "}", t: "{", h: "" },
-        { s: "]", t: "[", h: "" },
-        { s: ")", t: "(", h: "" },
-        { s: ">", t: "<", h: "" },
-        { s: "", t: "⌦", h: "" },
+        { s: "}", t: "{", h: $$mdi:apple-keyboard-shift$$ },
+        { s: "]", t: "[", h: $$mdi:apple-keyboard-control$$ },
+        { s: ")", t: "(", h: $$mdi:apple-keyboard-option$$ },
+        { s: ">", t: "<", h: $$mdi:apple-keyboard-command$$ },
+        { s: "", t: "⌦", h: $$mdi:apple-keyboard-shift$$ },
         { s: "", t: "!", h: $$mdi:apple-keyboard-shift$$ },
         { s: "", t: "@", h: $$mdi:apple-keyboard-command$$ },
         { s: "", t: "=", h: $$mdi:apple-keyboard-option$$ },
         { s: "", t: "&", h: $$mdi:apple-keyboard-control$$ },
-        { s: "", t: "#", h: "fn" },
+        { s: "", t: "#", h: $$mdi:apple-keyboard-shift$$ },
       ]
     - [
         { s: "", t: "", h: "" },
@@ -87,7 +87,18 @@ layers:
   numbers:
     - [{ s: "Shift", t: "normal tap", h: "", type: ghost }]
     - [{ s: "/", t: "*" }, "9", "8", "7", ",", "'", "!", "", "°", "∑"]
-    - [{ s: "-", t: "+" }, "3", "2", "1", "0", "§", "%", "≤", "≥", "#"]
+    - [
+        { s: "-", t: "+", h: $$mdi:apple-keyboard-shift$$ },
+        { t: "3", h: $$mdi:apple-keyboard-control$$ },
+        { t: "2", h: $$mdi:apple-keyboard-option$$ },
+        { t: "1", h: $$mdi:apple-keyboard-command$$ },
+        { t: "0", h: $$mdi:apple-keyboard-shift$$ },
+        { t: "§", h: $$mdi:apple-keyboard-shift$$ },
+        { t: "%", h: $$mdi:apple-keyboard-command$$ },
+        { t: "≤", h: $$mdi:apple-keyboard-option$$ },
+        { t: "≥", h: $$mdi:apple-keyboard-control$$ },
+        { t: "#", h: $$mdi:apple-keyboard-shift$$ },
+      ]
     - [{ s: "^", t: "=" }, "6", "5", "4", ".", "_", "µ", "±", "≈", "≠"]
     - - { t: "$$tabler:repeat$$", s: "", h: "mo_numbers", type: held }
       - { t: "mo_CMD", s: "", h: "mo_symbols", type: trans }
@@ -108,16 +119,16 @@ layers:
         $$mdi:lightbulb-on-40$$,
       ]
     - [
-        { t: "select all", h: "fn" },
+        { t: "select all", h: $$mdi:apple-keyboard-shift$$ },
         { t: $$mdi:content-cut$$, h: $$mdi:apple-keyboard-control$$ },
         { t: $$mdi:content-copy$$, h: $$mdi:apple-keyboard-option$$ },
         { t: $$mdi:content-paste$$, h: $$mdi:apple-keyboard-command$$ },
         { t: "paste hist", h: $$mdi:apple-keyboard-shift$$ },
         { t: "desktop left", h: $$mdi:apple-keyboard-shift$$ },
         { t: "win left", h: $$mdi:apple-keyboard-command$$ },
-        { t: "win middle", h: $$mdi:apple-keyboard-option$$ },
+        { t: "win middle" },
         { t: "win right", h: $$mdi:apple-keyboard-control$$ },
-        { t: "desktop right", h: "fn" },
+        { t: "desktop right", h: $$mdi:apple-keyboard-shift$$ },
       ]
     - [
         { t: "find prev" },
@@ -208,6 +219,12 @@ combos:
   - { p: [12, 18], k: "ß", l: [alpha], slide: -0.93 }
 
   - { p: [15, 16], k: "CapsW", l: [alpha, symbols, numbers] }
+  - {
+      p: [11, 20],
+      k: "1-shot ⇧",
+      l: [alpha, symbols, numbers, commands],
+      a: bottom,
+    }
   - { p: [31, 32], k: "⌫ Word", l: [alpha, symbols, numbers, commands], a: top }
 
   - {

@@ -26,6 +26,20 @@ pub(crate) const fn lt(layer: u8, key: KeyCode) -> KeyAction {
     )
 }
 
+/// HRM for keys that already carry an implicit modifier (shifted symbols, AltGr glyphs, …).
+/// Tap fires the key together with `tap_mod`; hold fires `hold_mod` alone.
+pub(crate) const fn wmt(
+    tap_key: KeyCode,
+    tap_mod: ModifierCombination,
+    hold_mod: ModifierCombination,
+) -> KeyAction {
+    KeyAction::TapHold(
+        Action::KeyWithModifier(tap_key, tap_mod),
+        Action::Modifier(hold_mod),
+        MorseProfile::const_default(),
+    )
+}
+
 // shortcut to define alternative outputs to shift
 // e.g.: . -> :
 // fork_alternative_shift(mt!(Dot, RSFT), shifted!(Semicolon))

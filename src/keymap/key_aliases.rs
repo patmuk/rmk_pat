@@ -123,7 +123,7 @@ macro_rules! K {
     ("∑") => {
         wm!(W, ROPT)
     };
-    ("+|-") => {
+    ("+|-|l⇧") => {
         mt!(KpPlus, LSFT)
     };
     ("3|l⌃") => {
@@ -356,6 +356,90 @@ macro_rules! K {
     //   wm!(Backspace, _fn_)
     // };
     //
+    // ===== HRM on SYM layer =====
+    // SYM home row, left: { / [ / ( / < / F⌫  with l⇧ ⌃ ⎇ ⌘ ⇧ holds (mirrors alpha)
+    ("{|}|l⇧") => {
+        wmt(rmk::types::keycode::KeyCode::LeftBracket, LSFT, LSFT)
+    };
+    ("[|]|l⌃") => {
+        mt!(LeftBracket, LCTL)
+    };
+    ("(|)|l⎇") => {
+        wmt(rmk::types::keycode::KeyCode::Kc9, LSFT, LOPT)
+    };
+    ("<|>|l⌘") => {
+        wmt(rmk::types::keycode::KeyCode::Comma, LSFT, LCMD)
+    };
+    ("F⌫|l⇧") => {
+        wmt(rmk::types::keycode::KeyCode::D, LCTL, LSFT)
+    };
+    // SYM home row, right: ! / @ / = / & / #  with r⇧ ⌘ ⎇ ⌃ ⇧ holds
+    ("!|r⇧") => {
+        wmt(rmk::types::keycode::KeyCode::Kc1, LSFT, RSFT)
+    };
+    ("@|r⌘") => {
+        wmt(rmk::types::keycode::KeyCode::Kc2, LSFT, RCMD)
+    };
+    ("=|r⎇") => {
+        mt!(Equal, ROPT)
+    };
+    ("&|r⌃") => {
+        wmt(rmk::types::keycode::KeyCode::Kc7, LSFT, RCTL)
+    };
+    ("#|r⇧") => {
+        wmt(rmk::types::keycode::KeyCode::Kc3, LSFT, RSFT)
+    };
+    // ===== HRM on NUM layer (right side; left side already had HRM) =====
+    ("§|r⇧") => {
+        wmt(rmk::types::keycode::KeyCode::Kc6, ROPT, RSFT)
+    };
+    ("%|r⌘") => {
+        wmt(rmk::types::keycode::KeyCode::Kc5, LSFT, RCMD)
+    };
+    ("≤|r⎇") => {
+        wmt(rmk::types::keycode::KeyCode::Comma, ROPT, ROPT)
+    };
+    ("≥|r⌃") => {
+        wmt(rmk::types::keycode::KeyCode::Dot, ROPT, RCTL)
+    };
+    // ===== HRM on CMD layer =====
+    // CMD home row, left
+    ("✔*|l⇧") => {
+        wmt(rmk::types::keycode::KeyCode::A, LCMD, LSFT)
+    };
+    ("✂|l⌃") => {
+        wmt(rmk::types::keycode::KeyCode::X, LCMD, LCTL)
+    };
+    ("⧉|l⎇") => {
+        wmt(rmk::types::keycode::KeyCode::C, LCMD, LOPT)
+    };
+    ("📋|l⌘") => {
+        wmt(rmk::types::keycode::KeyCode::V, LCMD, LCMD)
+    };
+    ("📋*|l⇧") => {
+        wmt(rmk::types::keycode::KeyCode::V, LCMD.bitor(LSFT), LSFT)
+    };
+    // CMD home row, right (col 7 stays transparent → no HRM)
+    ("🖥️⬅|r⇧") => {
+        wmt(rmk::types::keycode::KeyCode::Left, RCTL, RSFT)
+    };
+    ("⬅▢|r⌘") => {
+        wmt(
+            rmk::types::keycode::KeyCode::Left,
+            RCTL.bitor(ROPT).bitor(RSFT),
+            RCMD,
+        )
+    };
+    ("▢🡺|r⌃") => {
+        wmt(
+            rmk::types::keycode::KeyCode::Right,
+            RCTL.bitor(ROPT).bitor(RSFT),
+            RCTL,
+        )
+    };
+    ("🡺🖥️|r⇧") => {
+        wmt(rmk::types::keycode::KeyCode::Right, RCTL, RSFT)
+    };
     // Catch-all case to trigger compile-time error if the string doesn't match
     ($key:expr) => {
         compile_error!(concat!("Unmatched key: ", $key))
