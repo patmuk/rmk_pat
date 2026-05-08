@@ -82,11 +82,13 @@ The base layout is taken from [Hands Down Neu](https://sites.google.com/alanreis
 - J on the Q position ... why are there 6 keys on the right side in the upper an middle row?
 - ' and " as shift on the same key - I don't have 6 keys here either
 - removed the punctuations from the thumb keys to shift/symbol of the '.', ',' and '/' keys.
+- 'ESC' is when pressing the most left keys in the home row.
 - Thumbs (from right to left):
     - Return is on the right thumb key on the right half.
     - Space is on the left thumb key on the right half.
     - A repeat key is on the right thumb key of the left half.
-    - Backspace is on the left thumb key on the left half. Holding the right thumb key while pressing the left thumbkey on the left half performs a word delete.
+    - Backspace is on the left thumb key on the left half. Pressing both left thumb keys performs a word delete.
+
 I was considering [Colemark](https://en.wikipedia.org/wiki/Colemak) and [ISTR](https://www.reddit.com/r/KeyboardLayouts/comments/qme0w7/thoughts_on_isrt/), which is [Ben Vallack's](https://www.youtube.com/results?search_query=ben+vallack+keyboard) prefered layout.
 But, like Ben said - the layout doesn't matter much. Pick one, learn it - and stick with it. They are much better than qwerty - but the benefits from one over the other are dismissingly small.
 And using Chords reduces the optimisation of the layouts even more: They are optimised for the most common words - and having them as chords, I don't need to type them.
