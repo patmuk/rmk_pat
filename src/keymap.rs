@@ -4,7 +4,7 @@ use rmk::config::{CombosConfig, ForksConfig};
 use rmk::heapless::Vec;
 use rmk::types::action::KeyAction;
 
-use rmk::{a, k, macros, mt, osm, shifted, wm};
+use rmk::{a, k, macros, mt, osm, shifted, to, wm};
 
 use core::ops::BitOr;
 mod general_helpers;
@@ -96,7 +96,6 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
   ],
   [// NUM
     // TODO thumb keys
-    // TODO change to unicode symmbols once Macros are working
     //╭─────────┬───────────┬────────────┬───────────┬───────────╮╭───────────┬───────────┬───────────┬───────────┬───────────╮
       [K!("*|/"), K!("9"),    K!("8"),     K!("7"),    K!(","),     K!("'"),     K!("!"),    __,         K!("°"),    K!("∑")    ],
     //├─────────┼───────────┼────────────┼───────────┼───────────┤├───────────┼───────────┼───────────┼───────────┼───────────┤
@@ -265,7 +264,17 @@ pub(crate) fn get_combos() -> CombosConfig {
                 osm!(LSFT),
                 Some(CMD),
             ))),
-            None,
+            // Both outer thumbs (mo_NUM + mo_CMD in ALPHA) -> back to ALPHA.
+            // `to!(0)` = LayerToggleOnly(0): deactivates every non-default layer.
+            // layer=None because the first thumb press happens while ALPHA is still
+            // active (the layer-tap is pending), so a per-layer combo scoped to
+            // NUM/SYM/CMD/CRD would discard that first press. In ALPHA the chord
+            // is a harmless no-op (already on the default layer).
+            Some(Combo::new(ComboConfig::new(
+                [K!("⌫|🅛NUM"), K!("⏎|🅛⌘")],
+                to!(0),
+                None,
+            ))),
             None,
         ],
         timeout: Duration::from_millis(50),

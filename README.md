@@ -22,6 +22,7 @@
     - [Lock layer](#lock-layer)
   - [Design Decissions](#design-decissions)
     - [layer switching](#layer-switching)
+      - [Back-to-Alpha combo](#back-to-alpha-combo)
     - [Chording](#chording)
       - [Help for assigning keys for chords](#help-for-assigning-keys-for-chords)
       - [Alternative word forms](#alternative-word-forms)
@@ -256,6 +257,10 @@ Switching to the function keys layer is done by pressing the two left thumb keys
 The right thumbs switch to the chording layer (which is like using a shift key to enable chords) and the command layer, which enables command switches like media keys (e.g. volume control) and OS actions (e.g. switch apps).  
 These do not need (so much) to be used single-handeled.  
 I assume (more: I should) use chording more than commands - thus their enabler is on the easier to reach thumb key.
+
+#### Back-to-Alpha combo
+A panic-reset combo to return to the alpha layer when I'm unsure which layer is active: pressing **both outer thumb keys** (the `mo_NUM` and `mo_CMD` keys in alpha) simultaneously deactivates every non-default layer (`LayerToggleOnly(ALPHA)`).
+The combo is layer-agnostic.
 
 ### Chording
 The basis idea of this layout is using chords. This term comes from stenographers at, e.g., a law court: By pressing keys simultaniously, pre-defined words will be written. Under the hood I am using ZMK's macros, to define the words to be written, and combos, to define the keys to be pressed. Take a look at [my chord definition](./config/chording/chords.dtsi).  
