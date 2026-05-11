@@ -38,10 +38,10 @@ layers:
         { t: Y },
         { t: K },
       ]
-    - - { t: "⌫", s: "", h: "mo_numbers", type: held }
+    - - { t: "⌫", s: "", h: "mo_numbers" }
       - { t: "$$tabler:repeat$$", s: "", h: "mo_symbols" }
       - { t: "⌴", s: "", h: "mo_CHORD" }
-      - { t: $$tabler:arrow-back$$, s: "", h: "mo_CMD", type: held }
+      - { t: $$tabler:arrow-back$$, s: "", h: "mo_CMD" }
   numbers:
     - [{ s: "Shift", t: "tap", h: "hold", type: ghost }]
     - [
@@ -80,7 +80,7 @@ layers:
         "≈",
         "≠",
       ]
-    - - { t: "$$tabler:repeat$$", s: "", h: "mo_numbers", type: held }
+    - - { h: "mo_numbers", type: held }
       - { t: "mo_CMD", s: "", h: "mo_symbols", type: trans }
       - { t: "⌴", s: "", h: "mo_CHORD", type: trans }
       - { t: "to_ALP", s: "", h: "mo_CMD", type: trans }
@@ -123,8 +123,9 @@ layers:
         { s: "", t: "", h: "" },
       ]
     - - { t: "mo_CMD", s: "", h: "mo_numbers", type: trans }
-      - { t: "⌫ Word", s: "", h: "mo_symbols", type: held }
-      - { t: "⌴", s: "", h: "mo_CHORD", type: trans }
+      - { h: "mo_symbols", type: held }
+      - { t: "⌴",
+        s: "", h: "mo_CHORD", type: trans }
       - { t: $$tabler:arrow-back$$, s: "", h: "mo_CMD", type: trans }
   commands:
     - [{ s: "Shift", t: "tap", h: "hold", type: ghost }]
