@@ -246,7 +246,7 @@ macro_rules! K {
     };
     // find
     ("🔎") => {
-        wm!(F, LSFT)
+        wm!(F, LCMD)
     };
     // redo
     ("↷") => {
@@ -310,11 +310,11 @@ macro_rules! K {
     };
     // findPrev
     ("⇤🔍") => {
-        wm!(Enter, LSFT)
+        wm!(G, LCMD.bitor(LSFT))
     };
     //fNext Enter  tab   switchWin   ESC   prev  play/pause next
     ("🔎⇥") => {
-        wm!(N, LSFT)
+        wm!(G, LCMD)
     };
     ("↩") => {
         k!(Enter)
