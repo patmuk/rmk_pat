@@ -44,7 +44,18 @@ layers:
       - { t: $$tabler:arrow-back$$, s: "", h: "mo_CMD", type: held }
   numbers:
     - [{ s: "Shift", t: "tap", h: "hold", type: ghost }]
-    - [{ s: "/", t: "*" }, "9", "8", "7", ",", "'", "!", "", "°", "∑"]
+    - [
+        { s: "/", t: "*" },
+        "9",
+        "8",
+        "7",
+        { s: ";", t: "," },
+        "'",
+        "!",
+        "",
+        "°",
+        "∑",
+      ]
     - [
         { s: "-", t: "+", h: $$mdi:apple-keyboard-shift$$ },
         { t: "3", h: $$mdi:apple-keyboard-control$$ },
@@ -57,7 +68,18 @@ layers:
         { t: "≥", h: $$mdi:apple-keyboard-control$$ },
         { t: "#", h: $$mdi:apple-keyboard-shift$$ },
       ]
-    - [{ s: "^", t: "=" }, "6", "5", "4", ".", "_", "µ", "±", "≈", "≠"]
+    - [
+        { s: "^", t: "=" },
+        "6",
+        "5",
+        "4",
+        { s: ":", t: "." },
+        "_",
+        "µ",
+        "±",
+        "≈",
+        "≠",
+      ]
     - - { t: "$$tabler:repeat$$", s: "", h: "mo_numbers", type: held }
       - { t: "mo_CMD", s: "", h: "mo_symbols", type: trans }
       - { t: "⌴", s: "", h: "mo_CHORD", type: trans }

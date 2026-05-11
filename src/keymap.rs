@@ -155,6 +155,8 @@ pub(crate) fn get_forks() -> ForksConfig {
         forks: Vec::from_slice(&[
             // . -> :
             fork_alternative_shift(mt!(Dot, RSFT), shifted!(Semicolon)),
+            // . -> : (on NUM and others)
+            fork_alternative_shift(k!(Dot), shifted!(Semicolon)),
             // , -> ,
             fork_alternative_shift(k!(Comma), k!(Semicolon)),
             // / -> |
