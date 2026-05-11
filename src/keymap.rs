@@ -163,9 +163,8 @@ pub(crate) fn get_forks() -> ForksConfig {
             fork_alternative_shift(k!(KpAsterisk), k!(KpSlash)),
             // + -> -
             fork_alternative_shift(mt!(KpPlus, LSFT), k!(KpMinus)),
-            // TODO fix, broken because of wm! ?
-            // // = -> ^
-            // fork_alternative_shift(k!(KpEqual), wm!(I, LOPT)),
+            // = -> ^
+            fork_alternative_shift(k!(KpEqual), shifted!(Kc6)),
             // { -> }
             fork_alternative_shift(K!("{|}|l⇧"), shifted!(RightBracket)),
             // [ -> ]
