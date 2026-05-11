@@ -51,9 +51,6 @@ macro_rules! K {
     ("-") => {
         k!(Minus)
     };
-    ("▼") => {
-        a!(Transparent)
-    };
     ("⌫") => {
         k!(Backspace)
     };
@@ -61,10 +58,7 @@ macro_rules! K {
         wm!(Backspace, ROPT)
     };
     ("⌫|🅛NUM") => {
-        lt(
-            NUM,
-            rmk::types::keycode::KeyCode::Backspace,
-        )
+        lt(NUM, rmk::types::keycode::KeyCode::Backspace)
     };
     ("🔁|🅛SYM") => {
         // Note: rmk intercepts `KeyCode::Again` locally and substitutes it
@@ -73,16 +67,10 @@ macro_rules! K {
         lt(SYM, rmk::types::keycode::KeyCode::Again)
     };
     ("␣|🅛⇉") => {
-        lt(
-            CRD,
-            rmk::types::keycode::KeyCode::Space,
-        )
+        lt(CRD, rmk::types::keycode::KeyCode::Space)
     };
     ("⏎|🅛⌘") => {
-        lt(
-            CMD,
-            rmk::types::keycode::KeyCode::Enter,
-        )
+        lt(CMD, rmk::types::keycode::KeyCode::Enter)
     };
     ("*") => {
         k!(KpAsterisk)
@@ -202,10 +190,10 @@ macro_rules! K {
         wm!(I, LOPT)
     };
     ("`") => {
-        k!(GraveEscape)
+        k!(Grave)
     };
     ("?") => {
-        shifted!(Minus)
+        shifted!(Slash)
     };
     ("{|}") => {
         shifted!(LeftBracket)
