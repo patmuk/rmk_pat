@@ -124,53 +124,52 @@ layers:
       ]
     - - { t: "mo_CMD", s: "", h: "mo_numbers", type: trans }
       - { h: "mo_symbols", type: held }
-      - { t: "⌴",
-        s: "", h: "mo_CHORD", type: trans }
+      - { t: "⌴", s: "", h: "mo_CHORD", type: trans }
       - { t: $$tabler:arrow-back$$, s: "", h: "mo_CMD", type: trans }
   commands:
     - [{ s: "Shift", t: "tap", h: "hold", type: ghost }]
     - [
-        { t: "find all" },
-        { t: "find" },
-        { t: "redo" },
-        { t: "undo" },
-        { t: "switch app" },
-        $$mdi:volume-minus$$,
-        $$mdi:volume-mute$$,
-        $$mdi:volume-plus$$,
-        $$mdi:lightbulb-on-70$$,
-        $$mdi:lightbulb-on-40$$,
+        { t: "🔎∗" },
+        { t: "🔎" },
+        { t: "↷" },
+        { t: "↶" },
+        { t: "💾" },
+        { t: "🔉" },
+        { t: "🔇" },
+        { t: "🔊" },
+        { t: "🔅" },
+        { t: "🔆" },
       ]
     - [
-        { t: "select all", h: $$mdi:apple-keyboard-shift$$ },
-        { t: $$mdi:content-cut$$, h: $$mdi:apple-keyboard-control$$ },
-        { t: $$mdi:content-copy$$, h: $$mdi:apple-keyboard-option$$ },
-        { t: $$mdi:content-paste$$, h: $$mdi:apple-keyboard-command$$ },
-        { t: "paste hist", h: $$mdi:apple-keyboard-shift$$ },
-        { t: "desktop left", h: $$mdi:apple-keyboard-shift$$ },
-        { t: "win left", h: $$mdi:apple-keyboard-command$$ },
-        { t: "win middle" },
-        { t: "win right", h: $$mdi:apple-keyboard-control$$ },
-        { t: "desktop right", h: $$mdi:apple-keyboard-shift$$ },
+        { t: "☑*", h: $$mdi:apple-keyboard-shift$$ },
+        { t: "✂", h: $$mdi:apple-keyboard-control$$ },
+        { t: "⧉", h: $$mdi:apple-keyboard-option$$ },
+        { t: "📋", h: $$mdi:apple-keyboard-command$$ },
+        { t: "📋*", h: $$mdi:apple-keyboard-shift$$ },
+        { t: "←🖥️", h: $$mdi:apple-keyboard-shift$$ },
+        { t: "←▢", h: $$mdi:apple-keyboard-command$$ },
+        { t: "⊞↑", h: $$mdi:apple-keyboard-option$$ },
+        { t: "▢→", h: $$mdi:apple-keyboard-control$$ },
+        { t: "🖥️→", h: $$mdi:apple-keyboard-shift$$ },
       ]
     - [
-        { t: "find prev" },
-        "find next",
-        "Enter",
-        { t: $$mdi:keyboard-tab$$ },
-        "switch win",
-        $$mdi:keyboard-esc$$,
-        $$mdi:skip-previous$$,
-        $$mdi:play-pause$$,
-        $$mdi:skip-next$$,
-        { t: "" },
+        { t: "⇤🔍" },
+        { t: "🔎⇥" },
+        { t: "↩" },
+        { t: "🙈", s: $$tabler:arrow-bar-to-down$$ },
+        { t: "⇨⧉", s: "⇨▢" },
+        { t: "⊞↻", s: "⊞⏻" },
+        { t: "⏮" },
+        { t: "⏯" },
+        { t: "⏭" },
+        { t: "✕▢", s: "⏻" },
       ]
     - - { t: "mo_CMD", s: "", h: "mo_numbers", type: held }
       - { t: "mo_CMD", s: "", h: "mo_symbols", type: held }
       - { t: "⌴", s: "", h: "mo_CHORD", type: trans }
       - { t: $$tabler:arrow-back$$, s: "", h: "mo_CMD", type: held }
   functions:
-    - [{ s: "", t: "normal tap", h: "", type: ghost }]
+    - [{ s: "", t: "tap", h: "", type: ghost }]
     - [F5, F4, F3, F2, F1, "BT_1", "BT_2", "BT_3", "BT_4", "BT_5"]
     - [F10, F9, F8, F7, F6, "", F16, F17, F18, F19]
     - [F15, F14, F13, F12, F11, "BT_CLR", "OUT_BT", "OUT_USB", "", ""]
@@ -179,7 +178,7 @@ layers:
       - { t: "mo_FUN", type: held }
       - { t: "mo_FUN", type: held }
   danger:
-    - [{ s: "", t: "normal tap", h: "", type: ghost }]
+    - [{ s: "", t: "tap", h: "", type: ghost }]
     - ["", "", "", "", "", "", "", "", "", ""]
     - ["", "", "", "", "", "", "", "", "", ""]
     - ["", "", "", "", "", "", "", "", { type: held }, { type: held }]
@@ -220,7 +219,7 @@ combos:
   # Special Alphas
   - { p: [1, 2], k: "Qu", l: [alpha] }
   - { p: [11, 12], k: $$mdi:keyboard-esc$$, l: [alpha] }
-  - { p: [19, 20], k: $$mdi:keyboard-esc$$, l: [alpha] }
+  - { p: [19, 20], k: $$mdi:keyboard-tab$$, l: [alpha] }
   - { p: [12, 20], k: "sch", l: [alpha], a: top }
   - { p: [17, 18], k: { t: "ä", s: "Ä" }, l: [alpha], slide: -0.3 }
   - {

@@ -297,16 +297,32 @@ macro_rules! K {
     ("🖥️⬅") => {
         wm!(Left, RCTL)
     };
-    // place window left
+    // focus prev window (Amethyst focus-ccw)
     ("⬅▢") => {
-        wm!(Left, RCTL.bitor(ROPT).bitor(RSFT))
+        wm!(Left, RCTL.bitor(ROPT))
     };
-    // place window right
+    // focus next window (Amethyst focus-cw)
     ("▢🡺") => {
-        wm!(Right, RCTL.bitor(ROPT).bitor(RSFT))
+        wm!(Right, RCTL.bitor(ROPT))
     };
     ("🡺🖥️") => {
         wm!(Right, RCTL)
+    };
+    // cycle layout (Amethyst cycle-layout)
+    ("▦↻") => {
+        wm!(Space, RCTL.bitor(ROPT))
+    };
+    // close window / tab
+    ("✕▢") => {
+        wm!(W, LCMD)
+    };
+    // quit app
+    ("⏻") => {
+        wm!(Q, LCMD)
+    };
+    // minimize window
+    ("🗕") => {
+        wm!(M, LCMD)
     };
     // findPrev
     ("⇤🔍") => {
@@ -412,18 +428,10 @@ macro_rules! K {
         wmt(rmk::types::keycode::KeyCode::Left, RCTL, RSFT)
     };
     ("⬅▢|r⌘") => {
-        wmt(
-            rmk::types::keycode::KeyCode::Left,
-            RCTL.bitor(ROPT).bitor(RSFT),
-            RCMD,
-        )
+        wmt(rmk::types::keycode::KeyCode::Left, RCTL.bitor(ROPT), RCMD)
     };
     ("▢🡺|r⌃") => {
-        wmt(
-            rmk::types::keycode::KeyCode::Right,
-            RCTL.bitor(ROPT).bitor(RSFT),
-            RCTL,
-        )
+        wmt(rmk::types::keycode::KeyCode::Right, RCTL.bitor(ROPT), RCTL)
     };
     ("🡺🖥️|r⇧") => {
         wmt(rmk::types::keycode::KeyCode::Right, RCTL, RSFT)
