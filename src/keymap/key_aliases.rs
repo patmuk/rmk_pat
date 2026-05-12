@@ -309,8 +309,12 @@ macro_rules! K {
         wm!(Right, RCTL)
     };
     // cycle layout (Amethyst cycle-layout)
-    ("▦↻") => {
+    ("⊞↻") => {
         wm!(Space, RCTL.bitor(ROPT))
+    };
+    // restart amethyst (relaunch-amethyst)
+    ("⊞⏻") => {
+        wm!(Space, RCTL.bitor(ROPT).bitor(RSFT).bitor(RCMD))
     };
     // close window / tab
     ("✕▢") => {
@@ -323,6 +327,14 @@ macro_rules! K {
     // minimize window
     ("🗕") => {
         wm!(M, LCMD)
+    };
+    // hide app
+    ("🙈") => {
+        wm!(H, LCMD)
+    };
+    // save
+    ("💾") => {
+        wm!(S, LCMD)
     };
     // findPrev
     ("⇤🔍") => {
@@ -423,9 +435,13 @@ macro_rules! K {
     ("📋*|l⇧") => {
         wmt(rmk::types::keycode::KeyCode::V, LCMD.bitor(LSFT), LSFT)
     };
-    // CMD home row, right (col 7 stays transparent → no HRM)
+    // CMD home row, right
     ("🖥️⬅|r⇧") => {
         wmt(rmk::types::keycode::KeyCode::Left, RCTL, RSFT)
+    };
+    // mission control (Ctrl+Up) with ROpt HRM hold
+    ("⊞↑|r⎇") => {
+        wmt(rmk::types::keycode::KeyCode::Up, RCTL, ROPT)
     };
     ("⬅▢|r⌘") => {
         wmt(rmk::types::keycode::KeyCode::Left, RCTL.bitor(ROPT), RCMD)

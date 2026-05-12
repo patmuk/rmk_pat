@@ -135,7 +135,7 @@ async fn main(spawner: Spawner) {
     let storage_config = StorageConfig {
         start_addr: 0xA0000,
         num_sectors: 32,
-        // clear_storage: true,
+        clear_storage: true,
         ..Default::default()
     };
     let flash = Flash::take(mpsl, p.NVMC);

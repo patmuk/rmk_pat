@@ -175,7 +175,7 @@ async fn main(spawner: Spawner) {
     let storage_config = StorageConfig {
         start_addr: 0xA0000,
         num_sectors: 6,
-        // clear_storage: true,
+        clear_storage: true,
         ..Default::default()
     };
     let rmk_config = RmkConfig {
@@ -187,6 +187,7 @@ async fn main(spawner: Spawner) {
 
     let mut default_keymap = keymap::get_default_keymap();
     let mut behavior_config = BehaviorConfig {
+        tri_layer: Some(keymap::get_tri_layer()),
         combo: keymap::get_combos(),
         morse: MorsesConfig {
             enable_flow_tap: true,
