@@ -629,15 +629,15 @@ text.label { stroke-width: 2; }
 <use href="#tabler:repeat" xlink:href="#tabler:repeat" x="-7" y="-7" height="14" width="14.0" class="key tap glyph tabler:repeat"/>
 <text x="0" y="24" class="key hold"><tspan style="font-size: 70%">mo_symbols</tspan></text>
 </g>
-<g transform="translate(611, 233) rotate(-23.0)" class="key trans keypos-33">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
-<text x="0" y="0" class="key trans tap">⌴</text>
-<text x="0" y="24" class="key trans hold"><tspan style="font-size: 88%">mo_CHORD</tspan></text>
+<g transform="translate(611, 233) rotate(-23.0)" class="key keypos-33">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
+<text x="0" y="0" class="key tap">⌴</text>
+<text x="0" y="24" class="key hold"><tspan style="font-size: 88%">mo_CHORD</tspan></text>
 </g>
-<g transform="translate(681, 212) rotate(-12.0)" class="key trans keypos-34">
-<rect rx="6" ry="6" x="-40" y="-26" width="80" height="52" class="key trans"/>
-<text x="0" y="0" class="key trans tap">to_ALP</text>
-<text x="0" y="24" class="key trans hold">mo_CMD</text>
+<g transform="translate(681, 212) rotate(-12.0)" class="key keypos-34">
+<rect rx="6" ry="6" x="-40" y="-26" width="80" height="52" class="key"/>
+<use href="#tabler:arrow-back" xlink:href="#tabler:arrow-back" x="-7" y="-7" height="14" width="14.0" class="key tap glyph tabler:arrow-back"/>
+<text x="0" y="24" class="key hold">mo_CMD</text>
 </g>
 <g class="combo combopos-0">
 <path d="M422,183 h-30 a6.0,6.0 0 0 0 -6.0,6.0 v4" class="combo"/>
@@ -800,10 +800,10 @@ text.label { stroke-width: 2; }
 <g transform="translate(868, 161)" class="key keypos-30">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 </g>
-<g transform="translate(386, 212) rotate(9.0)" class="key trans keypos-31">
-<rect rx="6" ry="6" x="-40" y="-26" width="80" height="52" class="key trans"/>
-<text x="0" y="0" class="key trans tap">mo_CMD</text>
-<text x="0" y="24" class="key trans hold"><tspan style="font-size: 70%">mo_numbers</tspan></text>
+<g transform="translate(386, 212) rotate(9.0)" class="key keypos-31">
+<rect rx="6" ry="6" x="-40" y="-26" width="80" height="52" class="key"/>
+<text x="0" y="0" class="key tap">⌫</text>
+<text x="0" y="24" class="key hold"><tspan style="font-size: 70%">mo_numbers</tspan></text>
 </g>
 <g transform="translate(457, 232) rotate(25.5)" class="key held keypos-32">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key held"/>
@@ -991,12 +991,12 @@ text.label { stroke-width: 2; }
 </g>
 <g transform="translate(386, 212) rotate(9.0)" class="key keypos-31">
 <rect rx="6" ry="6" x="-40" y="-26" width="80" height="52" class="key"/>
-<text x="0" y="0" class="key tap">mo_CMD</text>
+<text x="0" y="0" class="key tap">⌫</text>
 <text x="0" y="24" class="key hold"><tspan style="font-size: 70%">mo_numbers</tspan></text>
 </g>
 <g transform="translate(457, 232) rotate(25.5)" class="key keypos-32">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">mo_CMD</text>
+<use href="#tabler:repeat" xlink:href="#tabler:repeat" x="-7" y="-7" height="14" width="14.0" class="key tap glyph tabler:repeat"/>
 <text x="0" y="24" class="key hold"><tspan style="font-size: 70%">mo_symbols</tspan></text>
 </g>
 <g transform="translate(611, 233) rotate(-23.0)" class="key keypos-33">
@@ -1162,15 +1162,13 @@ text.label { stroke-width: 2; }
 </g>
 <g transform="translate(386, 212) rotate(9.0)" class="key keypos-31">
 <rect rx="6" ry="6" x="-40" y="-26" width="80" height="52" class="key"/>
-<text x="0" y="0" class="key tap"><tspan style="font-size: 88%">to_Alpha</tspan></text>
+<text x="0" y="0" class="key tap">⌫</text>
 <text x="0" y="24" class="key hold"><tspan style="font-size: 70%">mo_numbers</tspan></text>
 </g>
-<g transform="translate(457, 232) rotate(25.5)" class="key trans keypos-32">
-<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
-<text x="0" y="0" class="key trans tap">
-<tspan x="0" dy="-1.2em">⌫</tspan><tspan x="0" dy="1.2em">Word</tspan>
-</text>
-<text x="0" y="24" class="key trans hold"><tspan style="font-size: 70%">mo_symbols</tspan></text>
+<g transform="translate(457, 232) rotate(25.5)" class="key keypos-32">
+<rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
+<use href="#tabler:repeat" xlink:href="#tabler:repeat" x="-7" y="-7" height="14" width="14.0" class="key tap glyph tabler:repeat"/>
+<text x="0" y="24" class="key hold"><tspan style="font-size: 70%">mo_symbols</tspan></text>
 </g>
 <g transform="translate(611, 233) rotate(-23.0)" class="key held keypos-33">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key held"/>
