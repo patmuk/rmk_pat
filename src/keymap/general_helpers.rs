@@ -18,7 +18,6 @@ pub(crate) const ROPT: ModifierCombination = ModifierCombination::RALT;
 pub(crate) const RSFT: ModifierCombination = ModifierCombination::RSHIFT;
 pub(crate) const RCTL: ModifierCombination = ModifierCombination::RCTRL;
 
-// TODO fix. Morse?
 /// lt! but using layer names
 pub(crate) const fn lt(layer: u8, key: KeyCode) -> KeyAction {
     KeyAction::TapHold(

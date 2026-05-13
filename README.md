@@ -40,8 +40,8 @@
 
 
 ## Status
-Alpha, Number and Symbol layers are fully implemented.  
-Other layers are work in progress.
+All layers are fully implemented (exceot BLE channel, lock and danger).  
+
 Chords are not implemented yet as well.
 
 ## Components

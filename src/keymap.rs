@@ -17,7 +17,7 @@ pub(crate) mod keymap_macros;
 
 pub(crate) const COL: usize = 10;
 pub(crate) const ROW: usize = 4;
-pub(crate) const NUM_LAYER: usize = 6;
+pub(crate) const NUM_LAYER: usize = 7;
 
 /// layer names
 const ALPHA: u8 = 0;
@@ -25,6 +25,8 @@ const NUM: u8 = 1;
 const SYM: u8 = 2;
 const CMD: u8 = 3;
 const CRD: u8 = 4;
+const FUN: u8 = 5;
+const VAIL: u8 = 6;
 
 #[rustfmt::skip]
 pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
@@ -78,9 +80,8 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
     //   - LSFT+RSFT = CapsWord
     // TODO
     // - hold (layer switch)
-    //   - tri-layers
-    //   - mo_NUM + mo_SYM = mo CMD
-    //   - mo_CHORD + mo_CMD = mo FUN
+    //   - tri-layer (RMK 0.8.2 is exclusive — only one tri-layer combo possible)
+    //     - mo_CHORD + mo_CMD = mo FUN (wired in get_tri_layer)
     //    - left outer thumb + right outer thumb = shift in CMD layer
     //  == need RMK extension:
     // - HRM => `fn`-key (doesn't exist) (called 'globe' key, need to set vendor ID to apple)
@@ -139,7 +140,14 @@ pub fn get_default_keymap() -> [[[KeyAction; COL]; ROW]; NUM_LAYER] {
     [__, __, __, __, __, __, __, __, __, __]
     //                                 ╰────────────┴────────────╯╰────────────────┴────────────╯
   ],
-  [//layer for VIAL modifications
+  [// FUN — tri-layer adjust target (holding both right thumbs: CRD + CMD).
+   //BT controls / channels not available in current rmk
+    [k!(F5), k!(F4), k!(F3), k!(F2), k!(F1), __, __, __, __, __],
+    [k!(F10), k!(F9), k!(F8), k!(F7), k!(F6), k!(F16), k!(F17), k!(F18), k!(F19), k!(F20)],
+    [k!(F15), k!(F14), k!(F13), k!(F12), k!(F11), __, k!(OutputBluetooth), k!(OutputUsb), __, __],
+    [__, __, __, __, __, __, __, __, __, __]
+  ],
+  [// VIAL can still write user modifications to this layer at runtime.
     [__, __, __, __, __, __, __, __, __, __],
     [__, __, __, __, __, __, __, __, __, __],
     [__, __, __, __, __, __, __, __, __, __],
@@ -188,10 +196,18 @@ pub(crate) fn get_forks() -> ForksConfig {
     }
 }
 
-/// Tri-layer: when NUM and SYM layers are both active (held), activate CMD.
-/// `[lower, upper, adjust]` — adjust turns on while both lower and upper are on.
+/// Tri-layer: when CRD and CMD layers are both active (holding both right
+/// thumbs), activate FUN. `[lower, upper, adjust]` — adjust turns on while
+/// both lower and upper are on.
+///
+/// NOTE: RMK 0.8.2's tri-layer is **exclusive** — the adjust layer (FUN)
+/// can only be activated via this combination. A direct `LT(FUN, ...)` key
+/// would not work because `update_tri_layer` unconditionally overwrites
+/// `layer_state[adjust] = lower && upper` after every layer state change,
+/// killing any independent activation. This is why FUN has no dedicated
+/// momentary key and is reachable only by holding both right thumbs.
 pub(crate) fn get_tri_layer() -> [u8; 3] {
-    [NUM, SYM, CMD]
+    [CRD, CMD, FUN]
 }
 
 pub(crate) fn get_combos() -> CombosConfig {
